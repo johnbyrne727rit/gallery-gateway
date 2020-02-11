@@ -33,12 +33,46 @@ const createEntry = (entry, entryType, entryId, t) => {
       // remove the 'group' property
       delete newEntry['group']
       // create the new Entry with select properties filled-in
-      return Entry.create({
-        ...newEntry,
-        entryType: entryType,
-        entryId: entryId,
-        groupId: group ? group.id : null
-      }, { transaction: t })
+      return userFindPromise.then(user => {
+
+        let userUpdatePromise = Promise.resolve(null)
+
+        if (!group && user.hometown != entry.hometown && user.displayName != entry.displayName){
+          userUpdatePromise = User.update(
+            {
+              hometown: entry.hometown,
+              displayName: entry.displayName
+            },
+            { where: {username: entry.studentUsername}}
+          )
+        }
+        else if (!group && user.hometown != entry.hometown){
+          userUpdatePromise = User.update(
+            {
+              hometown: entry.hometown
+            },
+            { where: {username: entry.studentUsername}}
+          )
+        }
+
+        else if (!group && user.displayName != entry.displayName){
+          userUpdatePromise = User.update(
+            {
+              displayName: entry.displayName
+            },
+            { where: {username: entry.studentUsername}}
+          )
+        }
+        delete newEntry['hometown'];
+        return userUpdatePromise.then(()=>
+          Entry.create({
+            ...newEntry,
+            entryType: entryType,
+            entryId: entryId,
+            groupId: group ? group.id : null
+          }, { transaction: t })
+        );
+      })
     })
     .then(() => Show.findById(entry.showId))
 }
