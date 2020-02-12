@@ -223,8 +223,12 @@ class OtherSubmissionForm extends Component {
                       participants: values.groupParticipants
                     }
                     : null,
-                studentUsername: user.username,
-                showId: forShow.id,
+                displayName: values.displayName,
+                hometown:
+                  values.submittingAsGroup === "no" ? values.hometown : null,
+                studentUsername:
+                  values.submittingAsGroup === "no" ? user.username : null,
+               showId: forShow.id,
                 academicProgram: values.academicProgram,
                 yearLevel: values.yearLevel,
                 title: values.title,
