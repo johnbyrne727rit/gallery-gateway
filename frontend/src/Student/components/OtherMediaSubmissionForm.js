@@ -340,17 +340,6 @@ class OtherSubmissionForm extends Component {
                     />
                     {this.renderErrors(touched, errors, "comment")}
                   </FormGroup>
-<<<<<<< HEAD
-                  {values.submittingAsGroup === 'no' ? (
-                  <HomeTownInput
-                    hometownNeeded={hometownNeeded}
-                    values={values}
-                    touched={touched}
-                    errors={errors}
-                    renderErrors={this.renderErrors}
-<<<<<<< HEAD
-                  />
-=======
                   {values.submittingAsGroup === "no" ? (
                     <HomeTownInput
                       hometownNeeded={hometownNeeded}
@@ -360,7 +349,6 @@ class OtherSubmissionForm extends Component {
                       renderErrors={this.renderErrors}
                     />
                   ) : null}
->>>>>>> b24d718... Get rid of merge conflicgts, extra migration. Rebuild parts of stuff that got blown away in merge.
                   <DisplayNameInput
                     displayNameNeeded={displayNameNeeded}
                     values={values}
@@ -368,10 +356,6 @@ class OtherSubmissionForm extends Component {
                     errors={errors}
                     renderErrors={this.renderErrors}
                   />
-=======
-                  />) : null
-                  }
->>>>>>> 919e14994dbe235091ae3dffc35a17fb33362310
                   <FormGroup>
                     <Label>
                       Is this work available for purchase if selected for a

@@ -244,10 +244,6 @@ class PhotoSubmissionForm extends Component {
                 hometown: values.submittingAsGroup === 'no'?  
                   values.hometown
                   : null,
-<<<<<<< HEAD
->>>>>>> 919e14994dbe235091ae3dffc35a17fb33362310
-=======
->>>>>>> b24d718... Get rid of merge conflicgts, extra migration. Rebuild parts of stuff that got blown away in merge.
                 studentUsername: values.submittingAsGroup === 'no' ? user.username: null,
                 showId: forShow.id,
                 academicProgram: values.academicProgram,
@@ -368,12 +364,7 @@ class PhotoSubmissionForm extends Component {
                     touched={touched}
                     errors={errors}
                     renderErrors={this.renderErrors}
-<<<<<<< HEAD
-<<<<<<< HEAD
-                  />
-=======
                   />) : null}
->>>>>>> b24d718... Get rid of merge conflicgts, extra migration. Rebuild parts of stuff that got blown away in merge.
                   <DisplayNameInput
                     displayNameNeeded={displayNameNeeded}
                     values={values}
@@ -381,10 +372,6 @@ class PhotoSubmissionForm extends Component {
                     errors={errors}
                     renderErrors={this.renderErrors}
                   />
-=======
-                  />) : null
-                  }
->>>>>>> 919e14994dbe235091ae3dffc35a17fb33362310
                   <FormGroup>
                     <Label>Type of Media</Label>
                     <FormikSelectInput
