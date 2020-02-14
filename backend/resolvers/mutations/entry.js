@@ -52,9 +52,8 @@ const createEntry = (entry, entryType, entryId, t) => {
             { where: {username: entry.studentUsername}}
           )
         }
-
         else if (!group && user.hometown != entry.hometown){
-        userUpdatePromise = User.update(
+          userUpdatePromise = User.update(
             {
               hometown: entry.hometown
             },
