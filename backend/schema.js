@@ -73,10 +73,10 @@ input ShowInput {
 input ShowUpdate {
     name: String
     description: String
-    entryStart: Date!
-    entryEnd: Date!
-    judgingStart: Date!
-    judgingEnd: Date!
+    entryStart: Date
+    entryEnd: Date
+    judgingStart: Date
+    judgingEnd: Date
     entryCap: Int
     finalized: Boolean
 }
