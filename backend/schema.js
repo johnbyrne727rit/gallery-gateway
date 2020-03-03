@@ -342,6 +342,8 @@ type Scholarship{
     gpa: Float
     yearStatus: String
     degreePrograms: String
+    createdAt: Date
+    updatedAt: Date
 }
 
 input ScholarshipInput{
@@ -383,6 +385,7 @@ type Query {
     openPortfolioPeriod(studentUsername: String!): PortfolioPeriod
     entry(id: ID!): Entry
     entries(showId: ID, studentUsername: String): [Entry]
+    scholarship(orderBy: OrderByItem): [Scholarship]
 }
 
 type Mutation {

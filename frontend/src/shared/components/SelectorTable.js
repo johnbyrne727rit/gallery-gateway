@@ -4,12 +4,6 @@ import PropTypes from 'prop-types'
 import SelectorCard from "./SelectorCard";
 
 class SelectorTable extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {selected: {}};
-    this.setState({selected: props.selected});
-  }
-
   static propTypes = {
     dataPoints: PropTypes.array.isRequired,
     unique: PropTypes.string.isRequired,
@@ -23,7 +17,7 @@ class SelectorTable extends Component {
     // number of keys. In the second example 'user1' would still be considered selected.
     // Also note, this component does not verify that the keys in 'selected' are valid 'unique' properties in 'data'.
     selected: PropTypes.object.isRequired,
-    cardTemplate: PropTypes.object.isRequired,
+    cardTemplate: PropTypes.func.isRequired,
     cardTemplateProps: PropTypes.object,
     onChange: PropTypes.func.isRequired,
   };
@@ -37,8 +31,7 @@ class SelectorTable extends Component {
 
   handleToggle = dataPoint => {
     console.log("SelectorTable.handleToggle()");
-    const {onChange, unique} = this.props;
-    const {selected} = this.state;
+    const {onChange, unique, selected} = this.props;
 
     const newSelected = {
       ...selected
@@ -52,7 +45,6 @@ class SelectorTable extends Component {
     }
 
     onChange(newSelected);
-    this.setState({selected: newSelected})
   };
 
   /*
@@ -79,8 +71,7 @@ class SelectorTable extends Component {
 
     const listedCards = this.props.dataPoints.map((dataPoint) => {
       let thisSelected;
-      let {unique} = this.props;
-      let {selected} = this.state;
+      let {unique, selected} = this.props;
       if (selected[dataPoint[unique]]) {
         thisSelected = selected[dataPoint[unique]];
       } else {

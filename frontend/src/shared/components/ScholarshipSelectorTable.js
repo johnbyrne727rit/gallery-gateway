@@ -5,12 +5,17 @@ import SelectorTable from "./SelectorTable";
 import ScholarshipSelectorCard from "./ScholarshipSelectorCard";
 
 class ScholarshipSelectorTable extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {selected: []};
+  }
+
   static propTypes = {
     // Inherited props
     dataPoints: PropTypes.array.isRequired,
     unique: PropTypes.string.isRequired,
     selected: PropTypes.object.isRequired,
-    cardTemplate: PropTypes.object.isRequired,
+    cardTemplate: PropTypes.func.isRequired,
     cardTemplateProps: PropTypes.object,
     onChange: PropTypes.func.isRequired,
 
@@ -42,7 +47,6 @@ class ScholarshipSelectorTable extends Component {
       </div>
       <SelectorTable
         {...this.props}
-        onChange={console.log}
       />
     </div>;
   }

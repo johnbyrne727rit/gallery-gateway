@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import {Container, Row, Col, Button, FormGroup, Label, Input} from 'reactstrap'
 
-import ScholarshipSelectorTable from "../../shared/components/ScholarshipSelectorTable";
+import ManageScholarshipsTab from '../containers/ManageScholarshipsTab'
 
 function ScholarshipsDashboard() {
   return <Container>
@@ -24,7 +24,7 @@ function ScholarshipsDashboard() {
     </Row>
     <Row>
       <Col>
-        <ScholarshipSelectorTable dataPoints={[{name: "scholarship1"}, {name: "scholarship2"}]} onChange={console.log} unique={"name"}/>
+        <ManageScholarshipsTab/>
       </Col>
     </Row>
   </Container>;
