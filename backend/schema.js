@@ -19,6 +19,7 @@ type User {
     type: UserType!
     entries: [Entry]
     shows(date: Date): [Show]
+    portfolioPeriods(date: Date): [PortfolioPeriod]
 }
 
 input UserInput {
@@ -101,6 +102,10 @@ input PortfolioPeriodInput {
 input ShowUpdate {
     name: String
     description: String
+    entryStart: Date
+    entryEnd: Date
+    judgingStart: Date
+    judgingEnd: Date
     entryCap: Int
     finalized: Boolean
 }
@@ -326,6 +331,31 @@ input OtherMediaInput {
     path: String
 }
 
+type Scholarship{
+    id: ID!
+    name: String!
+    description: String!
+    requiredPhotos: Int!
+    fulltime: Boolean!
+    renewable: Boolean!
+    requiresEssay: Boolean!
+    gpa: Float
+    yearStatus: String
+    degreePrograms: String
+}
+
+input ScholarshipInput{
+    name: String!
+    description: String!
+    requiredPhotos: Int!
+    fulltime: Boolean!
+    renewable: Boolean!
+    requiresEssay: Boolean!
+    gpa: Float
+    yearStatus: String
+    degreePrograms: String
+}
+
 enum UserType {
     STUDENT
     ADMIN
@@ -368,6 +398,9 @@ type Mutation {
     assignToShow(showId: ID!, usernames: [String]!): Boolean
     removeFromShow(showId: ID!, usernames: [String]!): Boolean
 
+    assignToPortfolioPeriod(portfolioPeriodId: ID!, usernames: [String]!): Boolean
+    removeFromPortfolioPeriod(portfolioPeriodId: ID!, usernames: [String]!): Boolean
+
     createPortfolioPeriod(input: PortfolioPeriodInput!): PortfolioPeriod
 
     createPhoto(input: PhotoInput!): Show
@@ -377,6 +410,9 @@ type Mutation {
     createOtherMedia(input: OtherMediaInput!): Show
     createPortfolioOtherMedia(input: PortfolioOtherMediaInput!): Portfolio
     updateEntry(id: ID!, input: EntryUpdate!): Entry
+
+    createScholarship(input: ScholarshipInput!): Scholarship
+    deletePiece(id: ID!): Boolean
 
     vote(input: VoteInput): Vote
 }

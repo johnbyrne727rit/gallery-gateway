@@ -5,30 +5,42 @@ import { UserError } from "graphql-errors";
 import Image from "../../models/image";
 import Video from "../../models/video";
 import Other from "../../models/other";
-import { ADMIN, IMAGE_ENTRY, OTHER_ENTRY, VIDEO_ENTRY } from "../../constants";
+import {
+  ADMIN,
+  IMAGE_ENTRY,
+  OTHER_ENTRY,
+  VIDEO_ENTRY,
+  STUDENT,
+  JUDGE
+} from "../../constants";
 import { allowedToSubmit, parseVideo } from "../../helpers/submission";
 import Portfolio from "../../models/portfolio";
 import PortfolioPeriod from "../../models/portfolioPeriod";
 import Piece from "../../models/piece";
+import SinglePiece from "../../models/singlePiece"
 
 // Creates a Piece based on the 'PieceInput' schema
-const createPiece = (piece, entryType, pieceId, t) => {
+const createPiece = (piece, entryType, entryId, t) => {
   let existingId = piece.portfolioId;
   let portolioPromise =
     existingId !== null
       ? Promise.resolve(existingId)
       : createNewPortfolio(piece, t);
-  return portolioPromise
-    .then(portfolioId => {
-      delete piece["studentUsername"];
-      delete piece["yearLevel"];
-      delete piece["academicProgram"];
-      delete piece["periodId"]
+
+  const piecePromise = SinglePiece.create({
+    pieceType: entryType,
+    pieceId: entryId,
+    title: piece.title,
+    comment: piece.comment
+  })
+
+  return Promise.all([portolioPromise, piecePromise])
+    .then(values => {
+      const portfolioId = values[0]
+      const singlePiece = values[1]
       return Piece.create(
         {
-          ...piece,
-          pieceType: entryType,
-          pieceId,
+          pieceId: singlePiece.id,
           portfolioId
         },
         { transaction: t }
@@ -146,3 +158,32 @@ export function createPortfolioOtherMedia(_, args, req) {
     )
   );
 }
+
+export function deletePiece(_, args, req) {
+  const pieceId = args.id;
+
+  return Piece.findById(pieceId).then(piece => {
+    return piece
+      .getOwner()
+      .then(ownerUsername => {
+        if (
+          // Students can only delete their own
+          (req.auth.type === STUDENT && req.auth.username !== ownerUsername) ||
+          req.auth.type === JUDGE // Judges can never delete pieces
+        ) {
+          throw new UserError("Permission Denied");
+        }
+      })
+      .then(() =>
+        piece.getSinglePiece()).then( singlePiece =>
+        db.transaction(transaction =>
+          singlePiece
+            .getMedia(transaction)
+            .then(media => media.destroy({ transaction }))
+            .then(() => piece.destroy({ transaction }))
+            .then(() => singlePiece.destroy({ transaction }))
+        )
+      );
+  });
+}
+
