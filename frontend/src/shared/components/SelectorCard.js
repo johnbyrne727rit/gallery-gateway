@@ -12,7 +12,13 @@ class SelectorCard extends Component {
   static propTypes = {
     dataPoint: PropTypes.object.isRequired,
     selected: PropTypes.bool.isRequired,
-    onToggle: PropTypes.func.isRequired,
+    onToggle: PropTypes.func,
+    onEdit: PropTypes.func,
+    onDelete: PropTypes.func,
+  };
+
+  static defaultProps = {
+
   };
 
   constructor(props) {
@@ -22,15 +28,28 @@ class SelectorCard extends Component {
   }
 
   render() {
+    const { onToggle, onEdit, onDelete, selected, dataPoint } = this.props;
     return (
       <div>
         <div>
-          SelectorCard: {this.props.selected ? 'selected' : 'not selected'}.
+          SelectorCard: {selected ? 'selected' : 'not selected'}.
         </div>
         <div>
-          <button onClick={() => {return this.props.onToggle(this.props.dataPoint)}}>
-            {this.props.selected ? 'Unselect' : 'Select' }
-          </button>
+          {typeof onToggle !== "undefined" && (
+            <button onClick={() => {return onToggle(dataPoint)}}>
+              {selected ? 'Unselect' : 'Select' }
+            </button>
+          )}
+          {typeof onEdit !== "undefined" && (
+            <button onClick={() => {return onEdit(dataPoint)}}>
+              Edit
+            </button>
+          )}
+          {typeof onDelete !== "undefined" && (
+            <button onClick={() => {return onDelete(dataPoint)}}>
+              Delete
+            </button>
+          )}
         </div>
       </div>
     );

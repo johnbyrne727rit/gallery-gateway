@@ -19,7 +19,7 @@ class SelectorTable extends Component {
     selected: PropTypes.object.isRequired,
     cardTemplate: PropTypes.func.isRequired,
     cardTemplateProps: PropTypes.object,
-    onChange: PropTypes.func.isRequired,
+    onChange: PropTypes.func,
   };
 
   static defaultProps = {
@@ -68,6 +68,7 @@ class SelectorTable extends Component {
 
   render() {
     const Template = this.props.cardTemplate;
+    const allowSelectUnselect = (typeof this.props.onChange !== "undefined");
 
     const listedCards = this.props.dataPoints.map((dataPoint) => {
       let thisSelected;
@@ -77,20 +78,31 @@ class SelectorTable extends Component {
       } else {
         thisSelected = false;
       }
-      return <Template
-        selected={thisSelected}
-        dataPoint={dataPoint}
-        onToggle={this.handleToggle}
-        {...this.props.cardTemplateProps}
-      />;
+      let key = selected[dataPoint[unique]];
+      if (allowSelectUnselect) {
+        return <Template
+          key={key}
+          selected={thisSelected}
+          dataPoint={dataPoint}
+          onToggle={this.handleToggle}
+          {...this.props.cardTemplateProps}
+        />;
+      } else {
+        return <Template
+          key={key}
+          selected={thisSelected}
+          dataPoint={dataPoint}
+          {...this.props.cardTemplateProps}
+        />;
+      }
     });
 
     return (
       <div>
-        <div>
+        <div key="TitleDiv">
           SelectorTable
         </div>
-        <div>
+        <div key="ChildDiv">
           {listedCards}
         </div>
       </div>

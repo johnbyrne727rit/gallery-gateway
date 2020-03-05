@@ -66,14 +66,14 @@ class ScholarshipForm extends Component {
           }}
           validationSchema={yup.object().shape({
             name: yup.string().required('Required'),
-            gpa: yup.string(),
-            yearStatus: yup.string(),
+            gpa: yup.string().required('Required'),
+            yearStatus: yup.string().required('Required'),
             requiredPhotos: yup.number().required('Required'),
             description: yup.string().required('Required'),
             fulltime: yup.string().required('Required'),
             renewable: yup.string().required('Required'),
             requiresEssay: yup.string().required('Required'),
-            degreePrograms: yup.string()
+            degreePrograms: yup.string().required('Required')
           })}
           onSubmit={values => {
             create(values)

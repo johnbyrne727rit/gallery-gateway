@@ -28,6 +28,16 @@ class ManageScholarshipsTab extends Component {
     this.setState({selected: newSelected})
   };
 
+  onDelete = dataPoint => {
+    console.log("OnDelete");
+    console.log(dataPoint);
+  };
+
+  onEdit = dataPoint => {
+    console.log("OnEdit");
+    console.log(dataPoint);
+  };
+
   render () {
     const { loading, scholarship } = this.props;
     return (
@@ -41,7 +51,12 @@ class ManageScholarshipsTab extends Component {
               dataPoints={scholarship}
               unique={"id"}
               onChange={this.onChange}
-              cardTemplate={ScholarshipSelectorCard}/>
+              cardTemplate={ScholarshipSelectorCard}
+              cardTemplateProps={{
+                onDelete: this.onDelete,
+                onEdit: this.onEdit
+              }}
+            />
           )}
         </Col>
       </Row>

@@ -18,8 +18,12 @@ class ScholarshipSelectorCard extends Component {
     onToggle: PropTypes.func.isRequired,
     // New prop types
     dataPoint: PropTypes.object,
-    expanded: PropTypes.bool.isRequired,
-    onToggleExpand: PropTypes.func.isRequired,
+    expanded: PropTypes.bool,
+    onToggleExpand: PropTypes.func,
+  };
+
+  static defaultProps = {
+    expanded: false,
   };
 
   render() {
