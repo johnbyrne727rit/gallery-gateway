@@ -5,6 +5,7 @@ import Dashboard from './pages/Dashboard'
 import Submit from './pages/Submit'
 import Portfolio from './pages/Potfolio'
 import Add from './pages/Add'
+import Scholarships from './pages/Scholarships'
 
 import Layout from './components/Layout'
 import NotFound from '../shared/components/NotFound'
@@ -14,6 +15,7 @@ const Student = () => (
     <Switch>
       <Route exact path='/portfolio' component={Portfolio} />
       <Route exact path='/' component={Dashboard} />
+      <Route exact path='/viewScholarships' component={Scholarships} />
       <Route path='/submit' component={Submit} />
       <Route path='/add' component={Add} />
       <Route component={NotFound} />

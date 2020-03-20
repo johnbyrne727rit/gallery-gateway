@@ -3,11 +3,6 @@ import { ADMIN } from "../../constants";
 import Scholarship from "../../models/scholarship";
 
 export function scholarship(_, args, req) {
-  if (
-    req.auth.type !== ADMIN
-  ) {
-    throw new UserError("Permission Denied");
-  }
 
   // Apply ordering, if desired
   const order = args.orderBy
