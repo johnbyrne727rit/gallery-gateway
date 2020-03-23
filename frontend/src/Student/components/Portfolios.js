@@ -4,6 +4,8 @@ import styled from 'styled-components'
 
 import PortfolioCard from '../components/PortfolioCard'
 import Loading from '../../shared/components/Loading'
+import { Link } from 'react-router-dom'
+import { Button } from 'reactstrap'
 
 const NoShowsContainer = styled.div`
   font-size: large;
@@ -33,7 +35,12 @@ class Portfolios extends Component {
         </NoShowsContainer>
       )
     }
-    return portfolios.map(portfolios => <PortfolioCard key={portfolios.id} portfolio={portfolios} deletePiece={deletePiece}/>)
+    return (
+      <div>
+      <h2 align="right"><Link to='/viewScholarships'><Button color='primary'>View Available Scholarships</Button></Link></h2>
+      {portfolios.map(portfolios => <PortfolioCard key={portfolios.id} portfolio={portfolios} deletePiece={deletePiece}/>)}
+      </div>
+    )
   }
 
   componentDidUpdate () {

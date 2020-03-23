@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Row, Col } from 'reactstrap'
+import { Row, Col, Button} from 'reactstrap'
+import { Link } from 'react-router-dom'
 
 import ScholarshipSelectorTable from "../../shared/components/ScholarshipSelectorTable";
 import ScholarshipSelectorCard from "../../shared/components/ScholarshipSelectorCard";
@@ -30,6 +31,8 @@ class ViewScholarshipsTab extends Component {
   render () {
     const { loading, scholarship } = this.props;
     return (
+      <div>
+        <h2 align="right"><Link to='/portfolio'><Button color='primary'>Back to Portfolio</Button></Link></h2>
       <Row>
         <Col>
           {loading ? (
@@ -49,6 +52,7 @@ class ViewScholarshipsTab extends Component {
           )}
         </Col>
       </Row>
+      </div>
     );
   }
 }
