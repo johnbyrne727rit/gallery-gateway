@@ -99,9 +99,6 @@ class SelectorTable extends Component {
 
     return (
       <div>
-        <div key="TitleDiv">
-          SelectorTable
-        </div>
         <div key="ChildDiv">
           {listedCards}
         </div>

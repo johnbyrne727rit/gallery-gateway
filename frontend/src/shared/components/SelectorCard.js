@@ -30,8 +30,8 @@ class SelectorCard extends Component {
   };
 
   static defaultProps = {
-    title: "Title",
-    body: "Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body Body",
+    title: "",
+    body: "",
   };
 
   constructor(props) {

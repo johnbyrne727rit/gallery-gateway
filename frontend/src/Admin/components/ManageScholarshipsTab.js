@@ -50,7 +50,6 @@ class ManageScholarshipsTab extends Component {
               selected={this.state.selected}
               dataPoints={scholarship}
               unique={"id"}
-              onChange={this.onChange}
               cardTemplate={ScholarshipSelectorCard}
               cardTemplateProps={{
                 onDelete: this.onDelete,

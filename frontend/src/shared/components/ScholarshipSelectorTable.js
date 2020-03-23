@@ -42,9 +42,6 @@ class ScholarshipSelectorTable extends Component {
     this.props.cardTemplateProps.onToggleExport = this.handleToggleExpand;
 
     return <div>
-      <div>
-        ScholarshipSelectorTable
-      </div>
       <SelectorTable
         {...this.props}
       />

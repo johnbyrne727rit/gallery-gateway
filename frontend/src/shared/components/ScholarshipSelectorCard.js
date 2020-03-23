@@ -6,8 +6,9 @@ Externally Passed:
 - scholarship : Scholarship // Contains the data displayed here
  */
 
-import React, {Component} from 'react'
+import React, {Component, Fragment} from 'react'
 import PropTypes from 'prop-types'
+import { Row, Col } from 'reactstrap'
 
 import SelectorCard from "./SelectorCard";
 
@@ -23,16 +24,51 @@ class ScholarshipSelectorCard extends Component {
   };
 
   static defaultProps = {
-    expanded: false,
   };
 
   render() {
+    let {dataPoint} = this.props;
+    let title = (
+        <Row>
+          <Col xs='8'>
+            <h3>
+              {dataPoint.name}
+            </h3>
+          </Col>
+          <Row xs='4'>
+            <Col style={{marginLeft:20}}>
+              <Row style={{whiteSpace:'nowrap'}}> GPA </Row>
+              <Row> <h4 style={{fontWeight:'bold'}}>
+                {dataPoint.gpa}
+              </h4> </Row>
+            </Col>
+            <Col style={{marginLeft:20}}>
+              <Row style={{whiteSpace:'nowrap'}}> Year Req. </Row>
+              <Row> <h4 style={{fontWeight:'bold'}}>
+                {dataPoint.yearStatus}
+              </h4> </Row>
+            </Col>
+            <Col style={{marginLeft:20}}>
+              <Row style={{whiteSpace:'nowrap'}}> Photos Req. </Row>
+              <Row> <h4 style={{fontWeight:'bold'}}>
+                {dataPoint.requiredPhotos}
+              </h4> </Row>
+            </Col>
+          </Row>
+        </Row>
+    );
+    let body = (
+      <Fragment>
+        {dataPoint.description}
+      </Fragment>
+    );
+
     return (
       <div>
-        <div>
-          ScholarshipSelectorCard: {this.props.dataPoint.name}
-        </div>
-        <SelectorCard {...this.props}/>
+        <SelectorCard {...this.props}
+          title={title}
+          body={body}
+        />
       </div>
     );
   }
