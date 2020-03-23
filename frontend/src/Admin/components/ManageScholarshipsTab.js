@@ -54,7 +54,7 @@ class ManageScholarshipsTab extends Component {
               cardTemplate={ScholarshipSelectorCard}
               cardTemplateProps={{
                 onDelete: this.onDelete,
-                onEdit: this.onEdit
+                onEdit: this.onEdit,
               }}
             />
           )}
