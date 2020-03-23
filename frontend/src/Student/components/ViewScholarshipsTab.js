@@ -32,7 +32,7 @@ class ViewScholarshipsTab extends Component {
     const { loading, scholarship } = this.props;
     return (
       <div>
-        <h2 align="right"><Link to='/portfolio'><Button color='primary'>Back to Portfolio</Button></Link></h2>
+        <h2><Link to='/portfolio'><Button color='primary'>Back to Portfolio</Button></Link></h2>
       <Row>
         <Col>
           {loading ? (

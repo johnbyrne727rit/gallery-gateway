@@ -28,20 +28,17 @@ class Portfolios extends Component {
       }
       portfolios = [skeletonPortfolio].concat(portfolios)
     }
-    if (!portfolios || portfolios.length === 0) {
-      return (
-        <div>
-        <h2 align="right"><Link to='/viewScholarships'><Button color='primary'>View Available Scholarships</Button></Link></h2>
+    return (
+      <div>
+      <h2><Link to='/viewScholarships'><Button color='primary'>View Available Scholarships</Button></Link></h2>
+      {(!portfolios || portfolios.length === 0) ?
+      (
         <NoShowsContainer>
           The scholarship period is not currently open. Check back soon!
         </NoShowsContainer>
-        </div>
-      )
-    }
-    return (
-      <div>
-      <h2 align="right"><Link to='/viewScholarships'><Button color='primary'>View Available Scholarships</Button></Link></h2>
-      {portfolios.map(portfolios => <PortfolioCard key={portfolios.id} portfolio={portfolios} deletePiece={deletePiece}/>)}
+      ) :
+        (portfolios.map(portfolios => <PortfolioCard key={portfolios.id} portfolio={portfolios} deletePiece={deletePiece}/>))
+      }
       </div>
     )
   }
