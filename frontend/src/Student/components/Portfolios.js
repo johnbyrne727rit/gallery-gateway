@@ -30,9 +30,12 @@ class Portfolios extends Component {
     }
     if (!portfolios || portfolios.length === 0) {
       return (
+        <div>
+        <h2 align="right"><Link to='/viewScholarships'><Button color='primary'>View Available Scholarships</Button></Link></h2>
         <NoShowsContainer>
           The scholarship period is not currently open. Check back soon!
         </NoShowsContainer>
+        </div>
       )
     }
     return (
