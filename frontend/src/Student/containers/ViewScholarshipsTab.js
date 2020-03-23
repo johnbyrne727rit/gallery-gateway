@@ -17,6 +17,11 @@ export default compose(
       scholarship,
       loading,
       error
+    }),
+    options: ownProps => ({
+      variables: {
+        periodId: ownProps.id
+      }
     })
   })
 )(ViewScholarshipsTab)

@@ -1,5 +1,6 @@
 import DataTypes from 'sequelize'
 import sequelize from '../config/sequelize'
+import Scholarship from './scholarship'
 
 const PortfolioPeriod = sequelize.define('portfolioPeriod', {
   name: {

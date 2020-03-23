@@ -1,14 +1,17 @@
 query Scholarship {
-  scholarship(orderBy: { sort: "createdAt", direction: DESC }) {
+  scholarshipByPeriod(periodId: periodId) {
     id,
-    name,
-    gpa,
-    yearStatus,
-    requiredPhotos,
-    description,
-    fulltime,
-    renewable,
-    requiresEssay,
-    degreePrograms
+    scholarships{
+      id,
+      name,
+      gpa,
+      yearStatus,
+      requiredPhotos,
+      description,
+      fulltime,
+      renewable,
+      requiresEssay,
+      degreePrograms
+    }
   }
 }

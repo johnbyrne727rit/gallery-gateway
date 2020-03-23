@@ -4,8 +4,6 @@ import styled from 'styled-components'
 
 import PortfolioCard from '../components/PortfolioCard'
 import Loading from '../../shared/components/Loading'
-import { Link } from 'react-router-dom'
-import { Button } from 'reactstrap'
 
 const NoShowsContainer = styled.div`
   font-size: large;
@@ -28,19 +26,14 @@ class Portfolios extends Component {
       }
       portfolios = [skeletonPortfolio].concat(portfolios)
     }
-    return (
-      <div>
-      <h2><Link to='/viewScholarships'><Button color='primary'>View Available Scholarships</Button></Link></h2>
-      {(!portfolios || portfolios.length === 0) ?
-      (
+    if (!portfolios || portfolios.length === 0) {
+      return (
         <NoShowsContainer>
           The scholarship period is not currently open. Check back soon!
         </NoShowsContainer>
-      ) :
-        (portfolios.map(portfolios => <PortfolioCard key={portfolios.id} portfolio={portfolios} deletePiece={deletePiece}/>))
-      }
-      </div>
-    )
+      )
+    }
+    return portfolios.map(portfolios => <PortfolioCard key={portfolios.id} portfolio={portfolios} deletePiece={deletePiece}/>)
   }
 
   componentDidUpdate () {

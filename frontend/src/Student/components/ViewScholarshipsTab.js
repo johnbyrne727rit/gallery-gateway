@@ -40,7 +40,7 @@ class ViewScholarshipsTab extends Component {
           ) : (
             <ScholarshipSelectorTable
               selected={this.state.selected}
-              dataPoints={scholarship}
+              dataPoints={scholarship.scholarships}
               unique={"id"}
               onChange={this.onChange}
               cardTemplate={ScholarshipSelectorCard}
