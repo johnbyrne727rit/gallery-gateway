@@ -6,7 +6,7 @@ Externally Passed:
  */
 
 import React, {Component, Fragment} from 'react'
-import {Button, Row, Col, Container} from "reactstrap";
+import {Button, Row, Col, Container, CardBlock, Collapse} from "reactstrap";
 import PropTypes from 'prop-types'
 import styled from "styled-components";
 
@@ -24,6 +24,7 @@ class SelectorCard extends Component {
     body: PropTypes.object,
     dataPoint: PropTypes.object.isRequired,
     selected: PropTypes.bool.isRequired,
+    expanded: PropTypes.bool,
     onToggle: PropTypes.func,
     onEdit: PropTypes.func,
     onDelete: PropTypes.func,
@@ -32,12 +33,13 @@ class SelectorCard extends Component {
   static defaultProps = {
     title: "",
     body: "",
+    expanded: false,
   };
 
   constructor(props) {
     super(props);
-    this.state = {selected: false};
-    this.setState({selected: props.selected});
+    this.state = {selected: false, expanded: false};
+    this.setState({selected: props.selected, expanded: props.expanded});
   }
 
   renderButtons(props) {
@@ -91,20 +93,36 @@ class SelectorCard extends Component {
     );
   }
 
+  onExpand = () => {
+    this.setState({expanded: !this.state.expanded})
+  };
+
   // The whole render operation
   render() {
     const {selected, body, title} = this.props;
+    const { expanded } = this.state;
     return (
       <Card>
         <Row>
-          <Col md="9">
+          <Col>
+            <Button
+              md="1"
+              block
+              onClick={this.onExpand}
+            >
+              V
+            </Button>
+          </Col>
+          <Col md="8">
             {title}
           </Col>
           <Col md="3">
             { this.renderButtons(this.props) }
           </Col>
         </Row>
-        {body}
+        <div class={expanded ? 'collapse show' : 'collapse' }>
+          {body}
+        </div>
       </Card>
     );
   }

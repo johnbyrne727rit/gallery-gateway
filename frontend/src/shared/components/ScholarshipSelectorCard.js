@@ -8,7 +8,7 @@ Externally Passed:
 
 import React, {Component, Fragment} from 'react'
 import PropTypes from 'prop-types'
-import { Row, Col } from 'reactstrap'
+import {Row, Col, CardBody} from 'reactstrap'
 
 import SelectorCard from "./SelectorCard";
 
@@ -59,7 +59,37 @@ class ScholarshipSelectorCard extends Component {
     );
     let body = (
       <Fragment>
-        {dataPoint.description}
+        <Col>
+          <Row>
+            <Col style={{marginLeft:20}}>
+              <Row style={{whiteSpace:'nowrap'}}> Full-Time </Row>
+              <Row> <h4 style={{fontWeight:'bold'}}>
+                {dataPoint.fulltime ? 'Y' : 'N'}
+              </h4> </Row>
+            </Col>
+            <Col style={{marginLeft:20}}>
+              <Row style={{whiteSpace:'nowrap'}}> Renewable </Row>
+              <Row> <h4 style={{fontWeight:'bold'}}>
+                {dataPoint.renewable ? 'Y' : 'N'}
+              </h4> </Row>
+            </Col>
+            <Col style={{marginLeft:20}}>
+              <Row style={{whiteSpace:'nowrap'}}> Programs </Row>
+              <Row> <h4 style={{fontWeight:'bold'}}>
+                {dataPoint.degreePrograms}
+              </h4> </Row>
+            </Col>
+            <Col style={{marginLeft:20}}>
+              <Row style={{whiteSpace:'nowrap'}}> Essay Req. </Row>
+              <Row> <h4 style={{fontWeight:'bold'}}>
+                {dataPoint.requiresEssay ? 'Y' : 'N'}
+              </h4> </Row>
+            </Col>
+          </Row>
+          <hr/>
+          {dataPoint.description}
+          {JSON.stringify(dataPoint)}
+        </Col>
       </Fragment>
     );
 
