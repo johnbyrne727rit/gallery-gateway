@@ -29,6 +29,11 @@ class SelectorTable extends Component {
     cardTemplateProps: {},
   };
 
+  constructor(props) {
+    super(props);
+    this.state = { expanded: null };
+  };
+
   handleToggle = dataPoint => {
     console.log("SelectorTable.handleToggle()");
     const {onChange, unique, selected} = this.props;
@@ -47,28 +52,13 @@ class SelectorTable extends Component {
     onChange(newSelected);
   };
 
-  collapseAll = () => {
-
-  };
-
-  /*
-  handleSelectAll = () => {
-    const { data, unique, selected, onChange } = this.props
-
-    // If none are selected, select them all
-    // If some are selected, unselect them all (aka select none of them)
-    const areSomeSelected = Object.keys(selected).length > 0
-    const rows = {}
-
-    if (!areSomeSelected) {
-      data.forEach(row => {
-        rows[row[unique]] = true
-      })
+  cardExpandCollapse = (dataPoint) => {
+    if (dataPoint === this.state.expanded) {
+      this.setState({expanded: null});
+    } else {
+      this.setState({expanded: dataPoint});
     }
-
-    onChange(rows)
-  }
-  */
+  };
 
   render() {
     const Template = this.props.cardTemplate;
@@ -77,16 +67,21 @@ class SelectorTable extends Component {
     const listedCards = this.props.dataPoints.map((dataPoint) => {
       let thisSelected;
       let {unique, selected} = this.props;
+      let {expanded} = this.state;
       if (selected[dataPoint[unique]]) {
         thisSelected = selected[dataPoint[unique]];
       } else {
         thisSelected = false;
       }
+      let thisExpanded = (expanded === dataPoint);
+      console.log(thisExpanded);
       let key = selected[dataPoint[unique]];
       if (allowSelectUnselect) {
         return <Template
           key={key}
           selected={thisSelected}
+          onExpandCollapse={this.cardExpandCollapse}
+          expanded={thisExpanded}
           dataPoint={dataPoint}
           onToggle={this.handleToggle}
           {...this.props.cardTemplateProps}
@@ -95,6 +90,8 @@ class SelectorTable extends Component {
         return <Template
           key={key}
           selected={thisSelected}
+          onExpandCollapse={this.cardExpandCollapse}
+          expanded={thisExpanded}
           dataPoint={dataPoint}
           {...this.props.cardTemplateProps}
         />;
