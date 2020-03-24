@@ -47,6 +47,10 @@ class SelectorTable extends Component {
     onChange(newSelected);
   };
 
+  collapseAll = () => {
+
+  };
+
   /*
   handleSelectAll = () => {
     const { data, unique, selected, onChange } = this.props

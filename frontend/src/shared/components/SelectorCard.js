@@ -24,7 +24,7 @@ class SelectorCard extends Component {
     body: PropTypes.object,
     dataPoint: PropTypes.object.isRequired,
     selected: PropTypes.bool.isRequired,
-    expanded: PropTypes.bool,
+    preExpand: PropTypes.func,
     onToggle: PropTypes.func,
     onEdit: PropTypes.func,
     onDelete: PropTypes.func,
@@ -33,13 +33,11 @@ class SelectorCard extends Component {
   static defaultProps = {
     title: "",
     body: "",
-    expanded: false,
   };
 
   constructor(props) {
     super(props);
     this.state = {selected: false, expanded: false};
-    this.setState({selected: props.selected, expanded: props.expanded});
   }
 
   renderButtons(props) {
@@ -93,8 +91,23 @@ class SelectorCard extends Component {
     );
   }
 
-  onExpand = () => {
-    this.setState({expanded: !this.state.expanded})
+  toggleExpand = () => {
+    if (this.state.expanded) {
+      this.setCollapsed();
+    } else {
+      this.setExpanded();
+    }
+  };
+
+  setExpanded = () => {
+    if (this.props.preExpand) {
+      this.props.preExpand();
+    }
+    this.setState({expanded: true})
+  };
+
+  setCollapsed = () => {
+    this.setState({expanded: false})
   };
 
   // The whole render operation
@@ -108,9 +121,9 @@ class SelectorCard extends Component {
             <Button
               md="1"
               block
-              onClick={this.onExpand}
+              onClick={this.toggleExpand}
             >
-              V
+              {!expanded ? 'A' : 'V'}
             </Button>
           </Col>
           <Col md="8">

@@ -88,7 +88,6 @@ class ScholarshipSelectorCard extends Component {
           </Row>
           <hr/>
           {dataPoint.description}
-          {JSON.stringify(dataPoint)}
         </Col>
       </Fragment>
     );
