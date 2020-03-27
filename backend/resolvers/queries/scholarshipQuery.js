@@ -29,7 +29,7 @@ export function scholarshipByPeriod(_, args, req ) {
 
   const periodId  = args.periodId;
   
-  return PortfolioPeriod.find({
+  return PortfolioPeriod.findOne({
     where: {id: periodId},
     include: Scholarship
   });

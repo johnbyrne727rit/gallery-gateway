@@ -346,6 +346,11 @@ type Scholarship{
     updatedAt: Date
 }
 
+type PeriodScholarships{
+    id: ID!,
+    scholarships: [Scholarship]
+}
+
 input ScholarshipInput{
     name: String!
     description: String!
@@ -386,6 +391,7 @@ type Query {
     entry(id: ID!): Entry
     entries(showId: ID, studentUsername: String): [Entry]
     scholarship(orderBy: OrderByItem): [Scholarship]
+    scholarshipByPeriod(periodId: ID!): PeriodScholarships
 }
 
 type Mutation {
