@@ -114,14 +114,35 @@ sudo apt-get update
 sudo apt-get install yarn
 ```
 Install Mysql
-
-Instructions for this can be found [here](https://support.rackspace.com/how-to/install-mysql-server-on-the-ubuntu-operating-system/)
+  Instructions for this can be found [here](https://support.rackspace.com/how-to/install-mysql-server-on-the-ubuntu-operating-system/)
 
 [Nginx](https://nginx.org/en/) and [Supervisor](http://supervisord.org/) must be installed and running.
+
+Installing Nginx
+```sh
+sudo apt update
+sudo apt install nginx
+```
+
+Running Nginx
+```sh
+sudo systemctl start nginx
+```
+
+Installing Supervisor
+```sh
+sudo apt-get install supervisor
+```
+  Supervisor should automatically be running after installation, but you can double check by running
+ ```sh
+ service supervisor restart
+ ```
 
 Additionally, setup HTTPS using [Let's Encrypt](https://letsencrypt.org/).
 
 ### Deploy the App
+
+
 
 Run our `deploy/deploy.sh` script.
 
