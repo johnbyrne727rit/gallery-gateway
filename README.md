@@ -113,6 +113,9 @@ echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/source
 sudo apt-get update
 sudo apt-get install yarn
 ```
+Install Mysql
+
+Instructions for this can be found [here](https://support.rackspace.com/how-to/install-mysql-server-on-the-ubuntu-operating-system/)
 
 [Nginx](https://nginx.org/en/) and [Supervisor](http://supervisord.org/) must be installed and running.
 
