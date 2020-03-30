@@ -98,14 +98,14 @@ We deploy our application on Ubuntu 16.04.
 
 ### Prequisites
 
-Install Node (10.x LTS) & NPM (>= 5.6)
+#### Install Node (10.x LTS) & NPM (>= 5.6)
 
 ```sh
 curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 sudo apt-get install -y nodejs
 ```
 
-Install Yarn (>= 1.6)
+#### Install Yarn (>= 1.6)
 
 ```sh
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
@@ -113,38 +113,59 @@ echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/source
 sudo apt-get update
 sudo apt-get install yarn
 ```
-Install Mysql
-  Instructions for this can be found [here](https://support.rackspace.com/how-to/install-mysql-server-on-the-ubuntu-operating-system/)
+#### Install MySQL
+```sh
+sudo apt-get update
+sudo apt-get install mysql-server
+```
 
-[Nginx](https://nginx.org/en/) and [Supervisor](http://supervisord.org/) must be installed and running.
+To configure password and other settings run
+```sh
+sudo mysql_secure_installation utility
+```
 
-Installing Nginx
+To start MySQL run
+```sh
+sudo systemctl start mysql
+```
+
+#### Install [Nginx](https://nginx.org/en/)
 ```sh
 sudo apt update
 sudo apt install nginx
 ```
 
-Running Nginx
+Then start Nginx with
 ```sh
 sudo systemctl start nginx
 ```
 
-Installing Supervisor
+#### Install [Supervisor](http://supervisord.org/)
 ```sh
 sudo apt-get install supervisor
 ```
-  Supervisor should automatically be running after installation, but you can double check by running
+
+Supervisor should automatically be running after installation, but you can double check by running
  ```sh
  service supervisor restart
  ```
 
-Additionally, setup HTTPS using [Let's Encrypt](https://letsencrypt.org/).
+#### Additionally, setup HTTPS 
+  This can be done using [Let's Encrypt](https://letsencrypt.org/).
 
-### Deploy the App
 
-Start a mysql session with
+#### Deployment Setup
+
+There must be a user in the sql database named 'gallerygateway'
+
+To create a new user, start a mysql session with
 ```sh
-/usr/bin/mysql -u root -p
+sudo /usr/bin/mysql -u root -p
+```
+
+You can then check if the user already exists with
+```sh
+SELECT User, Host FROM mysql.user;
 ```
 
 And then create a new user in the database named gallerygateway (if one does not already exist)
@@ -153,14 +174,10 @@ CREATE USER 'gallerygateway' IDENTIFIED BY '<password>';
 ```
 Replacing <password> with your user password
 
-You can chec if the user exists with
-```sh
-SELECT User, Host FROM mysql.user;
-```
-
-In the top level directory, you must add a file called `mysql_password.txt` 
+Next, in the top level directory, you must add a file called `mysql_password.txt` 
 containing, on the first line, the password for the gallerygateway sql user
 
+### Deploy the App
 Run the deploy script from the top level directory
 ```sh
 deploy/deploy.sh
