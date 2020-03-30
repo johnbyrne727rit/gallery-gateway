@@ -142,9 +142,29 @@ Additionally, setup HTTPS using [Let's Encrypt](https://letsencrypt.org/).
 
 ### Deploy the App
 
+Start a mysql session with
+```sh
+/usr/bin/mysql -u root -p
+```
 
+And then create a new user in the database named gallerygateway (if one does not already exist)
+```sh
+CREATE USER 'gallerygateway' IDENTIFIED BY '<password>';
+```
+Replacing <password> with your user password
 
-Run our `deploy/deploy.sh` script.
+You can chec if the user exists with
+```sh
+SELECT User, Host FROM mysql.user;
+```
+
+In the top level directory, you must add a file called `mysql_password.txt` 
+containing, on the first line, the password for the gallerygateway sql user
+
+Run the deploy script from the top level directory
+```sh
+deploy/deploy.sh
+```
 
 It will:
 - Create a MySQL database if one does not exist (and set the character encoding to UTF-8)
