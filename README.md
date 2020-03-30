@@ -157,22 +157,21 @@ Supervisor should automatically be running after installation, but you can doubl
 ### Deployment Setup
 
 1. There must be a user in the sql database named 'gallerygateway'
+    1. To create a new user, start a mysql session with
+        ```sh
+        sudo /usr/bin/mysql -u root -p
+        ```
 
- A. To create a new user, start a mysql session with
-```sh
-sudo /usr/bin/mysql -u root -p
-```
+    2. You can then check if the user already exists with
+        ```sh
+        SELECT User, Host FROM mysql.user;
+        ```
 
- B. You can then check if the user already exists with
-```sh
-SELECT User, Host FROM mysql.user;
-```
-
- C. Create a new user in the database named gallerygateway (if one does not already exist)
-```sh
-CREATE USER 'gallerygateway' IDENTIFIED BY '<password>';
-```
-    Replacing \<password\> with your user password
+    3. Create a new user in the database named gallerygateway (if one does not already exist)
+        ```sh
+        CREATE USER 'gallerygateway' IDENTIFIED BY '<password>';
+        ```
+        Replacing \<password\> with your user password
 
 2. In the top level directory, you must add a file called `mysql_password.txt` 
    containing, on the first line, the password for the gallerygateway sql user
