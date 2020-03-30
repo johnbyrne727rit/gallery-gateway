@@ -177,6 +177,17 @@ Supervisor should automatically be running after installation, but you can doubl
    containing, on the first line, the password for the gallerygateway sql user
    that was just created
 
+3. Provide the MySQL database password, RSA keys used for JWT authentication (see below)
+
+    ```sh
+    cd /opt/node/gallerygateway/keys
+    sudo openssl genrsa -out private.key 4096
+    sudo openssl rsa -in private.key -outform PEM -pubout -out public.key
+    ```
+    
+4. Add the the Identity Provider Certificate (idp_cert.pem) to /opt/node/gallerygateway/keys.
+   Instructions on creating a self signed certificate can be found [here](https://wiki.shibboleth.net/confluence/display/CONCEPT/SAMLKeysAndCertificates#SAMLKeysAndCertificates-SAMLKeysandCertificates)
+    
 ### Deploy the App
 Run the deploy script from the top level directory
 ```sh
@@ -190,14 +201,6 @@ It will:
 - Install and build the backend
 - Migrate the database tables
 - Start the backend using Supervisor
-
-You will need to provide the MySQL database password, RSA keys used for JWT authentication (see below), and the Identity Provider Certificate.
-
-```sh
-cd /opt/node/gallerygateway/keys
-sudo openssl genrsa -out private.key 4096
-sudo openssl rsa -in private.key -outform PEM -pubout -out public.key
-```
 
 ## Maintenance
 
