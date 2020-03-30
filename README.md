@@ -154,7 +154,7 @@ Supervisor should automatically be running after installation, but you can doubl
   This can be done using [Let's Encrypt](https://letsencrypt.org/).
 
 
-#### Deployment Setup
+### Deployment Setup
 
 There must be a user in the sql database named 'gallerygateway'
 
