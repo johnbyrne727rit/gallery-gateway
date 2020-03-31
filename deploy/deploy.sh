@@ -15,7 +15,7 @@ if [$# -gt 0]
 then
     GIT_URL=$1 
 else
-    GIT_URL=DEFAULT_URL
+    GIT_URL=$DEFAULT_URL
 fi
 
 set -e;
