@@ -45,7 +45,7 @@ ENDMYSQL
 # Download Gallery Gateway from GitHub
 #
 DEST_FOLDER=`date +%s`;
-wget GIT_URL -O "$DEST_FOLDER.zip";
+wget $GIT_URL -O "$DEST_FOLDER.zip";
 unzip -d $DEST_FOLDER "$DEST_FOLDER.zip";
 
 cd $DEST_FOLDER;
