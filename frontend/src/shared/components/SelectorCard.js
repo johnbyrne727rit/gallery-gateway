@@ -9,6 +9,9 @@ import React, {Component, Fragment} from 'react'
 import {Button, Row, Col, Container, CardBlock, Collapse} from "reactstrap";
 import PropTypes from 'prop-types'
 import styled from "styled-components";
+import FontAwesomeIcon from "@fortawesome/react-fontawesome";
+import FaCaretRight from "@fortawesome/fontawesome-free-solid/faCaretRight";
+import FaCaretLeft from "@fortawesome/fontawesome-free-solid/faCaretLeft";
 
 const Card = styled.div`
   background-color: #f8f9fa;
@@ -24,7 +27,8 @@ class SelectorCard extends Component {
     body: PropTypes.object,
     dataPoint: PropTypes.object.isRequired,
     selected: PropTypes.bool.isRequired,
-    preExpand: PropTypes.func,
+    onExpandCollapse: PropTypes.func.isRequired,
+    expanded: PropTypes.bool,
     onToggle: PropTypes.func,
     onEdit: PropTypes.func,
     onDelete: PropTypes.func,
@@ -37,12 +41,10 @@ class SelectorCard extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {selected: false, expanded: false};
   }
 
   renderButtons(props) {
-    const {onToggle, onEdit, onDelete, dataPoint, selected} = props;
-
+    const { onToggle, onEdit, onDelete, dataPoint, selected } = props;
 
     return (
       <Fragment>
@@ -92,28 +94,15 @@ class SelectorCard extends Component {
   }
 
   toggleExpand = () => {
-    if (this.state.expanded) {
-      this.setCollapsed();
-    } else {
-      this.setExpanded();
+    const { onExpandCollapse, dataPoint } = this.props;
+    if (onExpandCollapse) {
+      onExpandCollapse(dataPoint);
     }
-  };
-
-  setExpanded = () => {
-    if (this.props.preExpand) {
-      this.props.preExpand();
-    }
-    this.setState({expanded: true})
-  };
-
-  setCollapsed = () => {
-    this.setState({expanded: false})
   };
 
   // The whole render operation
   render() {
-    const {selected, body, title} = this.props;
-    const { expanded } = this.state;
+    const { body, title, expanded, selected } = this.props;
     return (
       <Card>
         <Row>
@@ -122,8 +111,13 @@ class SelectorCard extends Component {
               md="1"
               block
               onClick={this.toggleExpand}
+              style={{ alignItems: 'center' }}
             >
-              {!expanded ? 'A' : 'V'}
+              {!expanded ? (
+                  <FontAwesomeIcon icon={FaCaretRight} size='lg'/>
+                ) : (
+                  <FontAwesomeIcon icon={FaCaretLeft} className='mr-2' size='lg'/>
+              )}
             </Button>
           </Col>
           <Col md="8">
@@ -133,7 +127,7 @@ class SelectorCard extends Component {
             { this.renderButtons(this.props) }
           </Col>
         </Row>
-        <div class={expanded ? 'collapse show' : 'collapse' }>
+        <div className={expanded ? 'collapse show' : 'collapse' }>
           {body}
         </div>
       </Card>

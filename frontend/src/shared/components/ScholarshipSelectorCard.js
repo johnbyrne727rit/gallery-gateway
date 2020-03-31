@@ -16,7 +16,7 @@ class ScholarshipSelectorCard extends Component {
   static propTypes = {
     // Inherited prop types from SelectorCard
     selected: PropTypes.bool.isRequired,
-    onToggle: PropTypes.func.isRequired,
+    onToggle: PropTypes.func,
     // New prop types
     dataPoint: PropTypes.object,
     expanded: PropTypes.bool,
