@@ -49,7 +49,7 @@ class SelectorCard extends Component {
     return (
       <Fragment>
         <Row noGutters={true}>
-          {typeof onEdit !== "undefined" && (
+          {onEdit && (
             <Col>
               <Button
                 onClick={() => {
