@@ -94,6 +94,9 @@ You'll need to be running both the frontend and backend for development. Check o
 
 ## Deployment
 
+These are instructions for deployment to a production environment, which is assumed to be hosted at [http://gallerygateway.rit.edu/](http://gallerygateway.rit.edu/). For more information on deploying
+for testing and development, see the README files gound in `gallerygateway/backend` and `gallerygateway/frontend`
+
 We deploy our application on Ubuntu 16.04.
 
 ### Prequisites
@@ -204,8 +207,8 @@ The script will:
 - Migrate the database tables
 - Start the backend using Supervisor
 
-## Troubleshooting Common Errors
-### /usr/bin/mysql -u root -p gives command not found error
+### Troubleshooting Common Errors
+#### /usr/bin/mysql -u root -p gives command not found error
 This may mean that mysql has already been added to the path. In this case, try the command.
 ```sh
 mysql -u root -p
