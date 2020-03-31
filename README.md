@@ -196,13 +196,23 @@ deploy/deploy.sh <git url>
 where \<git url\> is the url link to the zip download of the target git repository. If left blank, 
 this will default to https://github.com/abstractionhq/gallery-gateway/archive/master.zip
 
-It will:
+The script will:
 - Create a MySQL database if one does not exist (and set the character encoding to UTF-8)
 - Download this project's source from GitHub
 - Install and build the frontend
 - Install and build the backend
 - Migrate the database tables
 - Start the backend using Supervisor
+
+## Troubleshooting Common Errors
+### /usr/bin/mysql -u root -p gives command not found error
+This may mean that mysql has already been added to the path. In this case, try the command.
+```sh
+mysql -u root -p
+```
+The shell deploy script will still function properly in this case.
+
+If this does not work, mysql may be installed somewhere else, or may not be installed at all.
 
 ## Maintenance
 
