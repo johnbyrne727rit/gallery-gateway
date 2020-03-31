@@ -62,7 +62,7 @@ class SelectorCard extends Component {
               </Button>
             </Col>
           )}
-          {typeof onDelete !== "undefined" && (
+          {onDelete && (
             <Col>
               <Button
                 onClick={() => {
@@ -75,7 +75,7 @@ class SelectorCard extends Component {
               </Button>
             </Col>
           )}
-          {typeof onToggle !== "undefined" && (
+          {onToggle && (
             <Col>
               <Button
                 onClick={() => {
