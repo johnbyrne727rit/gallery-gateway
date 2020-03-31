@@ -9,6 +9,14 @@
 
 NODE_USER='www-data';
 SCRIPT_ROOT=`pwd`;
+DEFAULT_URL=https://github.com/abstractionhq/gallery-gateway/archive/master.zip
+
+if test $# -gt 0
+then
+    GIT_URL=$1 
+else
+    GIT_URL=$DEFAULT_URL
+fi
 
 set -e;
 
@@ -37,7 +45,7 @@ ENDMYSQL
 # Download Gallery Gateway from GitHub
 #
 DEST_FOLDER=`date +%s`;
-wget https://github.com/abstractionhq/gallery-gateway/archive/master.zip -O "$DEST_FOLDER.zip";
+wget $GIT_URL -O "$DEST_FOLDER.zip";
 unzip -d $DEST_FOLDER "$DEST_FOLDER.zip";
 
 cd $DEST_FOLDER;
@@ -65,7 +73,7 @@ npm run build;
 #
 # Remove any existing builds
 cd $PROJECT_ROOT/frontend;
-sudo rm -r /var/www/html/*;
+sudo rm -rf /var/www/html/*;
 sudo cp -r dist/* /var/www/html/;
 
 #
@@ -88,13 +96,13 @@ sudo chown $NODE_USER /opt/node/gallerygateway/uploads;
 #
 cd $PROJECT_ROOT/backend;
 sudo cp build/main.js /opt/node/gallerygateway/;
-sudo rm -r /opt/node/gallerygateway/node_modules;
+sudo rm -rf /opt/node/gallerygateway/node_modules;
 sudo mv node_modules /opt/node/gallerygateway/;
 
 #
 # Create the environment variables
 #
-sudo rm /opt/node/gallerygateway/.env;
+sudo rm -f /opt/node/gallerygateway/.env;
 sudo tee /opt/node/gallerygateway/.env > /dev/null << ENDENV
 ABSTRACTION_DB_NAME=gallerygateway
 ABSTRACTION_DB_USER=gallerygateway
@@ -109,7 +117,7 @@ ENDENV
 #
 # Move the supervisor config into place
 #
-sudo rm /etc/supervisor/conf.d/gallerygateway.conf
+sudo rm -f /etc/supervisor/conf.d/gallerygateway.conf
 sudo tee /etc/supervisor/conf.d/gallerygateway.conf > /dev/null << SUPERVISORCONF
 [program:gallerygateway]
 command=/usr/bin/node /opt/node/gallerygateway/main.js
@@ -168,7 +176,7 @@ fi;
 #
 cd $PROJECT_ROOT;
 cd ../../;
-rm -r $DEST_FOLDER "$DEST_FOLDER.zip";
+rm -rf $DEST_FOLDER "$DEST_FOLDER.zip";
 
 #
 # Finish
