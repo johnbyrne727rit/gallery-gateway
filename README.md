@@ -207,6 +207,12 @@ The script will:
 - Migrate the database tables
 - Start the backend using Supervisor
 
+If the backend fails to start, the script will still complete, you can check if it is running by 
+entering the command
+```sh
+systemctl supervisor status
+```
+
 ### Troubleshooting Common Errors
 #### /usr/bin/mysql -u root -p gives command not found error
 This may mean that mysql has already been added to the path. In this case, try the command.
@@ -216,6 +222,11 @@ mysql -u root -p
 The shell deploy script will still function properly in this case.
 
 If this does not work, mysql may be installed somewhere else, or may not be installed at all.
+
+
+#### The Supervisor backend is not running
+
+#### Gallery Gateway is not accessing 
 
 ## Maintenance
 
