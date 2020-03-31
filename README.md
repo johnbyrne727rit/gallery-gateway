@@ -141,8 +141,10 @@ containing, on the first line, the password for the gallerygateway sql user
 
 Run the deploy script from the top level directory
 ```sh
-deploy/deploy.sh
+deploy/deploy.sh <git url>
 ```
+where \<git url\> is the url link to the zip download of the target git repository. If left blank, 
+this will default to https://github.com/abstractionhq/gallery-gateway/archive/master.zip
 
 It will:
 - Create a MySQL database if one does not exist (and set the character encoding to UTF-8)
