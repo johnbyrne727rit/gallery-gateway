@@ -210,7 +210,7 @@ The script will:
 If the backend fails to start, the script will still complete, you can check if it is running by 
 entering the command
 ```sh
-systemctl supervisor status
+sudo supervisorctl status all
 ```
 
 ### Troubleshooting Common Errors
