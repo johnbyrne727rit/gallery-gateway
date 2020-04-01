@@ -32,6 +32,11 @@ const renderSubmissionByType = submission => {
             alt={submission.title}
             src={`${STATIC_PATH}${getImageThumbnail(submission.path)}`}
           />
+          <div className='text-left'>
+            <a href={`${STATIC_PATH}${submission.path}`} target='_blank'>
+              <Button color='primary'>View Image</Button>
+            </a>
+          </div>
           <dt>Dimensions</dt>
           <dd>
             {submission.horizDimInch} in. × {submission.vertDimInch} in.
@@ -75,16 +80,25 @@ const renderSubmissionByType = submission => {
         return null
       } else if (submission.path.endsWith('.jpg')) {
         return (
+          <Fragment>
           <PhotoThumbnail
             alt={submission.title}
             src={`${STATIC_PATH}${getImageThumbnail(submission.path)}`}
           />
+          <div className='text-left'>
+            <a href={`${STATIC_PATH}${submission.path}`} target='_blank'>
+              <Button color='primary'>View Image</Button>
+            </a>
+          </div>
+          </Fragment>
         )
       } else if (submission.path.endsWith('.pdf')) {
         return (
-          <a href={`${STATIC_PATH}${submission.path}`} target='_blank'>
-            <FaPDF /> View PDF
-          </a>
+          <div className='text-left'>
+            <a href={`${STATIC_PATH}${submission.path}`} target='_blank'>
+              <Button color='primary'>View PDF</Button>
+            </a>
+          </div>
         )
       }
       return null
@@ -204,13 +218,6 @@ class ShowSubmissionDetails extends Component {
             <dd>{submission.forSale ? 'Yes' : 'No'}</dd>
             <dt>More Copies?</dt>
             <dd>{submission.moreCopies ? 'Yes' : 'No'}</dd>
-            {submission.entryType === PHOTO ? (
-              <div className='text-center'>
-                <a href={`${STATIC_PATH}${submission.path}`} target='_blank'>
-                  <Button color='primary'>View Image</Button>
-                </a>
-              </div>
-            ) : null}
           </dl>
         </Col>
       </Row>
