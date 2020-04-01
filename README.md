@@ -225,8 +225,11 @@ If this does not work, mysql may be installed somewhere else, or may not be inst
 
 
 #### The Supervisor backend is not running
+You are likely missing one of the required keys. You can check the 
+supervisor logs found in `/opt/node/gallerygateway/log.txt` for more information
 
-#### Gallery Gateway is not accessing 
+
+ 
 
 ## Maintenance
 
