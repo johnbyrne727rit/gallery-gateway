@@ -33,6 +33,7 @@ const SubmittedEntries = ({ portfolio, deletePiece }) =>
 
 const PortfolioCard = props => (
   <Card>
+    <h2><Link to='/viewScholarships?id=${props.portfolio.portfolioPeriod.id}'><Button color='primary'>View Available Scholarships</Button></Link></h2>
     <Row>
       <Col>
         <div><h2>{props.portfolio.portfolioPeriod.name}</h2></div>

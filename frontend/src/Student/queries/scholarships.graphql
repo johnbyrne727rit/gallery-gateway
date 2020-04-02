@@ -1,0 +1,17 @@
+query Scholarship {
+  scholarshipByPeriod(periodId: periodId) {
+    id,
+    scholarships{
+      id,
+      name,
+      gpa,
+      yearStatus,
+      requiredPhotos,
+      description,
+      fulltime,
+      renewable,
+      requiresEssay,
+      degreePrograms
+    }
+  }
+}
