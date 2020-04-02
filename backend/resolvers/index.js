@@ -15,6 +15,8 @@ import VideoPiece from './types/videoPieceType'
 import OtherMediaPiece from './types/otherMediaPieceType'
 import * as EntryMutations from './mutations/entry'
 import * as EntryQuery from './queries/entryQuery'
+import * as ScholarshipMutations from './mutations/scholarship'
+import * as ScholarshipQuery from './queries/scholarshipQuery'
 import * as ShowMutations from './mutations/show'
 import * as ShowQuery from './queries/showQuery'
 import * as UserQuery from './queries/userQuery'
@@ -25,7 +27,6 @@ import * as PortfolioQuery from './queries/portfolioQuery'
 import * as PortfolioPeriodQuery from './queries/portfolioPeriodQuery'
 import * as PortfolioPeriodMutations from './mutations/portfolioPeriod'
 import * as PieceMutations from './mutations/piece'
-import * as ScholarshipMutations from './mutations/scholarship'
 
 export default {
   ...Entry,
@@ -49,7 +50,8 @@ export default {
     ...ShowQuery,
     ...VoteQuery,
     ...PortfolioPeriodQuery,
-    ...PortfolioQuery
+    ...PortfolioQuery,
+    ...ScholarshipQuery,
   },
   Mutation: {
     ...EntryMutations,
@@ -58,6 +60,6 @@ export default {
     ...VoteMutations,
     ...PortfolioPeriodMutations,
     ...PieceMutations,
-    ...ScholarshipMutations
+    ...ScholarshipMutations,
   }
 }
