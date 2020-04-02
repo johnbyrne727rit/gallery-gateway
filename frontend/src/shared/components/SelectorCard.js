@@ -114,9 +114,9 @@ class SelectorCard extends Component {
               style={{ alignItems: 'center' }}
             >
               {!expanded ? (
-                  <FontAwesomeIcon icon={FaCaretRight} size='lg'/>
+                <FontAwesomeIcon icon={FaCaretLeft} className='mr-2' size='lg'/>
                 ) : (
-                  <FontAwesomeIcon icon={FaCaretLeft} className='mr-2' size='lg'/>
+                <FontAwesomeIcon icon={FaCaretRight} size='lg'/>
               )}
             </Button>
           </Col>
