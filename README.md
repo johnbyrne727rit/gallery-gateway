@@ -10,21 +10,15 @@ The [RIT](https://www.rit.edu/) [School of Photographic Arts and Sciences (SPAS)
 
 Gallery Gateway is this custom replacement software.
 
+In addition to it's use for art showcases, Gallery Gateway has also been employed to facilitate in the scholarship selection process. In the current process, scholarship applications are reviewed by judges manually inspecting art pieces, which must be printed out by the students themselves. Gallery Gateway will facilitate this process by condensing all of the scholarship pieces into a single place, allowing for easier judging while also saving students the cost of printing.
+
 ### Team
 
-Gallery Gateway was built as a Senior Project for RIT's [Software Engineering Undergraduate Program](http://www.se.rit.edu/) during the Fall 2017 and Spring 2018 semesters.
+Gallery Gateway was built as a Senior Project for RIT's [Software Engineering Undergraduate Program](http://www.se.rit.edu/).
 
-It was built by [Team A B S T R A C T I O N](http://www.se.rit.edu/~abstraction/), whose members were [Kayla Davis](https://github.com/kayladavis), [Bill Dybas](https://github.com/billdybas), [Robert McLaughlin](https://github.com/robmcl4), and [Tina Howard](https://github.com/chtinahow).
+This iteration of the project was forked from the [original Gallery Gateway Repository](https://github.com/abstractionhq/gallery-gateway/), built by [Team A B S T R A C T I O N](http://www.se.rit.edu/~abstraction/) during the Fall 2017 and Spring 2018 semesters.
 
-The project was sponsored by Nanette Salvaggio and coached by Bill Stumbo.
-
-### Process
-
-We followed a Distributed Scrum process with sprints lasting two weeks. We conducted daily stand-ups over [Slack](https://slack.com/) and used [ZenHub](https://www.zenhub.com/) to manage our backlog of stories. Before each sprint, we met to triage, plan, and point stories, and after each sprint, we held a retrospective meeting. We met with our sponsor weekly to verify and validate requirements, whiteboard interface designs, and demo progress. We tracked our time using [Toggl](https://toggl.com/).
-
-Our two primary metrics were Velocity and Code Coverage.
-
-See our [Interim Presentation](https://youtu.be/iLT2T8WT80Q?t=28m20s) and [Final Presentation](https://youtu.be/1mFXTtoqFw8?t=1h3m52s) for more details.
+The second iteration of the project was built during the Fall 2019 and Spring 2020 semesters by [The Curators](http://www.se.rit.edu/~thecurators/) under supervision of sponsor Nanette Salvaggio and faculty coach Mohamed Wiem Mkaouer
 
 ## Architecture
 
