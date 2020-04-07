@@ -11,7 +11,7 @@ NODE_USER='www-data';
 SCRIPT_ROOT=`pwd`;
 DEFAULT_URL=https://github.com/abstractionhq/gallery-gateway/archive/master.zip
 
-if [$# -gt 0]
+if [ $# -gt 0 ];
 then
     GIT_URL=$1 
 else
@@ -45,7 +45,7 @@ ENDMYSQL
 # Download Gallery Gateway from GitHub
 #
 DEST_FOLDER=`date +%s`;
-wget GIT_URL -O "$DEST_FOLDER.zip";
+wget $GIT_URL -O "$DEST_FOLDER.zip";
 unzip -d $DEST_FOLDER "$DEST_FOLDER.zip";
 
 cd $DEST_FOLDER;
