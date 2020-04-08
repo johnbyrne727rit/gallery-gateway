@@ -10,21 +10,15 @@ The [RIT](https://www.rit.edu/) [School of Photographic Arts and Sciences (SPAS)
 
 Gallery Gateway is this custom replacement software.
 
+In addition to it's use for art showcases, Gallery Gateway has also been employed to facilitate in the scholarship selection process. In the current process, scholarship applications are reviewed by judges manually inspecting art pieces, which must be printed out by the students themselves. Gallery Gateway will facilitate this process by condensing all of the scholarship pieces into a single place, allowing for easier judging while also saving students the cost of printing.
+
 ### Team
 
-Gallery Gateway was built as a Senior Project for RIT's [Software Engineering Undergraduate Program](http://www.se.rit.edu/) during the Fall 2017 and Spring 2018 semesters.
+Gallery Gateway was built as a Senior Project for RIT's [Software Engineering Undergraduate Program](http://www.se.rit.edu/).
 
-It was built by [Team A B S T R A C T I O N](http://www.se.rit.edu/~abstraction/), whose members were [Kayla Davis](https://github.com/kayladavis), [Bill Dybas](https://github.com/billdybas), [Robert McLaughlin](https://github.com/robmcl4), and [Tina Howard](https://github.com/chtinahow).
+This iteration of the project was forked from the [original Gallery Gateway Repository](https://github.com/abstractionhq/gallery-gateway/), built by [Team A B S T R A C T I O N](http://www.se.rit.edu/~abstraction/) during the Fall 2017 and Spring 2018 semesters.
 
-The project was sponsored by Nanette Salvaggio and coached by Bill Stumbo.
-
-### Process
-
-We followed a Distributed Scrum process with sprints lasting two weeks. We conducted daily stand-ups over [Slack](https://slack.com/) and used [ZenHub](https://www.zenhub.com/) to manage our backlog of stories. Before each sprint, we met to triage, plan, and point stories, and after each sprint, we held a retrospective meeting. We met with our sponsor weekly to verify and validate requirements, whiteboard interface designs, and demo progress. We tracked our time using [Toggl](https://toggl.com/).
-
-Our two primary metrics were Velocity and Code Coverage.
-
-See our [Interim Presentation](https://youtu.be/iLT2T8WT80Q?t=28m20s) and [Final Presentation](https://youtu.be/1mFXTtoqFw8?t=1h3m52s) for more details.
+The second iteration of the project was built during the Fall 2019 and Spring 2020 semesters by [The Curators](http://www.se.rit.edu/~thecurators/) under supervision of sponsor Nanette Salvaggio and faculty coach Mohamed Wiem Mkaouer
 
 ## Architecture
 
@@ -94,18 +88,26 @@ You'll need to be running both the frontend and backend for development. Check o
 
 ## Deployment
 
+These are instructions for deployment to a production environment, which is assumed to be hosted at [http://gallerygateway.rit.edu/](http://gallerygateway.rit.edu/). For more information on deploying
+for testing and development, see the README files gound in `gallerygateway/backend` and `gallerygateway/frontend`
+
 We deploy our application on Ubuntu 16.04.
+
+_NOTE: Since this repository is a fork of the original github repository used to deploy gallery gateway, it needs ot be pulled into the gallery gateway server as a fork_ 
+```
+git pull https://github.com/johnbyrne727rit/gallery-gateway.git master
+```
 
 ### Prequisites
 
-Install Node (8.x LTS) & NPM (>= 5.6)
+#### Install Node (10.x LTS) & NPM (>= 5.6)
 
 ```sh
-curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 sudo apt-get install -y nodejs
 ```
 
-Install Yarn (>= 1.6)
+#### Install Yarn (>= 1.6)
 
 ```sh
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
@@ -113,38 +115,90 @@ echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/source
 sudo apt-get update
 sudo apt-get install yarn
 ```
+#### Install MySQL
+```sh
+sudo apt-get update
+sudo apt-get install mysql-server
+```
 
-[Nginx](https://nginx.org/en/) and [Supervisor](http://supervisord.org/) must be installed and running.
+To configure password and other settings run
+```sh
+sudo mysql_secure_installation utility
+```
 
-Additionally, setup HTTPS using [Let's Encrypt](https://letsencrypt.org/).
+To start MySQL run
+```sh
+sudo systemctl start mysql
+```
 
+#### Install [Nginx](https://nginx.org/en/)
+```sh
+sudo apt update
+sudo apt install nginx
+```
+
+Then start Nginx with
+```sh
+sudo systemctl start nginx
+```
+
+#### Install [Supervisor](http://supervisord.org/)
+```sh
+sudo apt-get install supervisor
+```
+
+Supervisor should automatically be running after installation, but you can double check by running
+ ```sh
+ service supervisor restart
+ ```
+
+#### Additionally, setup HTTPS 
+  This can be done using [Let's Encrypt](https://letsencrypt.org/).
+
+
+### Deployment Setup
+
+1. There must be a user in the sql database named 'gallerygateway'
+    1. To create a new user, start a mysql session with
+        ```sh
+        sudo /usr/bin/mysql -u root -p
+        ```
+
+    2. You can then check if the user already exists with
+        ```sh
+        SELECT User, Host FROM mysql.user;
+        ```
+
+    3. Create a new user in the database named gallerygateway (if one does not already exist)
+        ```sh
+        CREATE USER 'gallerygateway' IDENTIFIED BY '<password>';
+        ```
+        Replacing \<password\> with your user password
+
+2. In the top level directory, you must add a file called `mysql_password.txt` 
+   containing, on the first line, the password for the gallerygateway sql user
+   that was just created
+
+3. Provide the MySQL database password, RSA keys used for JWT authentication (see below)
+
+    ```sh
+    cd /opt/node/gallerygateway/keys
+    sudo openssl genrsa -out private.key 4096
+    sudo openssl rsa -in private.key -outform PEM -pubout -out public.key
+    ```
+    
+4. Add the the Identity Provider Certificate (idp_cert.pem) to /opt/node/gallerygateway/keys.
+   Instructions on creating a self signed certificate can be found [here](https://wiki.shibboleth.net/confluence/display/CONCEPT/SAMLKeysAndCertificates#SAMLKeysAndCertificates-SAMLKeysandCertificates)
+    
 ### Deploy the App
-
-Start a mysql session with
-```sh
-/usr/bin/mysql -u root -p
-```
-
-And then create a new user in the database named gallerygateway (if one does not already exist)
-```sh
-CREATE USER 'gallerygateway' IDENTIFIED BY '<password>';
-```
-Replacing <password> with your user password
-
-You can chec if the user exists with
-```sh
-SELECT User, Host FROM mysql.user;
-```
-
-In the top level directory, you must add a file called `mysql_password.txt` 
-containing, on the first line, the password for the gallerygateway sql user
-
 Run the deploy script from the top level directory
 ```sh
-deploy/deploy.sh
+deploy/deploy.sh <git url>
 ```
+where \<git url\> is the url link to the zip download of the target git repository. If left blank, 
+this will default to https://github.com/abstractionhq/gallery-gateway/archive/master.zip
 
-It will:
+The script will:
 - Create a MySQL database if one does not exist (and set the character encoding to UTF-8)
 - Download this project's source from GitHub
 - Install and build the frontend
@@ -152,13 +206,29 @@ It will:
 - Migrate the database tables
 - Start the backend using Supervisor
 
-You will need to provide the MySQL database password, RSA keys used for JWT authentication (see below), and the Identity Provider Certificate.
-
+If the backend fails to start, the script will still complete, you can check if it is running by 
+entering the command
 ```sh
-cd /opt/node/gallerygateway/keys
-sudo openssl genrsa -out private.key 4096
-sudo openssl rsa -in private.key -outform PEM -pubout -out public.key
+sudo supervisorctl status all
 ```
+
+### Troubleshooting Common Errors
+#### /usr/bin/mysql -u root -p gives command not found error
+This may mean that mysql has already been added to the path. In this case, try the command.
+```sh
+mysql -u root -p
+```
+The shell deploy script will still function properly in this case.
+
+If this does not work, mysql may be installed somewhere else, or may not be installed at all.
+
+
+#### The Supervisor backend is not running
+You are likely missing one of the required keys. You can check the 
+supervisor logs found in `/opt/node/gallerygateway/log.txt` for more information
+
+
+ 
 
 ## Maintenance
 

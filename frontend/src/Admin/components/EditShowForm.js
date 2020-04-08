@@ -13,6 +13,7 @@ import { Formik, Field } from 'formik'
 import yup from 'yup'
 import styled from 'styled-components'
 import moment from 'moment'
+import  isAfterDay  from 'react-dates/src/utils/isAfterDay'
 
 import FormikDateRangePicker from '../../shared/components/FormikDateRangePicker'
 
@@ -42,9 +43,14 @@ const CalendarContainer = styled.div`
   margin-bottom: 25px;
 `
 
-class CreateShowForm extends Component {
+class EditShowForm extends Component {
   static propTypes = {
-    create: PropTypes.func.isRequired,
+    show: PropTypes.shape({
+      name: PropTypes.string,
+      description: PropTypes.string,
+      entryCap: PropTypes.number.isRequired
+    }).isRequired,
+    update: PropTypes.func.isRequired,
     done: PropTypes.func.isRequired,
     handleError: PropTypes.func.isRequired
   }
@@ -61,18 +67,18 @@ class CreateShowForm extends Component {
   }
 
   render () {
-    const { create, done, handleError } = this.props
-
+    const { show, update, done, handleError } = this.props
+    if(moment(show.entryStart).isAfter(moment())){
     return (
       <Formik
         initialValues={{
-          name: '',
-          description: '',
-          entryCap: 2,
-          entryStart: null,
-          entryEnd: null,
-          judgingStart: null,
-          judgingEnd: null
+          name: show.name,
+          description: show.description,
+          entryCap: show.entryCap,
+          entryStart: moment(show.entryStart),
+          entryEnd: moment(show.entryEnd),
+          judgingStart: moment(show.judgingStart),
+          judgingEnd: moment(show.judgingEnd)
         }}
         validationSchema={yup.object().shape({
           name: yup.string().required('Required'),
@@ -112,7 +118,11 @@ class CreateShowForm extends Component {
             .required('End Date is Required')
         })}
         onSubmit={values => {
-          create(values)
+          values.entryStart
+          values.entryEnd
+          values.judgingStart
+          values.judgingEnd
+          update(values)
             .then(() => done())
             .catch(err => handleError(err.message))
         }}
@@ -171,6 +181,7 @@ class CreateShowForm extends Component {
                       <Label>Submission Dates</Label>
                       <CalendarContainer>
                         <FormikDateRangePicker
+                          isOutsideRange={day => !isAfterDay(day, moment())}
                           startDateField={{
                             field: 'entryStart',
                             input: {
@@ -201,6 +212,7 @@ class CreateShowForm extends Component {
                       <Label>Judging Dates</Label>
                       <CalendarContainer>
                         <FormikDateRangePicker
+                          isOutsideRange={day => !isAfterDay(day, moment())}
                           startDateField={{
                             field: 'judgingStart',
                             input: {
@@ -230,29 +242,29 @@ class CreateShowForm extends Component {
             <Row>
               <Col>
                 <Button
-                  type='submit'
-                  color='primary'
-                  style={{
-                    cursor: 'pointer'
-                  }}
-                  disabled={isSubmitting}
-                >
-                  Create
-                </Button>
+                type='submit'
+                color='primary'
+                style={{
+                  cursor: 'pointer'
+                }}
+                disabled={isSubmitting}
+              >
+                Save
+              </Button>
               </Col>
               <Col>
                 <Button
-                  type='button'
-                  color='danger'
-                  className="float-right"
-                  style={{
-                    cursor: 'pointer'
-                  }}
-                  disabled={isSubmitting}
-                  onClick={done}
-                >
-                  Cancel
-                </Button>
+                    type='button'
+                    color='danger'
+                    className="float-right"
+                    style={{
+                      cursor: 'pointer'
+                    }}
+                    disabled={isSubmitting}
+                    onClick={done}
+                  >
+                    Cancel
+                  </Button>
               </Col>
             </Row>
           </Form>
@@ -260,6 +272,12 @@ class CreateShowForm extends Component {
       />
     )
   }
+  else{
+    return(
+      <h2>Shows cannot be edited once the submission period has begun.</h2>
+    )
+  }
+}
 }
 
-export default CreateShowForm
+export default EditShowForm

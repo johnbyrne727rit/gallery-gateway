@@ -15,6 +15,7 @@ type User {
     firstName: String!
     lastName: String!
     displayName: String
+    hometown: String
     type: UserType!
     entries: [Entry]
     shows(date: Date): [Show]
@@ -25,6 +26,7 @@ input UserInput {
     firstName: String!
     lastName: String!
     displayName: String
+    hometown: String
 }
 
 input PermissionInput {
@@ -73,6 +75,10 @@ input ShowInput {
 input ShowUpdate {
     name: String
     description: String
+    entryStart: Date
+    entryEnd: Date
+    judgingStart: Date
+    judgingEnd: Date
     entryCap: Int
     finalized: Boolean
 }
@@ -115,6 +121,8 @@ input EntryInput {
     title: String!
     comment: String
     forSale: Boolean
+    hometown: String
+    displayName: String
     yearLevel: String
     academicProgram: String
     moreCopies: Boolean
@@ -240,7 +248,7 @@ type Mutation {
     createJudge(input: UserInput!): User
     createAdmin(input: UserInput!): User
     updatePermissions(input: PermissionInput!): User
-    updateUser(id: ID!, input: UserInput!): User
+    updateUser(input: UserInput!): User
     deleteUser(id: ID!): User
 
     createShow(input: ShowInput!): Show
