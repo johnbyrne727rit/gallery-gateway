@@ -93,6 +93,11 @@ for testing and development, see the README files gound in `gallerygateway/backe
 
 We deploy our application on Ubuntu 16.04.
 
+_NOTE: Since this repository is a fork of the original github repository used to deploy gallery gateway, it needs ot be pulled into the gallery gateway server as a fork_ 
+```
+git pull https://github.com/johnbyrne727rit/gallery-gateway.git master
+```
+
 ### Prequisites
 
 #### Install Node (10.x LTS) & NPM (>= 5.6)
