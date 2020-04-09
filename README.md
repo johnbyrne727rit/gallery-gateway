@@ -93,11 +93,6 @@ for testing and development, see the README files gound in `gallerygateway/backe
 
 We deploy our application on Ubuntu 16.04.
 
-_NOTE: Since this repository is a fork of the original github repository used to deploy gallery gateway, it needs ot be pulled into the gallery gateway server as a fork_ 
-```
-git pull https://github.com/johnbyrne727rit/gallery-gateway.git master
-```
-
 ### Prequisites
 
 #### Install Node (10.x LTS) & NPM (>= 5.6)
@@ -191,12 +186,14 @@ Supervisor should automatically be running after installation, but you can doubl
    Instructions on creating a self signed certificate can be found [here](https://wiki.shibboleth.net/confluence/display/CONCEPT/SAMLKeysAndCertificates#SAMLKeysAndCertificates-SAMLKeysandCertificates)
     
 ### Deploy the App
-Run the deploy script from the top level directory
+Run the deploy script
 ```sh
 deploy/deploy.sh <git url>
 ```
 where \<git url\> is the url link to the zip download of the target git repository. If left blank, 
 this will default to https://github.com/abstractionhq/gallery-gateway/archive/master.zip
+
+_NOTE: This is the only file that is needed in the source location to deploy the project. The rest of the source is downloaded as a part of the script_
 
 The script will:
 - Create a MySQL database if one does not exist (and set the character encoding to UTF-8)
