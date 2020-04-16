@@ -28,7 +28,7 @@ export function portfolioByPeriod(_, args, req) {
   if (args.studentUsername && req.auth.type !== ADMIN) {
     throw new UserError("Permission Denied");
   }
-  const { periodId } = args;
+  const periodId = args.periodId;
 
   const studentUsername = args.studentUsername
     ? args.studentUsername
