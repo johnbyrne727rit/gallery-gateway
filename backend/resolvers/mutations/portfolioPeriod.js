@@ -63,7 +63,7 @@ export function removeFromPortfolioPeriod (_, args, req) {
   return db.transaction(transaction =>
     PortfolioPeriod.findOne({ where: { id: args.portfolioPeriodId }, transaction })
       .then((portfolioPeriod) => {
-        if (portfolioPeriod === undefined) {
+        if (portfolioPeriod === null) {
           throw new UserError('Portfolio Period Not Found')
         }
 

@@ -39,7 +39,7 @@ describe("Portfolio Periods", () => {
       })
     });
 
-    it("validates start and end dates", function(done) {
+    it("validates start and end dates", (done) => {
         createPortfolioPeriod({}, { input: {
         name: 'Test Period',
         description: 'Coolest of periods',
@@ -73,47 +73,51 @@ describe("Portfolio Periods", () => {
         });  
     });
 
-    it("fails to add without portfolio period", () => {
-      return Promise.all([fakeUser({ type: "JUDGE" })])
+    it("fails to add without portfolio period", (done) => {
+      Promise.all([fakeUser({ type: "JUDGE" })])
         .then(([user]) => {
-            return expect(() => {
-              assignToPortfolioPeriod(
-              {},
-              {
-                usernames: [user.username]
-              },
-              { auth: { type: "ADMIN" } }
-            )}).to.throw('Portfolio Period Not Found')
+            assignToPortfolioPeriod({},{usernames: [user.username]}, { auth: { type: "ADMIN" } })
+            .catch((err) => {
+              expect(err).to.exist
+              expect(err.message).to.equal('Portfolio Period Not Found')
+              done()
+            });
         });  
     });
     
-    it("fails to add without judges", () => {
-      return Promise.all([fakePortfolioPeriod()])
+    it("fails to add without judges", (done) => {
+      Promise.all([fakePortfolioPeriod()])
         .then(([portfolioPeriod]) => {
-            return expect(() => {
-              assignToPortfolioPeriod(
+            assignToPortfolioPeriod(
               {},
               {
                 portfolioPeriodId: portfolioPeriod.id,
                 usernames: []
               },
               { auth: { type: "ADMIN" } }
-            )}).to.throw('Please input one or more usernames')
+            ).catch((err) => {
+              expect(err).to.exist
+              expect(err.message).to.equal('Please input one or more usernames')
+              done()
+            });
         });  
     });
 
-    it("fails to add invalid judges", () => {
-      return Promise.all([fakePortfolioPeriod()])
+    it("fails to add invalid judges", (done) => {
+      Promise.all([fakePortfolioPeriod()])
         .then(([portfolioPeriod]) => {
-            return expect(() => {
-              assignToPortfolioPeriod(
+            assignToPortfolioPeriod(
               {},
               {
                 portfolioPeriodId: portfolioPeriod.id,
                 usernames: ["INVALID"]
               },
               { auth: { type: "ADMIN" } }
-            )}).to.throw('Please input one or more usernames')
+            ).catch((err) => {
+              expect(err).to.exist
+              expect(err.message).to.equal('Cannot find one or more usernames')
+              done()
+            });
         });  
     });
 
@@ -175,27 +179,33 @@ describe("Portfolio Periods", () => {
     });
 
     it("fails to remove  with empty judge list", () => {
-      expect(() => {
+      expect( () => 
         removeFromPortfolioPeriod({},{usernames: []},{ auth: { type: "ADMIN" } })
-      }).to.throw('Please input one or more usernames')
+      ).to.throw('Please input one or more usernames')
     });
 
-    it("fails to remove  with invalid period id", () => {
-      expect(() => {
+    it("fails to remove  with invalid period id", (done) => {
         removeFromPortfolioPeriod({},{
           usernames: ['USER1'], 
           portfolioPeriodId: 1
         },
         { auth: { type: "ADMIN" } })
-      }).to.throw('Portfolio Period Not Found')
+      .catch((err) => {
+        expect(err).to.exist
+        expect(err.message).to.equal('Portfolio Period Not Found')
+        done()
+      });
     });
     
-    it("fails to remove if judge is not assigned", () => {
-      return Promise.all([fakeUser({ type: "JUDGE" }), fakePortfolioPeriod()])
+    it("fails to remove if judge is not assigned", (done) => {
+      Promise.all([fakeUser({ type: "JUDGE" }), fakePortfolioPeriod()])
       .then(([user, period]) => {
-        return expect(() => {
           removeFromPortfolioPeriod({},{usernames: [user.name], portfolioPeriodId: period.id},{ auth: { type: "ADMIN" } })
-        }).to.throw('Judge not assigned to portfolio period')
+          .catch((err) => {
+            expect(err).to.exist
+            expect(err.message).to.equal('Judge not assigned to portfolio period')
+            done()
+          });
       })
     });;
     
