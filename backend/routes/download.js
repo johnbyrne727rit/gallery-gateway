@@ -405,7 +405,7 @@ router.route('/zips/:showId')
             }, [])
           })
           .then(entrySummaries => {
-            // Now we need to generate the zip file...
+            // Now we need to generate the tar file...
             // entrySummaries:
             // [
             //   {
