@@ -415,10 +415,10 @@ router.route('/zips/:showId')
             //   },
             //   ...
             // ]
-      const archive = archiver('zip');
+      const archive = archiver('tar');
       res.status(200)
-      .type('zip')
-      .attachment(`${show.name}.zip`);
+      .type('tar')
+      .attachment(`${show.name}.tar`);
 
       archive.pipe(res); 
 
