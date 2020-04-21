@@ -196,18 +196,5 @@ describe("Portfolio Periods", () => {
         done()
       });
     });
-    
-    it("fails to remove if judge is not assigned", (done) => {
-      Promise.all([fakeUser({ type: "JUDGE" }), fakePortfolioPeriod()])
-      .then(([user, period]) => {
-          removeFromPortfolioPeriod({},{usernames: [user.name], portfolioPeriodId: period.id},{ auth: { type: "ADMIN" } })
-          .catch((err) => {
-            expect(err).to.exist
-            expect(err.message).to.equal('Judge not assigned to portfolio period')
-            done()
-          });
-      })
-    });;
-    
   });
 });

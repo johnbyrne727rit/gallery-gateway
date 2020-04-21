@@ -115,8 +115,8 @@ describe("Portfolio Queries", function() {
           },
           { auth: { type: "STUDENT", username: user.username } }
         )
-        .then(portfolios => {
-          return expect(portfolios[0].id).to.equal(portfolio.id)
+        .then(result => {
+          return expect(result.id).to.equal(portfolio.id)
         });
       });  
     });
