@@ -12,6 +12,7 @@ import { STUDENT, IMAGE_ENTRY, VIDEO_ENTRY, OTHER_ENTRY } from '../constants'
 import PortfolioPeriod from '../models/portfolioPeriod'
 import Portfolio from '../models/portfolio'
 import Piece from '../models/piece'
+import Scholarship from '../models/scholarship'
 
 // Helper for faking shows
 Date.prototype.addDays = function (days) { // eslint-disable-line no-extend-native
@@ -288,3 +289,28 @@ export function fakeOtherPiece (opts) {
       return fakePiece(opts)
     })
 }
+
+export function fakeScholarship (opts) {
+  opts = opts || {}
+  const name = opts.name || faker.name.title()
+  const gpa = opts.gpa
+  const yearStatus = opts.yearStatus
+  const requiredPhotos = opts.requiredPhotos || faker.random.number(0,10)
+  const description = opts.description || faker.lorem.sentence()
+  const fulltime = opts.fulltime || faker.random.boolean()
+  const renewable = opts.renewable || faker.random.boolean()
+  const requiresEssay = opts.requiresEssay || faker.random.boolean()
+  const degreePrograms = opts.degreePrograms
+  return Scholarship.create({
+    name: name,
+    gpa: gpa,
+    yearStatus: yearStatus,
+    requiredPhotos: requiredPhotos,
+    description: description,
+    fulltime: fulltime,
+    renewable: renewable,
+    requiresEssay: requiresEssay,
+    degreePrograms: degreePrograms
+  });
+}
+

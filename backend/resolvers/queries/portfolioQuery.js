@@ -25,7 +25,9 @@ export function portfolioByPeriod(_, args, req) {
   // Students can only look at their own portfolios
   // TODO: uncomment the student stuff for when students are
   // requesting their porfolios
-  if (args.studentUsername && req.auth.type !== ADMIN) {
+  if (args.studentUsername && 
+      req.auth.type !== ADMIN &&
+      args.studentUsername !== req.auth.username) {
     throw new UserError("Permission Denied");
   }
   const { periodId } = args;
