@@ -125,7 +125,7 @@ class ShowDetailsTab extends Component {
               onClick={() => downloadZip()}
             >
               <FontAwesomeIcon icon={FaArchive} className='align-middle' />{' '}
-              Download Photo Submissions ZIP
+              Download Photo Submissions TAR
             </Button>
             <Button
               color='danger'

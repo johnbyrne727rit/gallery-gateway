@@ -405,7 +405,7 @@ router.route('/zips/:showId')
             }, [])
           })
           .then(entrySummaries => {
-            // Now we need to generate the zip file...
+            // Now we need to generate the tar file...
             // entrySummaries:
             // [
             //   {
@@ -415,10 +415,10 @@ router.route('/zips/:showId')
             //   },
             //   ...
             // ]
-      const archive = archiver('zip');
+      const archive = archiver('tar');
       res.status(200)
-      .type('zip')
-      .attachment(`${show.name}.zip`);
+      .type('tar')
+      .attachment(`${show.name}.tar`);
 
       archive.pipe(res); 
 
