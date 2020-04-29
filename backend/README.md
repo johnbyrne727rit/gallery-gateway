@@ -21,7 +21,10 @@ You'll need to be running [MySQL](https://www.mysql.com/downloads/) and [SimpleS
 4. Build & start the MySQL and SimpleSAMLphp Docker containers: `cd docker && docker-compose up -d && cd ..`
 5. Copy the test SAML IDP's Cert into `keys/idp_cert.pem`. You can find it here: https://github.com/kristophjunge/docker-test-saml-idp/blob/master/config/simplesamlphp/server.crt
 6. Migrate the database: `npm run migrate`
-7. [Optional] Seed the database with users & demo data: `npm run seed`
+7. Seed the database with users & demo data: `npm run seed`
+   This will create 8 users, each with the usernames user*n* and the password user*n*pass
+   where *n* is a number from 1 to 8. User 1 is an admin, users 2-5 are judges, and users
+   6-8 are students
 8. Start the server: `npm run start`
 9. The API will now be running on `http://localhost:3000`
 10. You can visit `http://localhost:3000/graphiql` to use our interactive GraphQL playground or send requests to `http://localhost:3000/graphql` using your favorite HTTP client
