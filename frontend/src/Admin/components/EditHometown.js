@@ -81,11 +81,7 @@ class EditHometown extends Component {
                   />
               </Col> 
               <Button 
-                className='mr-3'
-                style = {{ 
-                  cursor: 'pointer',
-                  float: 'right'
-                }}
+                className='mr-4'
                 type='submit'
               >
                 Done
@@ -95,12 +91,7 @@ class EditHometown extends Component {
             (
             <Row>
               <Col>{values.hometown}</Col> 
-              <Col><Button 
-                style = {{
-                  cursor: 'pointer',
-                  float: 'right'
-                }}
-                onClick = {()=>{
+              <Col><Button onClick = {()=>{
                 values.isEditing = 'yes'
                 this.forceUpdate()
                 }}>Edit</Button></Col>

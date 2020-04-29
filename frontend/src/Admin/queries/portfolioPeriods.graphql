@@ -1,0 +1,21 @@
+query PortfolioPeriods {
+  portfolioPeriods(orderBy: { sort: "entryStart", direction: DESC }) {
+    id
+    name
+    description
+    numPieces
+    entryStart
+    entryEnd
+    judgingStart
+    judgingEnd
+    finalized
+    createdAt
+    updatedAt
+    judges {
+      username
+    }
+    portfolios {
+      submitted
+    }
+  }
+}

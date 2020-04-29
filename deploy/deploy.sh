@@ -11,11 +11,11 @@ NODE_USER='www-data';
 SCRIPT_ROOT=`pwd`;
 DEFAULT_URL=https://github.com/abstractionhq/gallery-gateway/archive/master.zip
 
-if [ $# -gt 0 ];
+if test $# -gt 0
 then
     GIT_URL=$1 
 else
-    GIT_URL=DEFAULT_URL
+    GIT_URL=$DEFAULT_URL
 fi
 
 set -e;

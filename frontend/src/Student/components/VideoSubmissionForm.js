@@ -163,7 +163,7 @@ class VideoSubmissionForm extends Component {
                   values.submittingAsGroup === "no" ? values.hometown : null,
                 studentUsername:
                   values.submittingAsGroup === "no" ? user.username : null,
-               showId: forShow.id,
+                showId: forShow.id,
                 academicProgram: values.academicProgram,
                 yearLevel: values.yearLevel,
                 title: values.title,

@@ -17,16 +17,16 @@ const NavBarContainer = styled.div`
   @media print {
     display: none !important;
   }
-`
+`;
 
 export default class NavBar extends Component {
   static propTypes = {
     logout: PropTypes.func.isRequired,
     switchToJudge: PropTypes.func.isRequired
-  }
+  };
 
   constructor (props) {
-    super(props)
+    super(props);
 
     this.state = {
       isOpen: false
@@ -37,7 +37,7 @@ export default class NavBar extends Component {
     this.setState({
       isOpen: !this.state.isOpen
     })
-  }
+  };
 
   render () {
     return (
@@ -49,6 +49,45 @@ export default class NavBar extends Component {
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className='ml-auto' navbar>
+              <NavItem>
+                <NavLink tag={Link} to='/'>
+                  Shows Dashboard
+                </NavLink>
+              </NavItem>
+              <li>
+                <span
+                    className='text-muted d-md-block d-none'
+                    style={{ padding: '8px', cursor: 'default' }}
+                >
+                  |
+                </span>
+              </li>
+              <NavItem>
+                <NavLink tag={Link} to='/portfolio'>
+                  Portfolio Dashboard
+                </NavLink>
+              </NavItem>
+              <li>
+                <span
+                    className='text-muted d-md-block d-none'
+                    style={{ padding: '8px', cursor: 'default' }}
+                >
+                  |
+                </span>
+              </li>
+              <NavItem>
+                <NavLink tag={Link} to='/scholarship'>
+                  Scholarships Dashboard
+                </NavLink>
+              </NavItem>
+              <li>
+                <span
+                    className='text-muted d-md-block d-none'
+                    style={{ padding: '8px', cursor: 'default' }}
+                >
+                  |
+                </span>
+              </li>
               <NavItem>
                 <NavLink tag={Link} to='/' onClick={this.props.switchToJudge}>
                   View as Judge

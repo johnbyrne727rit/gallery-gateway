@@ -8,6 +8,11 @@ import Image from '../models/image'
 import Video from '../models/video'
 import Other from '../models/other'
 import Vote from '../models/vote'
+import Scholarship from '../models/scholarship'
+import Portfolio from '../models/portfolio'
+import PortfolioPeriod from '../models/portfolioPeriod'
+import SinglePiece from '../models/singlePiece'
+import Piece from '../models/piece'
 import db from '../config/sequelize'
 
 before(function () {
@@ -39,9 +44,22 @@ beforeEach(function () {
     return db.query('SET FOREIGN_KEY_CHECKS = 0', {transaction: t})
       .then(() => {
         return Promise.all(
-          [User, Show, Entry, Group, Image, Video, Other, Vote]
-            .map((model) => model.destroy({where: {}, transaction: t}))
-        )
+          [
+            User,
+            Show,
+            Entry,
+            Group,
+            Image,
+            Video,
+            Other,
+            Vote,
+            Scholarship,
+            PortfolioPeriod,
+            Portfolio,
+            Piece,
+            SinglePiece
+          ].map(model => model.destroy({ where: {}, transaction: t }))
+        );
       })
       .then(() => {
         return db.query('SET FOREIGN_KEY_CHECKS = 1', {transaction: t})

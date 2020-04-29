@@ -8,7 +8,7 @@ const Dashboard = () => (
   <Container>
     <Row className='align-items-baseline'>
       <Col>
-        <h1>Dashboard</h1>
+        <h1>Shows Dashboard</h1>
       </Col>
       <Col md='3'>
         <Button
@@ -28,6 +28,6 @@ const Dashboard = () => (
       </Col>
     </Row>
   </Container>
-)
+);
 
 export default Dashboard

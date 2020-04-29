@@ -7,7 +7,12 @@ import Entry from '../models/entry'
 import Video from '../models/video'
 import Other from '../models/other'
 import Vote from '../models/vote'
+import SinglePiece from '../models/singlePiece'
 import { STUDENT, IMAGE_ENTRY, VIDEO_ENTRY, OTHER_ENTRY } from '../constants'
+import PortfolioPeriod from '../models/portfolioPeriod'
+import Portfolio from '../models/portfolio'
+import Piece from '../models/piece'
+import Scholarship from '../models/scholarship'
 
 // Helper for faking shows
 Date.prototype.addDays = function (days) { // eslint-disable-line no-extend-native
@@ -92,14 +97,29 @@ function fakeOther (opts) {
   })
 }
 
-function fakeEntry (opts) {
+function fakeSinglePiece (opts) {
   opts = opts || {}
   if (!opts.image && !opts.video && !opts.other) {
     throw Error('No entry item found')
   }
   opts.title = opts.title || faker.lorem.words(3)
-  opts.moreCopies = opts.moreCopies === undefined ? faker.random.boolean() : opts.moreCopies
   opts.comment = opts.comment || faker.lorem.sentence()
+  const pieceType = opts.image ? IMAGE_ENTRY : opts.video ? VIDEO_ENTRY : OTHER_ENTRY
+  const pieceId = opts.image ? opts.image.id : opts.video ? opts.video.id : opts.other.id
+  return SinglePiece.create({
+    pieceType: pieceType,
+    pieceId: pieceId,
+    title: opts.title,
+    comment: opts.comment
+  })
+}
+
+function fakeEntry (opts) {
+  opts = opts || {}
+  if (!opts.image && !opts.video && !opts.other) {
+    throw Error('No entry item found')
+  }
+  opts.moreCopies = opts.moreCopies === undefined ? faker.random.boolean() : opts.moreCopies
   opts.forSale = opts.forSale === undefined ? faker.random.boolean() : opts.forSale
   opts.invited = opts.invited === undefined ? faker.random.boolean() : opts.invited
   opts.awardWon = opts.awardWon || faker.lorem.words(2)
@@ -107,24 +127,27 @@ function fakeEntry (opts) {
   opts.academicProgram = opts.academicProgram === undefined ? faker.lorem.word() : opts.academicProgram
   const showPromise = opts.show ? Promise.resolve(opts.show) : fakeShow()
   const userPromise = opts.user || opts.group ? Promise.resolve(opts.user) : fakeUser()
-  const entryType = opts.image ? IMAGE_ENTRY : opts.video ? VIDEO_ENTRY : OTHER_ENTRY
-  const entryId = opts.image ? opts.image.id : opts.video ? opts.video.id : opts.other.id
-  return Promise.all([showPromise, userPromise])
+  const piecePromise = fakeSinglePiece(opts)
+  return Promise.all([showPromise, userPromise, piecePromise])
     .then((models) => {
       const show = models[0]
       const user = models[1]
+      const piece = models[2]
       return Entry.create({
         showId: show.id,
         studentUsername: user ? user.username : null,
         groupId: opts.group ? opts.group.id : null,
-        entryType: entryType,
-        entryId: entryId,
-        title: opts.title,
-        comment: opts.comment,
         moreCopies: opts.moreCopies,
         forSale: opts.forSale,
         awardWon: opts.awardWon,
-        invited: opts.invited
+        invited: opts.invited,
+        pieceId: piece.id
+      }).then(entry => {
+        // this normally gets done by the resolver, but since the factory skips the 
+        // resolver we have to tack them on here
+        entry.title = piece.title
+        entry.comment = piece.comment
+        return entry
       })
     })
 }
@@ -177,3 +200,117 @@ export function fakeVoteReturnShowId (opts) {
       )
     })
 }
+
+export function fakePortfolioPeriod (opts) {
+  opts = opts || {}
+  opts.name = opts.name || faker.name.title()
+  opts.description = opts.description || faker.name.jobDescriptor()
+  opts.numPieces = opts.numPieces ||10
+  opts.entryStart = opts.entryStart || faker.date.between(new Date(-2), new Date().addDays(-1))
+  opts.entryEnd = opts.entryEnd || faker.date.between(new Date().addDays(2), new Date().addDays(3))
+  opts.judgingStart = opts.judgingStart || faker.date.between(new Date().addDays(4), new Date().addDays(5))
+  opts.judgingEnd = opts.judgingEnd || faker.date.between(new Date().addDays(6), new Date().addDays(7))
+  return PortfolioPeriod.create({
+    name: opts.name,
+    description: opts.description,
+    numPieces: opts.numPieces,
+    entryStart: opts.entryStart,
+    entryEnd: opts.entryEnd,
+    judgingStart: opts.judgingStart,
+    judgingEnd: opts.judgingEnd,
+  })
+}
+
+export function fakePortfolio(opts){
+  opts = opts || {}
+  opts.yearLevel = opts.yearLevel === undefined ? faker.lorem.word() : opts.yearLevel
+  opts.academicProgram = opts.academicProgram === undefined ? faker.lorem.word() : opts.academicProgram
+  const periodPromise = opts.period ? Promise.resolve(opts.period) : fakePortfolioPeriod()
+  const userPromise = opts.user || opts.group ? Promise.resolve(opts.user) : fakeUser()
+  return Promise.all([periodPromise, userPromise])
+    .then((models) => {
+      const period = models[0]
+      const user = models[1]
+      return Portfolio.create({
+        portfolioPeriodId: period.id,
+        studentUsername: user ? user.username : null,
+        yearLevel: opts.yearLevel,
+        academicProgram: opts.academicProgram
+      })
+    })
+}
+
+function fakePiece(opts){
+  opts = opts || {}
+  if (!opts.image && !opts.video && !opts.other) {
+    throw Error('No entry item found')
+  }
+  const portfolioPromise = opts.portfolio ? Promise.resolve(opts.portfolio) : fakePortfolio(opts)
+  const userPromise = opts.user ? Promise.resolve(opts.user) : fakeUser()
+  const piecePromise = fakeSinglePiece(opts)
+  return Promise.all([portfolioPromise, userPromise, piecePromise])
+    .then((models) => {
+      const portfolio = models[0]
+      const user = models[1]
+      const singlePiece = models[2]
+      return Piece.create({
+        portfolioId: portfolio.id,
+        pieceId: singlePiece.id
+      })
+    })
+}
+
+export function fakeImagePiece (opts) {
+  opts = opts || {}
+  const imagePromise = opts.image ? Promise.resolve(opts.image) : fakeImage(opts)
+  return imagePromise
+    .then((image) => {
+      opts.image = image
+      return fakePiece(opts)
+    })
+}
+
+export function fakeVideoPiece (opts) {
+  opts = opts || {}
+  const videoPromise = opts.video ? Promise.resolve(opts.video) : fakeVideo(opts)
+  return videoPromise
+    .then((video) => {
+      opts.video = video
+      return fakePiece(opts)
+    })
+}
+
+export function fakeOtherPiece (opts) {
+  opts = opts || {}
+  const otherPromise = opts.other ? Promise.resolve(opts.other) : fakeOther(opts)
+  return otherPromise
+    .then((other) => {
+      opts.other = other
+      return fakePiece(opts)
+    })
+}
+
+export function fakeScholarship (opts) {
+  opts = opts || {}
+  const name = opts.name || faker.name.title()
+  const gpa = opts.gpa
+  const yearStatus = opts.yearStatus
+  const requiredPhotos = opts.requiredPhotos || faker.random.number(0,10)
+  const description = opts.description || faker.lorem.sentence()
+  const fulltime = opts.fulltime || faker.random.boolean()
+  const renewable = opts.renewable || faker.random.boolean()
+  const requiresEssay = opts.requiresEssay || faker.random.boolean()
+  const degreePrograms = opts.degreePrograms
+  return Scholarship.create({
+    name: name,
+    gpa: gpa,
+    yearStatus: yearStatus,
+    requiredPhotos: requiredPhotos,
+    description: description,
+    fulltime: fulltime,
+    renewable: renewable,
+    requiresEssay: requiresEssay,
+    degreePrograms: degreePrograms
+  });
+}
+
