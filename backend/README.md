@@ -6,7 +6,8 @@
 
 You'll need [Node](https://nodejs.org/en/download/) >= 8.x and [npm](https://docs.npmjs.com/cli/npm) to be installed. 
 
-*Note: The build does not currently work with Node >= 12.x due to an issue with the sequelize package*
+*Note: The build does not currently work with Node >= 12.x due to an issue with the sequelize package.
+the most recent iteration was developed using Node version 10*
 
 You'll need to be running [MySQL](https://www.mysql.com/downloads/) and [SimpleSAMLphp](https://simplesamlphp.org/). In development, our preferred method is to run them using [Docker](https://docs.docker.com/install/).
 
@@ -64,7 +65,7 @@ npm migrate often fails when the wrong versions of certain packages are being us
 ### npm run seed fails
 This may occur if you are not connected to the internet, or, on occasion, if one of the sample image urls is taken down. In the case of the latter, you must update the failing URL in `/gallery-gateway/backend/db/seeds/20180415220000-seed-demo.js`.
 
-In either case, unfortunately, the seed operations cannot be rolled back if they fail half way through, which will cause future seed operations to continue to fail. If an `npm run seed` fails, you will likely need to take down the database with 
+In either case, unfortunately, the seed operations cannot be rolled back if they fail half way through, which will cause future seed operations to continue to fail. If an `npm run seed` fails, it is likely that the database is already populated with users. If you would like to complete the seed in order to prepopulate images and shows onto the database, you will likely need to take down the database with 
 `cd docker && docker-compose down && cd ..`, then repeat steps 4 and 6 of the deployment process.
 
 ## Deployment
