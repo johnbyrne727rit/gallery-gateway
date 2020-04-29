@@ -89,14 +89,9 @@ You'll need to be running both the frontend and backend for development. Check o
 ## Deployment
 
 These are instructions for deployment to a production environment, which is assumed to be hosted at [http://gallerygateway.rit.edu/](http://gallerygateway.rit.edu/). For more information on deploying
-for testing and development, see the README files gound in `gallerygateway/backend` and `gallerygateway/frontend`
+for testing and development, see the README files found in `gallerygateway/backend` and `gallerygateway/frontend`
 
 We deploy our application on Ubuntu 16.04.
-
-_NOTE: Since this repository is a fork of the original github repository used to deploy gallery gateway, it needs ot be pulled into the gallery gateway server as a fork_ 
-```
-git pull https://github.com/johnbyrne727rit/gallery-gateway.git master
-```
 
 ### Prequisites
 
@@ -117,7 +112,6 @@ sudo apt-get install yarn
 ```
 #### Install MySQL
 ```sh
-sudo apt-get update
 sudo apt-get install mysql-server
 ```
 
@@ -133,7 +127,6 @@ sudo systemctl start mysql
 
 #### Install [Nginx](https://nginx.org/en/)
 ```sh
-sudo apt update
 sudo apt install nginx
 ```
 
@@ -198,7 +191,7 @@ deploy/deploy.sh <git url>
 where \<git url\> is the url link to the zip download of the target git repository. If left blank, 
 this will default to https://github.com/abstractionhq/gallery-gateway/archive/master.zip
 
-_NOTE: This is the only file that is needed in the source location to deploy the project. The rest of the source is downloaded as a part of the script_
+```deploy.sh``` is the only file that is needed in the source location to deploy the project. The rest of the source is downloaded as a part of the script
 
 The script will:
 - Create a MySQL database if one does not exist (and set the character encoding to UTF-8)
