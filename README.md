@@ -86,6 +86,8 @@ Here are some useful resources on these tools and our architecture:
 
 You'll need to be running both the frontend and backend for development. Check out each of their README's for further instructions.
 
+Additional Documentation regarding this project can be found in our [documentation index](https://drive.google.com/open?id=1nrIw5kysk8iKvdw8QSMqzTuxrqZcepXX3M-DJGtvSZM).
+
 ## Deployment
 
 These are instructions for deployment to a production environment, which is assumed to be hosted at [http://gallerygateway.rit.edu/](http://gallerygateway.rit.edu/). For more information on deploying
