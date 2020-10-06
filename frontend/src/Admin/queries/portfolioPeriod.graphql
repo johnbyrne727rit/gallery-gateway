@@ -1,4 +1,4 @@
-query PortfolioPeriods($id: ID!){
+query PortfolioPeriod($id: ID!){
   portfolioPeriod(id: $id) {
     id
     name
