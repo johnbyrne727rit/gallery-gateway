@@ -13,8 +13,9 @@ const mapDispatchToProps = dispatch => ({
 export default compose(
   connect(null, mapDispatchToProps),
   graphql(ScholarshipsQuery, {
-    props: ({ ownProps, data: { scholarship, loading, error } }) => ({
-      scholarship,
+    props: (
+      {data: { scholarships, loading, error } }) => ({
+      scholarships,
       loading,
       error
     })

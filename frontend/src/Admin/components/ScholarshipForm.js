@@ -14,7 +14,19 @@ import yup from 'yup'
 
 class ScholarshipForm extends Component {
   static propTypes = {
-    create: PropTypes.func.isRequired,
+    scholarship: PropTypes.shape({
+      name: PropTypes.string,
+      description: PropTypes.string,
+      gpa: PropTypes.number,
+      fulltime: PropTypes.bool,
+      degreePrograms: PropTypes.string,
+      yearStatus: PropTypes.string,
+      requiresEssay: PropTypes.bool,
+      renewable: PropTypes.bool,
+      requiredPhotos: PropTypes.number
+    }),
+    editMode: PropTypes.func.isRequired,
+    submit: PropTypes.func.isRequired,
     done: PropTypes.func.isRequired,
     handleError: PropTypes.func.isRequired
   };
@@ -48,21 +60,28 @@ class ScholarshipForm extends Component {
     return null
   };
 
+  convertBool (b) {
+    if (b) {
+      return 'yes'
+    }
+    return 'no'
+  }
+
   render () {
-    const { create, done, handleError } = this.props
+    const { submit, done, handleError } = this.props
     return (
       <Fragment>
         <Formik
           initialValues={{
-            name: '',
-            gpa: '',
-            yearStatus: '',
-            requiredPhotos: '',
-            description: '',
-            fulltime: '',
-            renewable: '',
-            requiresEssay: '',
-            degreePrograms: ''
+            name: this.props.scholarship.name,
+            gpa: this.props.scholarship.gpa,
+            yearStatus: this.props.scholarship.yearStatus,
+            requiredPhotos: this.props.scholarship.requiredPhotos,
+            description: this.props.scholarship.description,
+            fulltime: this.convertBool(this.props.scholarship.fulltime),
+            renewable: this.convertBool(this.props.scholarship.renewable),
+            requiresEssay: this.convertBool(this.props.scholarship.requiresEssay),
+            degreePrograms: this.props.scholarship.degreePrograms
           }}
           validationSchema={yup.object().shape({
             name: yup.string().required('Required'),
@@ -76,11 +95,11 @@ class ScholarshipForm extends Component {
             degreePrograms: yup.string().required('Required')
           })}
           onSubmit={(values, actions) => {
-            create(values)
+            submit(values)
               .then(() => done())
               .catch(err => {
                 handleError(err.message)
-                actions.setSubmitting(false);
+                actions.setSubmitting(false)
               })
           }}
           render={({ values, errors, touched, handleSubmit, isSubmitting }) => (
@@ -249,7 +268,6 @@ class ScholarshipForm extends Component {
                       id="degreePrograms"
                       name="degreePrograms"
                       className="form-control"
-                      value={this.props.degreePrograms}
                     />
                     {this.renderErrors(touched, errors, 'degreePrograms')}
                   </FormGroup>
@@ -263,7 +281,7 @@ class ScholarshipForm extends Component {
                     style={{cursor: 'pointer'}}
                     disabled={isSubmitting}
                   >
-                    <span>Create</span>
+                    <span>{(this.props.editMode ? 'Update' : 'Create')}</span>
                   </Button>
                 </Col>
                 <Col>
@@ -286,6 +304,21 @@ class ScholarshipForm extends Component {
       </Fragment>
     )
   };
+}
+
+ScholarshipForm.defaultProps = {
+  scholarship: {
+    name: '',
+    description: '',
+    gpa: '',
+    fulltime: '',
+    degreePrograms: '',
+    yearStatus: '',
+    requiresEssay: '',
+    renewable: '',
+    requiredPhotos: ''
+  },
+  editMode: false
 }
 
 export default ScholarshipForm
