@@ -405,6 +405,7 @@ type Mutation {
     removeFromPortfolioPeriod(portfolioPeriodId: ID!, usernames: [String]!): Boolean
 
     createPortfolioPeriod(input: PortfolioPeriodInput!): PortfolioPeriod
+    updatePortfolioPeriod(id: ID!, input: PortfolioPeriodInput!): PortfolioPeriod
 
     createPhoto(input: PhotoInput!): Show
     createPortfolioPhoto(input: PortfolioPhotoInput!): Portfolio

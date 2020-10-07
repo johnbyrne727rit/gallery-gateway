@@ -79,3 +79,19 @@ export function removeFromPortfolioPeriod (_, args, req) {
       })
   ).then(() => { return true })
 }
+
+export function updatePortfolioPeriod (_, args, req) {
+  // Only admins can update entries
+  if (req.auth.type !== ADMIN) {
+    throw new UserError('Permission Denied')
+  }
+  return PortfolioPeriod.findById(args.id)
+    .then((portfolioPeriod) => {
+      return portfolioPeriod.update(args.input, {
+        fields: ['name', 'description',
+          'entryStart', 'entryEnd',
+          'judgingStart', 'judgingEnd',
+          'entryCap', 'finalized']
+      })
+    })
+}
