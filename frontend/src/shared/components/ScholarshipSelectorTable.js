@@ -1,13 +1,13 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import SelectorTable from "./SelectorTable";
-import ScholarshipSelectorCard from "./ScholarshipSelectorCard";
+import SelectorTable from './SelectorTable'
+import ScholarshipSelectorCard from './ScholarshipSelectorCard'
 
 class ScholarshipSelectorTable extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {selected: []};
+  constructor (props) {
+    super(props)
+    this.state = { selected: [] }
   }
 
   static propTypes = {
@@ -17,10 +17,10 @@ class ScholarshipSelectorTable extends Component {
     selected: PropTypes.object.isRequired,
     cardTemplate: PropTypes.func.isRequired,
     cardTemplateProps: PropTypes.object,
-    onChange: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired
 
     // New props
-  };
+  }
 
   static defaultProps = {
     // Inherited props defaults
@@ -30,22 +30,19 @@ class ScholarshipSelectorTable extends Component {
     cardTemplateProps: {},
 
     // New props defaults
-    cardTemplate: ScholarshipSelectorCard,
-  };
+    cardTemplate: ScholarshipSelectorCard
+  }
 
-  handleToggleExpand = template => {
+  handleToggleExpand = template => {}
 
-  };
+  render () {
+    this.props.cardTemplateProps.onToggleExport = this.handleToggleExpand
 
-  render() {
-
-    this.props.cardTemplateProps.onToggleExport = this.handleToggleExpand;
-
-    return <div>
-      <SelectorTable
-        {...this.props}
-      />
-    </div>;
+    return (
+      <div>
+        <SelectorTable {...this.props} />
+      </div>
+    )
   }
 }
 

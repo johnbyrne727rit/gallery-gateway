@@ -1,7 +1,14 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import { Collapse, Navbar, NavbarToggler, Nav, NavItem, NavLink } from 'reactstrap'
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  Nav,
+  NavItem,
+  NavLink
+} from 'reactstrap'
 import styled from 'styled-components'
 
 const NavBarContainer = styled.div`
@@ -44,8 +51,8 @@ export default class NavBar extends Component {
               </NavItem>
               <li>
                 <span
-                    className='text-muted d-md-block d-none'
-                    style={{ padding: '8px', cursor: 'default' }}
+                  className='text-muted d-md-block d-none'
+                  style={{ padding: '8px', cursor: 'default' }}
                 >
                   |
                 </span>

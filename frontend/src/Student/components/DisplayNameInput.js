@@ -1,10 +1,10 @@
-import React from "react";
-import { Label, FormGroup, UncontrolledTooltip } from "reactstrap";
-import { Field } from "formik";
-import FontAwesomeIcon from "@fortawesome/react-fontawesome";
-import FaQuestionCircle from "@fortawesome/fontawesome-free-solid/faQuestionCircle";
+import React from 'react'
+import { Label, FormGroup, UncontrolledTooltip } from 'reactstrap'
+import { Field } from 'formik'
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import FaQuestionCircle from '@fortawesome/fontawesome-free-solid/faQuestionCircle'
 
-export default function DisplayNameInput({
+export default function DisplayNameInput ({
   values,
   touched,
   errors,
@@ -17,44 +17,44 @@ export default function DisplayNameInput({
         <FormGroup check>
           <Label check>
             <Field
-              type="radio"
-              id="useDisplayName"
-              name="useDisplayName"
-              value="no"
+              type='radio'
+              id='useDisplayName'
+              name='useDisplayName'
+              value='no'
               required
-              checked={values.useDisplayName === "no"}
+              checked={values.useDisplayName === 'no'}
             />
-            <span className="ml-2">No</span>
+            <span className='ml-2'>No</span>
           </Label>
         </FormGroup>
         <FormGroup check>
           <Label check>
             <Field
-              type="radio"
-              id="useDisplayName"
-              name="useDisplayName"
-              value="yes"
+              type='radio'
+              id='useDisplayName'
+              name='useDisplayName'
+              value='yes'
               required
-              checked={values.useDisplayName === "yes"}
+              checked={values.useDisplayName === 'yes'}
             />
-            <span className="ml-2">Yes</span>
+            <span className='ml-2'>Yes</span>
           </Label>
         </FormGroup>
-        {renderErrors(touched, errors, "useDisplayName")}
+        {renderErrors(touched, errors, 'useDisplayName')}
       </FormGroup>
-      {values.useDisplayName === "yes" && (
+      {values.useDisplayName === 'yes' && (
         <FormGroup>
           <Label>Pseudonym</Label>
           <Field
-            type="text"
-            id="displayName"
-            name="displayName"
-            className="form-control"
+            type='text'
+            id='displayName'
+            name='displayName'
+            className='form-control'
             required
           />
-          {renderErrors(touched, errors, "displayName")}
+          {renderErrors(touched, errors, 'displayName')}
         </FormGroup>
       )}
     </React.Fragment>
-  );
+  )
 }

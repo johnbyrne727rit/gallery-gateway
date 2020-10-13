@@ -18,8 +18,8 @@ const mapDispatchToProps = dispatch => ({
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  graphql(PortfoliosQuery,{
-    props: ({ data: {loading, portfoliosByStudent, error}}) => ({
+  graphql(PortfoliosQuery, {
+    props: ({ data: { loading, portfoliosByStudent, error } }) => ({
       portfoliosLoading: loading,
       portfolios: portfoliosByStudent,
       portfoliosError: error
@@ -28,23 +28,23 @@ export default compose(
       variables: {
         studentUsername: ownProps.studentUsername
       }
-    })    
+    })
   }),
-  graphql(OpenPortfolioPeriodQuery,{
-    props: ({ data: {loading, openPortfolioPeriod, error}}) => ({
+  graphql(OpenPortfolioPeriodQuery, {
+    props: ({ data: { loading, openPortfolioPeriod, error } }) => ({
       openPeriodLoading: loading,
       openPeriod: openPortfolioPeriod,
       openPeriodError: error
     }),
-    options:ownProps => ({
+    options: ownProps => ({
       variables: {
         studentUsername: ownProps.studentUsername
       }
-    })   
+    })
   }),
   graphql(DeletePiece, {
     props: ({ mutate }) => ({
-      deletePiece: (id) =>
+      deletePiece: id =>
         mutate({
           variables: { id }
         })

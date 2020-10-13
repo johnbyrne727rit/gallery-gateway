@@ -45,7 +45,7 @@ class EditHometown extends Component {
           firstName: student.firstName,
           lastName: student.lastName,
           hometown: student.hometown,
-          isEditing: 'no',
+          isEditing: 'no'
         }}
         validationSchema={yup.object().shape({
           username: yup.string().required('Required'),
@@ -62,15 +62,16 @@ class EditHometown extends Component {
           }
 
           create(input)
-            .then(values.isEditing = 'no').then(this.forceUpdate()) //turn off edit mode
+            .then((values.isEditing = 'no'))
+            .then(this.forceUpdate()) // turn off edit mode
             .catch(err => handleError(err.message))
         }}
         render={({ values, handleSubmit, isSubmitting }) => (
           <Form onSubmit={handleSubmit}>
-           {values.isEditing == 'yes' ? (
-            <Row>
-              <Col>        
-                <Field
+            {values.isEditing == 'yes' ? (
+              <Row>
+                <Col>
+                  <Field
                     style={{
                       width: '10em'
                     }}
@@ -79,23 +80,25 @@ class EditHometown extends Component {
                     name='hometown'
                     className='form-control'
                   />
-              </Col> 
-              <Button 
-                className='mr-4'
-                type='submit'
-              >
-                Done
-              </Button> 
-            </Row>
-           ):
-            (
-            <Row>
-              <Col>{values.hometown}</Col> 
-              <Col><Button onClick = {()=>{
-                values.isEditing = 'yes'
-                this.forceUpdate()
-                }}>Edit</Button></Col>
-            </Row>
+                </Col>
+                <Button className='mr-4' type='submit'>
+                  Done
+                </Button>
+              </Row>
+            ) : (
+              <Row>
+                <Col>{values.hometown}</Col>
+                <Col>
+                  <Button
+                    onClick={() => {
+                      values.isEditing = 'yes'
+                      this.forceUpdate()
+                    }}
+                  >
+                    Edit
+                  </Button>
+                </Col>
+              </Row>
             )}
           </Form>
         )}

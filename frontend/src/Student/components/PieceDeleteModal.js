@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 import {
   Row,
   Button,
@@ -7,9 +7,9 @@ import {
   ModalBody,
   ModalFooter,
   Container
-} from "reactstrap";
-import FontAwesomeIcon from "@fortawesome/react-fontawesome";
-import FaExclamationTriangle from "@fortawesome/fontawesome-free-solid/faExclamationTriangle";
+} from 'reactstrap'
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import FaExclamationTriangle from '@fortawesome/fontawesome-free-solid/faExclamationTriangle'
 
 const PieceDeleteModal = ({
   isOpen,
@@ -18,14 +18,14 @@ const PieceDeleteModal = ({
   deletePiece,
   EntryThumb
 }) => {
-  const onDelete = e => deletePiece().then(() => closeDeleteModal(e));
+  const onDelete = e => deletePiece().then(() => closeDeleteModal(e))
   return (
     <Modal isOpen={isOpen}>
       <ModalHeader>
-        Warning{" "}
+        Warning{' '}
         <FontAwesomeIcon
           icon={FaExclamationTriangle}
-          className="align-middle"
+          className='align-middle'
         />
       </ModalHeader>
       <ModalBody>
@@ -34,22 +34,22 @@ const PieceDeleteModal = ({
             Deleting a piece is a permanent action. Are you sure you want to
             delete this piece?
           </Row>
-          <Row className="justify-content-center">
+          <Row className='justify-content-center'>
             <i>{picture.title}</i>
           </Row>
-          <Row className="justify-content-center">
-            <EntryThumb piece={picture} type="piece" />
+          <Row className='justify-content-center'>
+            <EntryThumb piece={picture} type='piece' />
           </Row>
         </Container>
       </ModalBody>
       <ModalFooter>
         <Button onClick={closeDeleteModal}>Cancel</Button>
-        <Button onClick={onDelete} color="danger">
+        <Button onClick={onDelete} color='danger'>
           Confirm Delete
         </Button>
       </ModalFooter>
     </Modal>
-  );
-};
+  )
+}
 
-export default PieceDeleteModal;
+export default PieceDeleteModal

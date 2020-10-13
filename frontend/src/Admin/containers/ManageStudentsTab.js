@@ -7,7 +7,7 @@ import StudentsQuery from '../queries/students.graphql'
 import UpdateUserMutation from '../mutations/updateUser.graphql'
 import { displayError } from '../../shared/actions'
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   handleError: message => dispatch(displayError(message))
 })
 

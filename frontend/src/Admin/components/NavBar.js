@@ -17,16 +17,16 @@ const NavBarContainer = styled.div`
   @media print {
     display: none !important;
   }
-`;
+`
 
 export default class NavBar extends Component {
   static propTypes = {
     logout: PropTypes.func.isRequired,
     switchToJudge: PropTypes.func.isRequired
-  };
+  }
 
   constructor (props) {
-    super(props);
+    super(props)
 
     this.state = {
       isOpen: false
@@ -37,7 +37,7 @@ export default class NavBar extends Component {
     this.setState({
       isOpen: !this.state.isOpen
     })
-  };
+  }
 
   render () {
     return (
@@ -56,8 +56,8 @@ export default class NavBar extends Component {
               </NavItem>
               <li>
                 <span
-                    className='text-muted d-md-block d-none'
-                    style={{ padding: '8px', cursor: 'default' }}
+                  className='text-muted d-md-block d-none'
+                  style={{ padding: '8px', cursor: 'default' }}
                 >
                   |
                 </span>
@@ -69,8 +69,8 @@ export default class NavBar extends Component {
               </NavItem>
               <li>
                 <span
-                    className='text-muted d-md-block d-none'
-                    style={{ padding: '8px', cursor: 'default' }}
+                  className='text-muted d-md-block d-none'
+                  style={{ padding: '8px', cursor: 'default' }}
                 >
                   |
                 </span>
@@ -82,8 +82,8 @@ export default class NavBar extends Component {
               </NavItem>
               <li>
                 <span
-                    className='text-muted d-md-block d-none'
-                    style={{ padding: '8px', cursor: 'default' }}
+                  className='text-muted d-md-block d-none'
+                  style={{ padding: '8px', cursor: 'default' }}
                 >
                   |
                 </span>

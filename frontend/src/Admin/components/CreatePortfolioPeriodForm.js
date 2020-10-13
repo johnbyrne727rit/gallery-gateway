@@ -62,7 +62,7 @@ class CreatePortfolioPeriodForm extends Component {
 
   render () {
     const { create, done, handleError } = this.props
-    const initialName = `Scholarship Application ${(new Date()).getFullYear()}`
+    const initialName = `Scholarship Application ${new Date().getFullYear()}`
 
     return (
       <Formik

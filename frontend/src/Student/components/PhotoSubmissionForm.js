@@ -158,18 +158,26 @@ class PhotoSubmissionForm extends Component {
   }
 
   renderShow = () => {
-    const { create, done, user, handleError, handleHometown, handleDisplayName } = this.props
+    const {
+      create,
+      done,
+      user,
+      handleError,
+      handleHometown,
+      handleDisplayName
+    } = this.props
     const forShow = {
       id: this.props.data.show.id,
       name: this.props.data.show.name
     }
-    const defaultHometown = user.hometown || '';
-    const hometownNeeded = !user.hometown;
-    const defaultDisplayName= user.displayName || '';
-    const displayNameNeeded = !user.displayName;
+    const defaultHometown = user.hometown || ''
+    const hometownNeeded = !user.hometown
+    const defaultDisplayName = user.displayName || ''
+    const displayNameNeeded = !user.displayName
 
     // calculate whether the user is beyond their single submissions
-    const numSingleEntries = this.props.data.show.entries.filter(e => !e.group).length
+    const numSingleEntries = this.props.data.show.entries.filter(e => !e.group)
+      .length
     const canSubmitAsSingle = numSingleEntries < this.props.data.show.entryCap
 
     return (
@@ -241,10 +249,10 @@ class PhotoSubmissionForm extends Component {
                     }
                     : null,
                 displayName: values.displayName,
-                hometown: values.submittingAsGroup === 'no'?  
-                  values.hometown
-                  : null,
-                studentUsername: values.submittingAsGroup === 'no' ? user.username: null,
+                hometown:
+                  values.submittingAsGroup === 'no' ? values.hometown : null,
+                studentUsername:
+                  values.submittingAsGroup === 'no' ? user.username : null,
                 showId: forShow.id,
                 academicProgram: values.academicProgram,
                 yearLevel: values.yearLevel,
@@ -264,12 +272,12 @@ class PhotoSubmissionForm extends Component {
 
             // Create an entry, show the success modal, and then go to the dashboard
             create(input)
-              .then(()=>{
-                if (values.submittingAsGroup == 'no'){
+              .then(() => {
+                if (values.submittingAsGroup == 'no') {
                   handleHometown(values.hometown)
                 }
               })
-              .then(()=>{
+              .then(() => {
                 handleDisplayName(values.displayName)
               })
               .then(() => {
@@ -358,13 +366,14 @@ class PhotoSubmissionForm extends Component {
                     {this.renderErrors(touched, errors, 'comment')}
                   </FormGroup>
                   {values.submittingAsGroup === 'no' ? (
-                  <HomeTownInput
-                    hometownNeeded={hometownNeeded}
-                    values={values}
-                    touched={touched}
-                    errors={errors}
-                    renderErrors={this.renderErrors}
-                  />) : null}
+                    <HomeTownInput
+                      hometownNeeded={hometownNeeded}
+                      values={values}
+                      touched={touched}
+                      errors={errors}
+                      renderErrors={this.renderErrors}
+                    />
+                  ) : null}
                   <DisplayNameInput
                     displayNameNeeded={displayNameNeeded}
                     values={values}

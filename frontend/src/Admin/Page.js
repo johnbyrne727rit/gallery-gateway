@@ -34,17 +34,21 @@ const Admin = () => (
       <Route path='/show/:id/print' component={PrintableReport} />
       <Route path='/show/:id' component={ViewShow} />
       {/* Portfolio Dashboard & Tools */}
-      <Route exact path='/portfolio' component={PortfolioDashboard}/>
+      <Route exact path='/portfolio' component={PortfolioDashboard} />
       <Route exact path='/portfolio/new' component={CreatePortfolioPeriod} />
-      <Route exact path='/portfolio/:id/judges/assign' component={AssignPortfolioJudges} />
+      <Route
+        exact
+        path='/portfolio/:id/judges/assign'
+        component={AssignPortfolioJudges}
+      />
       {/* Scholarship Dashboard & Tools */}
-      <Route exact path='/scholarship' component={ScholarshipsDashboard}/>
-      <Route exact path='/scholarship/new' component = {CreateScholarship} />
+      <Route exact path='/scholarship' component={ScholarshipsDashboard} />
+      <Route exact path='/scholarship/new' component={CreateScholarship} />
       {/* Misc Tools */}
       <Route path='/users' component={ManageUsers} />
       <Route component={NotFound} />
     </Switch>
   </Layout>
-);
+)
 
 export default Admin
