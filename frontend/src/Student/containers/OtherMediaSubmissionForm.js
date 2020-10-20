@@ -4,7 +4,11 @@ import { connect } from 'react-redux'
 import { compose } from 'recompose'
 
 import { uploadImage, uploadPDF, clearPreview } from '../actions'
-import { displayError, setUserHometown, setUserDisplayName} from '../../shared/actions'
+import {
+  displayError,
+  setUserHometown,
+  setUserDisplayName
+} from '../../shared/actions'
 
 import OtherMediaSubmissionForm from '../components/OtherMediaSubmissionForm'
 import CreateOtherMediaEntry from '../mutations/createOtherMediaEntry.graphql'

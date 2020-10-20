@@ -23,41 +23,19 @@ const ManageUsers = () => (
       >
         Students
       </NavTab>
-      <NavTab
-        exact
-        to='/judges'
-        replace={false}
-        className='nav-item nav-link'
-      >
+      <NavTab exact to='/judges' replace={false} className='nav-item nav-link'>
         Judges
       </NavTab>
-      <NavTab
-        exact
-        to='/admins'
-        replace={false}
-        className='nav-item nav-link'
-      >
+      <NavTab exact to='/admins' replace={false} className='nav-item nav-link'>
         Admins
       </NavTab>
     </RoutedTabs>
     <TabContent>
       <TabPane>
         <Switch>
-          <Route
-            exact
-            path={`/users/students`}
-            component={ManageStudentsTab}
-          />
-          <Route
-            exact
-            path={`/users/judges`}
-            component={ManageJudgesTab}
-          />
-          <Route
-            exact
-            path={`/users/admins`}
-            component={ManageAdminsTab}
-          />
+          <Route exact path={`/users/students`} component={ManageStudentsTab} />
+          <Route exact path={`/users/judges`} component={ManageJudgesTab} />
+          <Route exact path={`/users/admins`} component={ManageAdminsTab} />
         </Switch>
       </TabPane>
     </TabContent>

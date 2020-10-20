@@ -1,42 +1,42 @@
-import { graphql } from "react-apollo";
-import { connect } from "react-redux";
-import { compose } from "recompose";
+import { graphql } from 'react-apollo'
+import { connect } from 'react-redux'
+import { compose } from 'recompose'
 import {
   fetchJudgesByAssignmentForPortfolioPeriod,
   assignJudgesToPortfolioPeriod,
   removeJudgesFromPortfolioPeriod
-} from "../actions";
-import { displayError } from "../../shared/actions";
+} from '../actions'
+import { displayError } from '../../shared/actions'
 
-import JudgesQuery from "../queries/judges.graphql";
-import JudgesForPortfolioPeriodQuery from "../queries/judgesForPortfolioPeriod.graphql";
+import JudgesQuery from '../queries/judges.graphql'
+import JudgesForPortfolioPeriodQuery from '../queries/judgesForPortfolioPeriod.graphql'
 
-import AssignToPortfolioPeriodMutation from "../mutations/assignToPortfolioPeriod.graphql";
-import RemoveFromPortfolioPeriodMutation from "../mutations/removeFromPortfolioPeriod.graphql";
+import AssignToPortfolioPeriodMutation from '../mutations/assignToPortfolioPeriod.graphql'
+import RemoveFromPortfolioPeriodMutation from '../mutations/removeFromPortfolioPeriod.graphql'
 
-import AssignJudgesTable from "../components/AssignJudgesTable";
+import AssignJudgesTable from '../components/AssignJudgesTable'
 
 const filterUnassignedJudges = (judges, assignments = []) => {
   return Object.values(judges).filter(
     judge => !assignments.includes(judge.username)
-  );
-};
+  )
+}
 
 const mapAssignmentsToJudges = (judges, assignments = []) => {
-  return assignments.map(key => judges[key]);
-};
+  return assignments.map(key => judges[key])
+}
 
 const mapStateToProps = (state, ownProps) => {
-  const judges = state.admin.judges;
+  const judges = state.admin.judges
   const assignments =
-    state.admin.portfolioPeriodAssignments[ownProps.portfolioPeriodId];
+    state.admin.portfolioPeriodAssignments[ownProps.portfolioPeriodId]
   return {
     data: {
       unassignedJudges: filterUnassignedJudges(judges, assignments),
       assignedJudges: mapAssignmentsToJudges(judges, assignments)
     }
-  };
-};
+  }
+}
 
 const mapDispatchToProps = (dispatch, { portfolioPeriodId }) => ({
   fetchData: () =>
@@ -46,7 +46,7 @@ const mapDispatchToProps = (dispatch, { portfolioPeriodId }) => ({
   afterUnassign: usernames =>
     dispatch(removeJudgesFromPortfolioPeriod(portfolioPeriodId, usernames)),
   handleError: message => dispatch(displayError(message))
-});
+})
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
@@ -94,4 +94,4 @@ export default compose(
         })
     })
   })
-)(AssignJudgesTable);
+)(AssignJudgesTable)

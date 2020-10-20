@@ -14,14 +14,14 @@ const NoShowsContainer = styled.div`
 `
 class Portfolios extends Component {
   renderPortfolios = (portfolios, openPeriod, deletePiece) => {
-    if(openPeriod){
+    if (openPeriod) {
       const skeletonPortfolio = {
         portfolioPeriod: openPeriod,
         pieces: [],
         id: -1
       }
 
-      if(!portfolios){
+      if (!portfolios) {
         portfolios = []
       }
       portfolios = [skeletonPortfolio].concat(portfolios)
@@ -33,7 +33,13 @@ class Portfolios extends Component {
         </NoShowsContainer>
       )
     }
-    return portfolios.map(portfolios => <PortfolioCard key={portfolios.id} portfolio={portfolios} deletePiece={deletePiece}/>)
+    return portfolios.map(portfolios => (
+      <PortfolioCard
+        key={portfolios.id}
+        portfolio={portfolios}
+        deletePiece={deletePiece}
+      />
+    ))
   }
 
   componentDidUpdate () {
@@ -43,7 +49,7 @@ class Portfolios extends Component {
         handleError(e.message)
       })
     }
-    if(openPeriodError){
+    if (openPeriodError) {
       openPeriodError.graphQLErrors.forEach(e => {
         handleError(e.message)
       })
@@ -51,9 +57,23 @@ class Portfolios extends Component {
   }
 
   render () {
-    const { portfoliosLoading, openPeriodLoading, portfolios, openPeriod, deletePiece} = this.props
+    const {
+      portfoliosLoading,
+      openPeriodLoading,
+      portfolios,
+      openPeriod,
+      deletePiece
+    } = this.props
 
-    return <div>{portfoliosLoading || openPeriodLoading ? <Loading /> : this.renderPortfolios(portfolios, openPeriod, deletePiece)}</div>
+    return (
+      <div>
+        {portfoliosLoading || openPeriodLoading ? (
+          <Loading />
+        ) : (
+          this.renderPortfolios(portfolios, openPeriod, deletePiece)
+        )}
+      </div>
+    )
   }
 }
 

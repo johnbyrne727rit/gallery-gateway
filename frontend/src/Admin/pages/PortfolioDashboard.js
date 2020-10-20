@@ -24,7 +24,7 @@ const PortfolioDashboard = () => (
     </Row>
     <Row>
       <Col>
-        <PortfolioPeriod/>
+        <PortfolioPeriod />
       </Col>
     </Row>
   </Container>

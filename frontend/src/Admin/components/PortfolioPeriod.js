@@ -5,38 +5,40 @@ import PortfolioPeriodCard from '../components/PortfolioPeriodCard'
 import Loading from '../../shared/components/Loading'
 
 class Portfolios extends Component {
-    static propTypes = {
-        portfolioPeriods: PropTypes.array.isRequired,
-        loading: PropTypes.bool.isRequired,
-        error: PropTypes.object
-    }
+  static propTypes = {
+    portfolioPeriods: PropTypes.array.isRequired,
+    loading: PropTypes.bool.isRequired,
+    error: PropTypes.object
+  }
 
-    static defaultProps = {
-        portfolioPeriods: []
-    }
+  static defaultProps = {
+    portfolioPeriods: []
+  }
 
-    componentDidUpdate () {
-        const { error, handleError } = this.props
-        if (error) {
-            error.graphQLErrors.forEach(e => {
-                handleError(e.message)
-            })
-        }
+  componentDidUpdate () {
+    const { error, handleError } = this.props
+    if (error) {
+      error.graphQLErrors.forEach(e => {
+        handleError(e.message)
+      })
     }
+  }
 
-    render () {
-        const { loading, portfolioPeriods } = this.props
+  render () {
+    const { loading, portfolioPeriods } = this.props
 
-        return (
-            <div>
-                {loading ? (
-                    <Loading />
-                ) : (
-                    portfolioPeriods.map(period => <PortfolioPeriodCard key={period.id} {...period} />)
-                )}
-            </div>
-        )
-    }
+    return (
+      <div>
+        {loading ? (
+          <Loading />
+        ) : (
+          portfolioPeriods.map(period => (
+            <PortfolioPeriodCard key={period.id} {...period} />
+          ))
+        )}
+      </div>
+    )
+  }
 }
 
 export default Portfolios

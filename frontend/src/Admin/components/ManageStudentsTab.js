@@ -11,7 +11,7 @@ class ManageStudentsTab extends Component {
     loading: PropTypes.bool.isRequired,
     error: PropTypes.object,
     create: PropTypes.func.isRequired,
-    handleError: PropTypes.func.isRequired,
+    handleError: PropTypes.func.isRequired
   }
 
   static defaultProps = {
@@ -33,7 +33,15 @@ class ManageStudentsTab extends Component {
     return (
       <Row>
         <Col xs='12'>
-          {loading ? <Loading /> : <StudentsTable data={students} handleError={handleError} create={create}/>}
+          {loading ? (
+            <Loading />
+          ) : (
+            <StudentsTable
+              data={students}
+              handleError={handleError}
+              create={create}
+            />
+          )}
         </Col>
       </Row>
     )

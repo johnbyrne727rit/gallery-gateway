@@ -19,12 +19,14 @@ export const FETCH_JUDGES_BY_ASSIGNMENT_FOR_SHOW =
   'FETCH_JUDGES_BY_ASSIGNMENT_FOR_SHOW'
 export const ASSIGN_JUDGES_TO_SHOW = 'ASSIGN_JUDGES_TO_SHOW'
 export const REMOVE_JUDGES_FROM_SHOW = 'REMOVE_JUDGES_FROM_SHOW'
-export const ASSIGN_JUDGES_TO_PORTFOLIO_PERIOD = 'ASSIGN_JUDGES_TO_PORTFOLIO_PERIOD'
-export const REMOVE_JUDGES_FROM_PORTFOLIO_PERIOD = 'REMOVE_JUDGES_FROM_PORTFOLIO_PERIOD'
+export const ASSIGN_JUDGES_TO_PORTFOLIO_PERIOD =
+  'ASSIGN_JUDGES_TO_PORTFOLIO_PERIOD'
+export const REMOVE_JUDGES_FROM_PORTFOLIO_PERIOD =
+  'REMOVE_JUDGES_FROM_PORTFOLIO_PERIOD'
 export const ADD_ADMIN = 'ADD_ADMIN'
 export const ADD_JUDGE = 'ADD_JUDGE'
-export const FETCH_PORTFOLIO_PERIOD = "FETCH_PORTFOLIO_PERIOD"
-export const FETCH_PORTFOLIO_PERIODS = "FETCH_PORTFOLIO_PERIODS"
+export const FETCH_PORTFOLIO_PERIOD = 'FETCH_PORTFOLIO_PERIOD'
+export const FETCH_PORTFOLIO_PERIODS = 'FETCH_PORTFOLIO_PERIODS'
 export const FETCH_JUDGES_BY_ASSIGNMENT_FOR_PORTFOLIO_PERIOD =
   'FETCH_JUDGES_BY_ASSIGNMENT_FOR_PORTFOLIO_PERIOD'
 
@@ -40,8 +42,11 @@ export const fetchShow = showId => (dispatch, getState, client) => {
     .catch(err => dispatch(displayError(err.message)))
 }
 
-
-export const fetchPortfolioPeriod = portfolioPeriodId => (dispatch, getState, client) => {
+export const fetchPortfolioPeriod = portfolioPeriodId => (
+  dispatch,
+  getState,
+  client
+) => {
   return client
     .query({
       query: PortfolioQuery,
@@ -49,7 +54,9 @@ export const fetchPortfolioPeriod = portfolioPeriodId => (dispatch, getState, cl
         id: portfolioPeriodId
       }
     }) // TODO: Dispatch loading action & loading finished action
-    .then(({ data: { portfolioPeriod } }) => dispatch({ type: FETCH_PORTFOLIO_PERIOD, payload: portfolioPeriod }))
+    .then(({ data: { portfolioPeriod } }) =>
+      dispatch({ type: FETCH_PORTFOLIO_PERIOD, payload: portfolioPeriod })
+    )
     .catch(err => dispatch(displayError(err.message)))
 }
 
@@ -65,7 +72,9 @@ export const fetchShows = () => (dispatch, getState, client) => {
 export const fetchPortfolioPeriods = () => (dispatch, getState, client) => {
   return client
     .query({ query: PortfoliosQuery }) // TODO: Dispatch loading action & loading finished action
-    .then(({ data: { portfolioPeriods } }) => dispatch({ type: FETCH_PORTFOLIO_PERIODS, payload: portfolioPeriods }))
+    .then(({ data: { portfolioPeriods } }) =>
+      dispatch({ type: FETCH_PORTFOLIO_PERIODS, payload: portfolioPeriods })
+    )
     .catch(err => dispatch(displayError(err.message)))
 }
 
@@ -205,11 +214,10 @@ export const assignJudgesToPortfolioPeriod = (portfolioPeriodId, usernames) => (
   })
 }
 
-export const removeJudgesFromPortfolioPeriod = (portfolioPeriodId, usernames) => (
-  dispatch,
-  getState,
-  client
-) => {
+export const removeJudgesFromPortfolioPeriod = (
+  portfolioPeriodId,
+  usernames
+) => (dispatch, getState, client) => {
   dispatch({
     type: REMOVE_JUDGES_FROM_PORTFOLIO_PERIOD,
     payload: {

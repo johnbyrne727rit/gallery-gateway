@@ -28,6 +28,6 @@ const Dashboard = () => (
       </Col>
     </Row>
   </Container>
-);
+)
 
 export default Dashboard
