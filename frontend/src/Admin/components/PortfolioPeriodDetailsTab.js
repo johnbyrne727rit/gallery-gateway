@@ -2,7 +2,6 @@ import React, { Fragment, Component } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { Row, Col, Button } from 'reactstrap'
-import moment from 'moment'
 
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import FaEdit from '@fortawesome/fontawesome-free-solid/faEdit'
@@ -38,7 +37,6 @@ class PortfolioPeriodDetailsTab extends Component {
               block
               tag={Link}
               to={`/portfolio/${portfolioPeriod.id}/edit`}
-              disabled={!moment(portfolioPeriod.entryStart).isAfter(moment())}
             >
               <FontAwesomeIcon icon={FaEdit} className='align-middle' /> Edit
               Portfolio Period Details

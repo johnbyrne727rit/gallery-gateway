@@ -249,28 +249,28 @@ class PortfolioPeriodForm extends Component {
             <Row>
               <Col>
                 <Button
-                  type='submit'
-                  color='primary'
-                  style={{
-                    cursor: 'pointer'
-                  }}
-                  disabled={isSubmitting}
-                >
-                  {portfolioPeriod ? 'Update' : 'Create' }
-                </Button>
-              </Col>
-              <Col>
-                <Button
                   type='button'
                   color='danger'
-                  className="float-right"
                   style={{
                     cursor: 'pointer'
                   }}
                   disabled={isSubmitting}
                   onClick={done}
                 >
-                    Cancel
+                      Cancel
+                </Button>
+              </Col>
+              <Col>
+                <Button
+                  type='submit'
+                  color='primary'
+                  className="float-right"
+                  style={{
+                    cursor: 'pointer'
+                  }}
+                  disabled={isSubmitting}
+                >
+                  {portfolioPeriod ? 'Update' : 'Create' }
                 </Button>
               </Col>
             </Row>
