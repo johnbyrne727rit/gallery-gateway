@@ -17,7 +17,7 @@ class ScholarshipForm extends Component {
     create: PropTypes.func.isRequired,
     done: PropTypes.func.isRequired,
     handleError: PropTypes.func.isRequired
-  };
+  }
 
   constructor (props) {
     super(props)
@@ -46,7 +46,7 @@ class ScholarshipForm extends Component {
 
     // Otherwise, don't render anything
     return null
-  };
+  }
 
   render () {
     const { create, done, handleError } = this.props
@@ -80,20 +80,20 @@ class ScholarshipForm extends Component {
               .then(() => done())
               .catch(err => {
                 handleError(err.message)
-                actions.setSubmitting(false);
+                actions.setSubmitting(false)
               })
           }}
           render={({ values, errors, touched, handleSubmit, isSubmitting }) => (
             <Form onSubmit={handleSubmit} style={{ marginBottom: '75px' }}>
               <Row>
-                <Col xs="12" md="8" style={{ margin: '0 auto' }}>
+                <Col xs='12' md='8' style={{ margin: '0 auto' }}>
                   <FormGroup>
                     <Label>Scholarship Name</Label>
                     <Field
-                      type="text"
-                      id="name"
-                      name="name"
-                      className="form-control"
+                      type='text'
+                      id='name'
+                      name='name'
+                      className='form-control'
                       // value={this.props.name}
                       required
                     />
@@ -102,14 +102,14 @@ class ScholarshipForm extends Component {
                   <FormGroup>
                     <Label>Minimum GPA</Label>
                     <Field
-                      type="number"
-                      step="0.1"
-                      min="0"
-                      max="4"
-                      placeholder="3.0"
-                      id="gpa"
-                      name="gpa"
-                      className="form-control"
+                      type='number'
+                      step='0.1'
+                      min='0'
+                      max='4'
+                      placeholder='3.0'
+                      id='gpa'
+                      name='gpa'
+                      className='form-control'
                       // value={this.props.gpa}
                     />
                     {this.renderErrors(touched, errors, 'gpa')}
@@ -117,10 +117,10 @@ class ScholarshipForm extends Component {
                   <FormGroup>
                     <Label>Year Status Required</Label>
                     <Field
-                      type="text"
-                      id="yearStatus"
-                      name="yearStatus"
-                      className="form-control"
+                      type='text'
+                      id='yearStatus'
+                      name='yearStatus'
+                      className='form-control'
                       // value={this.props.yearStatus}
                     />
                     {this.renderErrors(touched, errors, 'yearStatus')}
@@ -128,24 +128,24 @@ class ScholarshipForm extends Component {
                   <FormGroup>
                     <Label>Number of Photos Required</Label>
                     <Field
-                      type="number"
-                      step="1"
-                      min="1"
-                      id="requiredPhotos"
-                      name="requiredPhotos"
-                      className="form-control"
+                      type='number'
+                      step='1'
+                      min='1'
+                      id='requiredPhotos'
+                      name='requiredPhotos'
+                      className='form-control'
                       // value={this.props.requiredPhotos}
                       required
                     />
                     {this.renderErrors(touched, errors, 'requiredPhotos')}
                   </FormGroup>
                   <FormGroup>
-                    <Label for="comment">Description</Label>
+                    <Label for='comment'>Description</Label>
                     <Field
-                      component="textarea"
-                      id="description"
-                      name="description"
-                      className="form-control"
+                      component='textarea'
+                      id='description'
+                      name='description'
+                      className='form-control'
                       rows={4}
                       // value={this.props.description}
                       required
@@ -157,27 +157,27 @@ class ScholarshipForm extends Component {
                     <FormGroup check>
                       <Label check>
                         <Field
-                          type="radio"
-                          id="fulltime"
-                          name="fulltime"
-                          value="no"
+                          type='radio'
+                          id='fulltime'
+                          name='fulltime'
+                          value='no'
                           required
                           checked={values.fulltime === 'no'}
                         />
-                        <span className="ml-2">No</span>
+                        <span className='ml-2'>No</span>
                       </Label>
                     </FormGroup>
                     <FormGroup check>
                       <Label check>
                         <Field
-                          type="radio"
-                          id="fulltime"
-                          name="fulltime"
-                          value="yes"
+                          type='radio'
+                          id='fulltime'
+                          name='fulltime'
+                          value='yes'
                           required
                           checked={values.fulltime === 'yes'}
                         />
-                        <span className="ml-2">Yes</span>
+                        <span className='ml-2'>Yes</span>
                       </Label>
                     </FormGroup>
                     {this.renderErrors(touched, errors, 'fulltime')}
@@ -187,27 +187,27 @@ class ScholarshipForm extends Component {
                     <FormGroup check>
                       <Label check>
                         <Field
-                          type="radio"
-                          id="renewable"
-                          name="renewable"
-                          value="no"
+                          type='radio'
+                          id='renewable'
+                          name='renewable'
+                          value='no'
                           required
                           checked={values.renewable === 'no'}
                         />
-                        <span className="ml-2">No</span>
+                        <span className='ml-2'>No</span>
                       </Label>
                     </FormGroup>
                     <FormGroup check>
                       <Label check>
                         <Field
-                          type="radio"
-                          id="renewable"
-                          name="renewable"
-                          value="yes"
+                          type='radio'
+                          id='renewable'
+                          name='renewable'
+                          value='yes'
                           required
                           checked={values.renewable === 'yes'}
                         />
-                        <span className="ml-2">Yes</span>
+                        <span className='ml-2'>Yes</span>
                       </Label>
                     </FormGroup>
                     {this.renderErrors(touched, errors, 'renewable')}
@@ -217,27 +217,27 @@ class ScholarshipForm extends Component {
                     <FormGroup check>
                       <Label check>
                         <Field
-                          type="radio"
-                          id="requiresEssay"
-                          name="requiresEssay"
-                          value="no"
+                          type='radio'
+                          id='requiresEssay'
+                          name='requiresEssay'
+                          value='no'
                           required
                           checked={values.requiresEssay === 'no'}
                         />
-                        <span className="ml-2">No</span>
+                        <span className='ml-2'>No</span>
                       </Label>
                     </FormGroup>
                     <FormGroup check>
                       <Label check>
                         <Field
-                          type="radio"
-                          id="requiresEssay"
-                          name="requiresEssay"
-                          value="yes"
+                          type='radio'
+                          id='requiresEssay'
+                          name='requiresEssay'
+                          value='yes'
                           required
                           checked={values.requiresEssay === 'yes'}
                         />
-                        <span className="ml-2">Yes</span>
+                        <span className='ml-2'>Yes</span>
                       </Label>
                     </FormGroup>
                     {this.renderErrors(touched, errors, 'requiresEssay')}
@@ -245,10 +245,10 @@ class ScholarshipForm extends Component {
                   <FormGroup>
                     <Label>Degree Programs Required</Label>
                     <Field
-                      type="text"
-                      id="degreePrograms"
-                      name="degreePrograms"
-                      className="form-control"
+                      type='text'
+                      id='degreePrograms'
+                      name='degreePrograms'
+                      className='form-control'
                       value={this.props.degreePrograms}
                     />
                     {this.renderErrors(touched, errors, 'degreePrograms')}
@@ -260,7 +260,7 @@ class ScholarshipForm extends Component {
                   <Button
                     type='submit'
                     color='primary'
-                    style={{cursor: 'pointer'}}
+                    style={{ cursor: 'pointer' }}
                     disabled={isSubmitting}
                   >
                     <span>Create</span>
@@ -270,8 +270,8 @@ class ScholarshipForm extends Component {
                   <Button
                     type='button'
                     color='danger'
-                    className="float-right"
-                    style={{cursor: 'pointer'}}
+                    className='float-right'
+                    style={{ cursor: 'pointer' }}
                     disabled={isSubmitting}
                     onClick={done}
                   >
@@ -279,13 +279,12 @@ class ScholarshipForm extends Component {
                   </Button>
                 </Col>
               </Row>
-
             </Form>
           )}
         />
       </Fragment>
     )
-  };
+  }
 }
 
 export default ScholarshipForm

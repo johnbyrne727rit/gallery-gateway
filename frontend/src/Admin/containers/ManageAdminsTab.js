@@ -12,6 +12,6 @@ const mapDispatchToProps = dispatch => ({
   fetchAdmins: () => dispatch(fetchAdmins())
 })
 
-export default compose(
-  connect(mapStateToProps, mapDispatchToProps)
-)(ManageAdminsTab)
+export default compose(connect(mapStateToProps, mapDispatchToProps))(
+  ManageAdminsTab
+)

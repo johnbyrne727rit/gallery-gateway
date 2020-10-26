@@ -4,7 +4,11 @@ import { connect } from 'react-redux'
 import { compose } from 'recompose'
 
 import { uploadImage, clearPreview } from '../actions'
-import { displayError, setUserHometown, setUserDisplayName} from '../../shared/actions'
+import {
+  displayError,
+  setUserHometown,
+  setUserDisplayName
+} from '../../shared/actions'
 
 import PhotoSubmissionForm from '../components/PhotoSubmissionForm'
 import CreatePhotoEntry from '../mutations/createPhotoEntry.graphql'

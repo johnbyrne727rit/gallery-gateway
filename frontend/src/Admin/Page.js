@@ -42,8 +42,8 @@ const Admin = () => (
       <Route path='/portfolio/:id/edit' component={EditPortfolioPeriod} />
       <Route path='/portfolio/:id' component={ViewPortfolioPeriod} />
       {/* Scholarship Dashboard & Tools */}
-      <Route exact path='/scholarship' component={ScholarshipsDashboard}/>
-      <Route exact path='/scholarship/new' component = {CreateScholarship} />
+      <Route exact path='/scholarship' component={ScholarshipsDashboard} />
+      <Route exact path='/scholarship/new' component={CreateScholarship} />
       {/* Misc Tools */}
       <Route path='/users' component={ManageUsers} />
       <Route component={NotFound} />

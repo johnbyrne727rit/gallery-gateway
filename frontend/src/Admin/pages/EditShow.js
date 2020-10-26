@@ -9,7 +9,7 @@ import ShowQuery from '../queries/show.graphql'
 const EditShow = props => (
   <Container>
     <h1>Edit Show</h1>
-    { props.show ? <EditShowForm show={props.show} /> : null }
+    {props.show ? <EditShowForm show={props.show} /> : null}
   </Container>
 )
 
@@ -25,4 +25,4 @@ export default compose(
       loading
     })
   })
-) (EditShow)
+)(EditShow)

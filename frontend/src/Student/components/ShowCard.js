@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import Moment from 'react-moment'
 import { Row, Col } from 'reactstrap'
 import moment from 'moment'
-import {ShowEntry, NewSubmission} from './ImageCard'
+import { ShowEntry, NewSubmission } from './ImageCard'
 
 const Card = styled.div`
   background-color: #f8f9fa;
@@ -23,8 +23,7 @@ const SubmittedEntries = ({ show }) =>
       title={entry.title}
       key={entry.id}
     >
-      <ShowEntry entry={entry} show={show}>
-      </ShowEntry>
+      <ShowEntry entry={entry} show={show} />
     </Col>
   ))
 

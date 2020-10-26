@@ -23,7 +23,7 @@ export default class NavBar extends Component {
   static propTypes = {
     logout: PropTypes.func.isRequired,
     switchToJudge: PropTypes.func.isRequired
-  };
+  }
 
   constructor (props) {
     super(props)
@@ -37,7 +37,7 @@ export default class NavBar extends Component {
     this.setState({
       isOpen: !this.state.isOpen
     })
-  };
+  }
 
   render () {
     return (

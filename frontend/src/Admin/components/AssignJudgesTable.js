@@ -134,7 +134,7 @@ class AssignJudgesTable extends Component {
           <ModalBody>
             <p>
               Removing a judge will permanently delete any votes they have made
-              in this {showId ? "show" : "portfolio period"}.
+              in this {showId ? 'show' : 'portfolio period'}.
             </p>
           </ModalBody>
           <ModalFooter>

@@ -88,9 +88,13 @@ export const setUserHometown = hometown => (dispatch, getState, client) => {
     payload: hometown
   })
 }
-  export const setUserDisplayName = displayName => (dispatch, getState, client) => {
-    dispatch({
-      type: SET_USER_DISPLAY_NAME,
-      payload: displayName
-    })
+export const setUserDisplayName = displayName => (
+  dispatch,
+  getState,
+  client
+) => {
+  dispatch({
+    type: SET_USER_DISPLAY_NAME,
+    payload: displayName
+  })
 }

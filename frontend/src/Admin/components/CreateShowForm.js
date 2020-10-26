@@ -244,7 +244,7 @@ class CreateShowForm extends Component {
                 <Button
                   type='button'
                   color='danger'
-                  className="float-right"
+                  className='float-right'
                   style={{
                     cursor: 'pointer'
                   }}

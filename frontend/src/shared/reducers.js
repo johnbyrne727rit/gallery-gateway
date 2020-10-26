@@ -53,7 +53,7 @@ const auth = (state = {}, action) => {
       }
     case actions.SET_USER_HOMETOWN:
       if (state.user.hometown) {
-        return state;
+        return state
       }
       return {
         ...state,
@@ -64,7 +64,7 @@ const auth = (state = {}, action) => {
       }
     case actions.SET_USER_DISPLAY_NAME:
       if (state.user.displayName) {
-        return state;
+        return state
       }
       return {
         ...state,
