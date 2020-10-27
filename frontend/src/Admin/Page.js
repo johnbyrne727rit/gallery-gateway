@@ -22,6 +22,7 @@ import CreateScholarship from './pages/CreateScholarship'
 import ManageUsers from './pages/ManageUsers'
 import Layout from './components/Layout'
 import NotFound from '../shared/components/NotFound'
+import EditScholarship from './pages/EditScholarship'
 
 const Admin = () => (
   <Layout>
@@ -34,21 +35,18 @@ const Admin = () => (
       <Route path='/show/:id/print' component={PrintableReport} />
       <Route path='/show/:id' component={ViewShow} />
       {/* Portfolio Dashboard & Tools */}
-      <Route exact path='/portfolio' component={PortfolioDashboard} />
+      <Route exact path='/portfolio' component={PortfolioDashboard}/>
       <Route exact path='/portfolio/new' component={CreatePortfolioPeriod} />
-      <Route
-        exact
-        path='/portfolio/:id/judges/assign'
-        component={AssignPortfolioJudges}
-      />
+      <Route exact path='/portfolio/:id/judges/assign' component={AssignPortfolioJudges} />
       {/* Scholarship Dashboard & Tools */}
-      <Route exact path='/scholarship' component={ScholarshipsDashboard} />
-      <Route exact path='/scholarship/new' component={CreateScholarship} />
+      <Route exact path='/scholarship' component={ScholarshipsDashboard}/>
+      <Route exact path='/scholarship/new' component = {CreateScholarship} />
+      <Route exact path='/scholarship/:id/edit' component={EditScholarship}/>
       {/* Misc Tools */}
       <Route path='/users' component={ManageUsers} />
       <Route component={NotFound} />
     </Switch>
   </Layout>
-)
+);
 
 export default Admin

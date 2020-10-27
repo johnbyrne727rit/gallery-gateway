@@ -1,0 +1,13 @@
+mutation editScholarship($id: ID! $input: ScholarshipUpdate!){
+    updateScholarship(id: $id input: $input){
+        name,
+        gpa,
+        yearStatus,
+        requiredPhotos,
+        description,
+        fulltime,
+        renewable,
+        requiresEssay,
+        degreePrograms
+    }
+}
