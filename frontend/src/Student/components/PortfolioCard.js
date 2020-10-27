@@ -1,10 +1,18 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment'
-import { Row, Col, Button } from 'reactstrap'
+import { Row,
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Container,
+  Col } from 'reactstrap'
 import moment from 'moment'
-import { FlipCard, NewPiece } from './ImageCard'
+import {FlipCard, NewPiece} from './ImageCard'
+import ConfirmModal from './ConfirmModal'
 
 const Card = styled.div`
   background-color: #f8f9fa;
@@ -53,17 +61,20 @@ const PortfolioCard = props => (
           <div>No Longer Accepting Applications</div>
         ) : (
           <div>
-            <div>
-              <h2>
-                <Button color='primary'>Apply</Button>
-              </h2>
-            </div>
-            <div>
-              Accepting Applications Until:{' '}
-              <Moment format='MMMM D, YYYY hh:mm:ss a'>
-                {props.portfolio.portfolioPeriod.entryEnd}
-              </Moment>
-            </div>
+          <div>
+          <h2><Button onClick={props.submitHandleShow} color='primary'>Apply</Button></h2>
+          <ConfirmModal
+            isOpen = {props.isSubmitModalOpen}
+            handleClose = {props.submitHandleClose}
+            submitPortfolio = {props.submitHandleComplete}
+          />
+          </div>
+          <div>
+            Accepting Applications Until:{' '}
+            <Moment format='MMMM D, YYYY hh:mm:ss a'>
+              {props.portfolio.portfolioPeriod.entryEnd}
+            </Moment>
+          </div>
           </div>
         )}
       </Col>
@@ -102,7 +113,11 @@ PortfolioCard.propTypes = {
     entryEnd: PropTypes.string,
     judgingStart: PropTypes.string,
     judgingEnd: PropTypes.string
-  }).isRequired
+  }).isRequired,
+  submitHandleClose: PropTypes.func,
+  submitHandleShow: PropTypes.func,
+  submitHandleComplete: PropTypes.func,
+  isSubmitModalOpen: PropTypes.bool
 }
 
 PortfolioCard.defaultProps = {
@@ -110,5 +125,6 @@ PortfolioCard.defaultProps = {
     entries: []
   }
 }
+
 
 export default PortfolioCard

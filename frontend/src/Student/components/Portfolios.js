@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types'
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 import styled from 'styled-components'
 
 import PortfolioCard from '../components/PortfolioCard'
+import ConfirmModal from '../components/ConfirmModal'
 import Loading from '../../shared/components/Loading'
 
 const NoShowsContainer = styled.div`
@@ -13,6 +14,27 @@ const NoShowsContainer = styled.div`
   transform: translate(-50%, -50%);
 `
 class Portfolios extends Component {
+
+  constructor(props) {
+    super()
+    this.state = {show: false}
+    this.handleClose = this.handleClose.bind(this)
+    this.submitPortfolio = this.submitPortfolio.bind(this)
+    this.handleShow = this.handleShow.bind(this)
+  }
+
+  handleClose(){
+    this.setState({show: false});
+  }
+  
+  submitPortfolio(){
+    this.setState({show: false});
+  }
+
+  handleShow(){
+    this.setState({show: true});
+  }
+
   renderPortfolios = (portfolios, openPeriod, deletePiece) => {
     if (openPeriod) {
       const skeletonPortfolio = {
@@ -33,13 +55,16 @@ class Portfolios extends Component {
         </NoShowsContainer>
       )
     }
-    return portfolios.map(portfolios => (
-      <PortfolioCard
-        key={portfolios.id}
-        portfolio={portfolios}
-        deletePiece={deletePiece}
-      />
-    ))
+
+    return portfolios.map(portfolios => < PortfolioCard 
+                                          key= {portfolios.id}
+                                          portfolio= {portfolios}
+                                          deletePiece= {deletePiece}
+                                          submitHandleClose= {this.handleClose}
+                                          submitHandleShow= {this.handleShow}
+                                          submitHandleComplete= {this.submitPortfolio}
+                                          isSubmitModalOpen= {this.state.show}
+                                        />)
   }
 
   componentDidUpdate () {
@@ -78,6 +103,7 @@ class Portfolios extends Component {
 }
 
 Portfolios.propTypes = {
+
   portfolios: PropTypes.array,
   portfoliosLoading: PropTypes.bool.isRequired,
   portfoliosError: PropTypes.object,
