@@ -15,7 +15,7 @@ export default compose(
   connect(null, mapDispatchToProps),
   graphql(CreateScholarshipMutation, {
     props: ({ mutate }) => ({
-      create: scholarship =>
+      submit: scholarship =>
         mutate({
           variables: { input: scholarship }
         })

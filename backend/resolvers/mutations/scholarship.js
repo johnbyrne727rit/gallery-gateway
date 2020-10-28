@@ -2,6 +2,22 @@ import { UserError } from "graphql-errors"
 import { ADMIN } from "../../constants";
 import Scholarship from "../../models/scholarship";
 
+export function updateScholarship(_, args, req){
+    if (req.auth.type !== ADMIN) {
+        throw new UserError('Permission Denied');
+    }
+
+  Scholarship.findByPk(args.id)
+    .then((scholarship) => {
+      return scholarship.update(args.input, {
+        fields: ['name', 'gpa', 'yearStatus',
+          'requiredPhotos', 'description',
+          'fulltime', 'renewable',
+          'requiresEssay', 'degreePrograms']
+      })
+    })
+}
+
 export function createScholarship(_, args, req) {
   if (req.auth.type !== ADMIN) {
     throw new UserError("Permission Denied");

@@ -24,6 +24,7 @@ import CreateScholarship from './pages/CreateScholarship'
 import ManageUsers from './pages/ManageUsers'
 import Layout from './components/Layout'
 import NotFound from '../shared/components/NotFound'
+import EditScholarship from './pages/EditScholarship'
 
 const Admin = () => (
   <Layout>
@@ -42,13 +43,14 @@ const Admin = () => (
       <Route path='/portfolio/:id/edit' component={EditPortfolioPeriod} />
       <Route path='/portfolio/:id' component={ViewPortfolioPeriod} />
       {/* Scholarship Dashboard & Tools */}
-      <Route exact path='/scholarship' component={ScholarshipsDashboard} />
-      <Route exact path='/scholarship/new' component={CreateScholarship} />
+      <Route exact path='/scholarship' component={ScholarshipsDashboard}/>
+      <Route exact path='/scholarship/new' component = {CreateScholarship} />
+      <Route exact path='/scholarship/:id/edit' component={EditScholarship}/>
       {/* Misc Tools */}
       <Route path='/users' component={ManageUsers} />
       <Route component={NotFound} />
     </Switch>
   </Layout>
-)
+);
 
 export default Admin
