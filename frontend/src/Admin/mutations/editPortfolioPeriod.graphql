@@ -1,0 +1,11 @@
+mutation editPortfolioPeriod($id: ID! $input: PortfolioPeriodInput!) {
+  updatePortfolioPeriod(id: $id, input: $input) {
+    name
+    description
+    numPieces
+    entryStart
+    entryEnd
+    judgingStart
+    judgingEnd
+  }
+}

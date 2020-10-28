@@ -5,21 +5,21 @@ import { compose } from 'recompose'
 import { displayError } from '../../shared/actions'
 
 import PortfolioPeriodsQuery from '../queries/portfolioPeriods.graphql'
-import CreatePortfolioPeriodMutation from '../mutations/createPortfolioPeriod.graphql'
+import EditPortfolioPeriodMutation from '../mutations/editPortfolioPeriod.graphql'
 import PortfolioPeriodForm from '../components/PortfolioPeriodForm'
 
 const mapDispatchToProps = dispatch => ({
-  done: () => dispatch(push('/portfolio/')),
+  done: () => dispatch(push('/')),
   handleError: message => dispatch(displayError(message))
 })
 
 export default compose(
   connect(null, mapDispatchToProps),
-  graphql(CreatePortfolioPeriodMutation, {
-    props: ({ mutate }) => ({
-      create: show =>
+  graphql(EditPortfolioPeriodMutation, {
+    props: ({ mutate, ownProps }) => ({
+      update: portfolioPeriod =>
         mutate({
-          variables: { input: show }
+          variables: { id: ownProps.portfolioPeriod.id, input: portfolioPeriod }
         })
     }),
     options: () => ({

@@ -42,9 +42,15 @@ const CalendarContainer = styled.div`
   margin-bottom: 25px;
 `
 
-class CreatePortfolioPeriodForm extends Component {
+class PortfolioPeriodForm extends Component {
   static propTypes = {
-    create: PropTypes.func.isRequired,
+    portfolioPeriod: PropTypes.shape({
+      name: PropTypes.string,
+      description: PropTypes.string,
+      entryCap: PropTypes.number.isRequired
+    }),
+    create: PropTypes.func,
+    update: PropTypes.func,
     done: PropTypes.func.isRequired,
     handleError: PropTypes.func.isRequired
   }
@@ -61,12 +67,20 @@ class CreatePortfolioPeriodForm extends Component {
   }
 
   render () {
-    const { create, done, handleError } = this.props
-    const initialName = `Scholarship Application ${new Date().getFullYear()}`
+    const { portfolioPeriod, update, create, done, handleError } = this.props
+    const initialName = `Scholarship Application ${(new Date()).getFullYear()}`
 
     return (
       <Formik
-        initialValues={{
+        initialValues={portfolioPeriod ? {
+          name: portfolioPeriod.name,
+          description: portfolioPeriod.description,
+          numPieces: portfolioPeriod.numPieces,
+          entryStart: moment(portfolioPeriod.entryStart),
+          entryEnd: moment(portfolioPeriod.entryEnd),
+          judgingStart: moment(portfolioPeriod.judgingStart),
+          judgingEnd: moment(portfolioPeriod.judgingEnd)
+        } : {
           name: initialName,
           description: '',
           numPieces: 10,
@@ -113,9 +127,13 @@ class CreatePortfolioPeriodForm extends Component {
             .required('End Date is Required')
         })}
         onSubmit={values => {
-          create(values)
-            .then(() => done())
-            .catch(err => handleError(err.message))
+          portfolioPeriod
+            ? update(values)
+              .then(() => done())
+              .catch(err => handleError(err.message))
+            : create(values)
+              .then(() => done())
+              .catch(err => handleError(err.message))
         }}
         render={({
           values,
@@ -228,16 +246,34 @@ class CreatePortfolioPeriodForm extends Component {
                 </Row>
               </Col>
             </Row>
-            <Button
-              type='submit'
-              color='primary'
-              style={{
-                cursor: 'pointer'
-              }}
-              disabled={isSubmitting}
-            >
-              Create
-            </Button>
+            <Row>
+              <Col>
+                <Button
+                  type='button'
+                  color='danger'
+                  style={{
+                    cursor: 'pointer'
+                  }}
+                  disabled={isSubmitting}
+                  onClick={done}
+                >
+                      Cancel
+                </Button>
+              </Col>
+              <Col>
+                <Button
+                  type='submit'
+                  color='primary'
+                  className="float-right"
+                  style={{
+                    cursor: 'pointer'
+                  }}
+                  disabled={isSubmitting}
+                >
+                  {portfolioPeriod ? 'Update' : 'Create' }
+                </Button>
+              </Col>
+            </Row>
           </Form>
         )}
       />
@@ -245,4 +281,4 @@ class CreatePortfolioPeriodForm extends Component {
   }
 }
 
-export default CreatePortfolioPeriodForm
+export default PortfolioPeriodForm
