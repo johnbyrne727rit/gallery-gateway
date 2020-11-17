@@ -11,7 +11,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import FaCaretRight from '@fortawesome/fontawesome-free-solid/faCaretRight'
-import FaCaretLeft from '@fortawesome/fontawesome-free-solid/faCaretLeft'
+import FaCaretDown from '@fortawesome/fontawesome-free-solid/faCaretDown'
 
 const Card = styled.div`
   background-color: #f8f9fa;
@@ -48,7 +48,7 @@ class SelectorCard extends Component {
 
     return (
       <Fragment>
-        <Row noGutters={true}>
+        <Row noGutters={false}>
           {onEdit && (
             <Col>
               <Button
@@ -115,12 +115,11 @@ class SelectorCard extends Component {
             >
               {!expanded ? (
                 <FontAwesomeIcon
-                  icon={FaCaretLeft}
-                  className='mr-2'
+                  icon={FaCaretRight}
                   size='lg'
                 />
               ) : (
-                <FontAwesomeIcon icon={FaCaretRight} size='lg' />
+                <FontAwesomeIcon icon={FaCaretDown} size='lg' />
               )}
             </Button>
           </Col>

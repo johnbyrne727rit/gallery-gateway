@@ -228,7 +228,7 @@ class CreateShowForm extends Component {
               </Col>
             </Row>
             <Row>
-              <Col>
+			  <Col>
                 <Button
                   type='submit'
                   color='primary'
@@ -240,7 +240,7 @@ class CreateShowForm extends Component {
                   Create
                 </Button>
               </Col>
-              <Col>
+			  <Col>
                 <Button
                   type='button'
                   color='danger'
@@ -253,7 +253,7 @@ class CreateShowForm extends Component {
                 >
                   Cancel
                 </Button>
-              </Col>
+			  </Col>
             </Row>
           </Form>
         )}

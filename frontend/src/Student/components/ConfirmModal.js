@@ -29,8 +29,8 @@ const ConfirmModal = ({
         </Container>
       </ModalBody>
       <ModalFooter>
-        <Button variant="secondary" onClick={handleClose}>Return to Editing</Button>
-        <Button variant="primary" onClick={submitPortfolio}>Submit Portfolio</Button>
+	<Button color="primary" onClick={submitPortfolio}>Submit Portfolio</Button>
+        <Button color='danger' onClick={handleClose}>Return to Editing</Button>
       </ModalFooter>
     </Modal>
   );
