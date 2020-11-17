@@ -84,9 +84,8 @@ class ShowDetailsTab extends Component {
           </Col>
           <Col>
             <Button
-              color='dark'
+              color='primary'
               className='text-left'
-              outline
               block
               tag={Link}
               to={`/show/${show.id}/edit`}
@@ -96,9 +95,8 @@ class ShowDetailsTab extends Component {
               Show Details
             </Button>
             <Button
-              color='dark'
+              color='primary'
               className='text-left'
-              outline
               block
               tag={Link}
               to={`/show/${show.id}/print`}
@@ -108,9 +106,8 @@ class ShowDetailsTab extends Component {
               Gallery Guide
             </Button>
             <Button
-              color='dark'
+              color='primary'
               className='text-left'
-              outline
               block
               onClick={() => downloadCsv()}
             >
@@ -118,9 +115,8 @@ class ShowDetailsTab extends Component {
               Download CSV Report
             </Button>
             <Button
-              color='dark'
+              color='primary'
               className='text-left'
-              outline
               block
               onClick={() => downloadZip()}
             >
@@ -130,7 +126,6 @@ class ShowDetailsTab extends Component {
             <Button
               color='danger'
               className='text-left'
-              outline
               block
               onClick={() => this.onShowDeleteModal()}
             >
@@ -158,14 +153,8 @@ class ShowDetailsTab extends Component {
             </p>
           </ModalBody>
           <ModalFooter>
-            <Button
-              color='secondary'
-              onClick={() => this.onDismissDeleteModal()}
-            >
-              Cancel
-            </Button>{' '}
-            <Button
-              color='danger'
+			<Button
+              color='primary'
               disabled={this.state.deleteInProgress}
               onClick={() => {
                 this.onDeleteInProgress()
@@ -174,8 +163,14 @@ class ShowDetailsTab extends Component {
                   doneDeleteShow()
                 })
               }}
-            >
+            >{' '}
               Continue
+            </Button>
+            <Button
+              color='danger'
+              onClick={() => this.onDismissDeleteModal()}
+            >
+              Cancel
             </Button>
           </ModalFooter>
         </Modal>

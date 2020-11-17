@@ -108,19 +108,19 @@ class ShowSubmissionsTab extends Component {
           </ModalBody>
           <ModalFooter>
             <Button
-              color='secondary'
-              onClick={() => this.onDismissFinalizeConfirmation()}
-            >
-              Cancel
-            </Button>{' '}
-            <Button
-              color='danger'
+              color='primary'
               onClick={() => {
                 finalizeInvites().catch(err => handleError(err.message))
                 this.onDismissFinalizeConfirmation()
               }}
             >
               Continue
+            </Button>{' '}
+			<Button
+              color='danger'danger
+              onClick={() => this.onDismissFinalizeConfirmation()}
+            >
+              Cancel
             </Button>
           </ModalFooter>
         </Modal>
