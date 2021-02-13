@@ -5,6 +5,7 @@ import { compose } from 'recompose'
 import { displayError } from '../../shared/actions'
 
 import PortfolioPeriodsQuery from '../queries/portfolioPeriods.graphql'
+import ScholarshipsQuery from '../queries/scholarships.graphql'
 import CreatePortfolioPeriodMutation from '../mutations/createPortfolioPeriod.graphql'
 import PortfolioPeriodForm from '../components/PortfolioPeriodForm'
 
@@ -15,11 +16,19 @@ const mapDispatchToProps = dispatch => ({
 
 export default compose(
   connect(null, mapDispatchToProps),
+  graphql(ScholarshipsQuery, {
+    props: (
+      { data: { scholarships, loading, error } }) => ({
+      scholarships,
+      loading,
+      error
+    })
+  }),
   graphql(CreatePortfolioPeriodMutation, {
     props: ({ mutate }) => ({
-      create: show =>
+      create: portfolioPeriod =>
         mutate({
-          variables: { input: show }
+          variables: { input: portfolioPeriod }
         })
     }),
     options: () => ({

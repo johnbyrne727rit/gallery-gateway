@@ -7,7 +7,8 @@ import {
   Label,
   Button,
   Row,
-  Col
+  Col,
+  Table
 } from 'reactstrap'
 import { Formik, Field } from 'formik'
 import yup from 'yup'
@@ -44,6 +45,7 @@ const CalendarContainer = styled.div`
 
 class PortfolioPeriodForm extends Component {
   static propTypes = {
+    scholarships: PropTypes.func.isRequired,
     portfolioPeriod: PropTypes.shape({
       name: PropTypes.string,
       description: PropTypes.string,
@@ -67,7 +69,7 @@ class PortfolioPeriodForm extends Component {
   }
 
   render () {
-    const { portfolioPeriod, update, create, done, handleError } = this.props
+    const { scholarships, portfolioPeriod, update, create, done, handleError } = this.props
     const initialName = `Scholarship Application ${(new Date()).getFullYear()}`
 
     return (
@@ -247,10 +249,39 @@ class PortfolioPeriodForm extends Component {
               </Col>
             </Row>
             <Row>
+              <Table>
+                <thead>
+                  <tr>
+                    <th>Scholarship</th>
+                    <th>Applications Enabled</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>money1</td>
+                    <td>no apply</td>
+                  </tr>
+                </tbody>
+              </Table>
+            </Row>
+            <Row>
+              <Col>
+                <Button
+                  type='submit'
+                  color='primary'
+                  style={{
+                    cursor: 'pointer'
+                  }}
+                  disabled={isSubmitting}
+                >
+                  {portfolioPeriod ? 'Update' : 'Create' }
+                </Button>
+              </Col>
               <Col>
                 <Button
                   type='button'
                   color='danger'
+                  className="float-right"
                   style={{
                     cursor: 'pointer'
                   }}
@@ -258,19 +289,6 @@ class PortfolioPeriodForm extends Component {
                   onClick={done}
                 >
                       Cancel
-                </Button>
-              </Col>
-              <Col>
-                <Button
-                  type='submit'
-                  color='primary'
-                  className="float-right"
-                  style={{
-                    cursor: 'pointer'
-                  }}
-                  disabled={isSubmitting}
-                >
-                  {portfolioPeriod ? 'Update' : 'Create' }
                 </Button>
               </Col>
             </Row>
