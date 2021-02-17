@@ -87,6 +87,7 @@ type PortfolioPeriod {
     judges: [User]
     createdAt: Date!
     updatedAt: Date!
+    scholarships: [Scholarship]
 }
 
 input PortfolioPeriodInput {
@@ -417,7 +418,7 @@ type Mutation {
     assignToPortfolioPeriod(portfolioPeriodId: ID!, usernames: [String]!): Boolean
     removeFromPortfolioPeriod(portfolioPeriodId: ID!, usernames: [String]!): Boolean
 
-    createPortfolioPeriod(input: PortfolioPeriodInput!): PortfolioPeriod
+    createPortfolioPeriod(input: PortfolioPeriodInput!, scholarships: [ID]): PortfolioPeriod
     updatePortfolioPeriod(id: ID!, input: PortfolioPeriodInput!): PortfolioPeriod
 
     createPhoto(input: PhotoInput!): Show

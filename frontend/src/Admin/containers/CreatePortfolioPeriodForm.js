@@ -26,9 +26,9 @@ export default compose(
   }),
   graphql(CreatePortfolioPeriodMutation, {
     props: ({ mutate }) => ({
-      create: portfolioPeriod =>
+      create: (portfolioPeriod, scholarshipList) =>
         mutate({
-          variables: { input: portfolioPeriod }
+          variables: { input: portfolioPeriod, scholarships: scholarshipList }
         })
     }),
     options: () => ({
