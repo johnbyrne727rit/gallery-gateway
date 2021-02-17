@@ -1,5 +1,5 @@
-mutation editPortfolioPeriod($id: ID! $input: PortfolioPeriodInput!) {
-  updatePortfolioPeriod(id: $id, input: $input) {
+mutation editPortfolioPeriod($id: ID! $input: PortfolioPeriodInput!, $enabledScholarships: [ID]!, $disabledScholarships: [ID]!) {
+  updatePortfolioPeriod(id: $id, input: $input, enabledScholarships: $enabledScholarships, disabledScholarships: $disabledScholarships) {
     name
     description
     numPieces

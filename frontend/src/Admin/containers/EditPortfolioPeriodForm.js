@@ -26,9 +26,13 @@ export default compose(
   }),
   graphql(EditPortfolioPeriodMutation, {
     props: ({ mutate, ownProps }) => ({
-      update: portfolioPeriod =>
+      update: (portfolioPeriod, enabledScholarshipList, disabledScholarshipList) =>
         mutate({
-          variables: { id: ownProps.portfolioPeriod.id, input: portfolioPeriod }
+          variables: {
+            id: ownProps.portfolioPeriod.id,
+            input: portfolioPeriod,
+            enabledScholarships: enabledScholarshipList,
+            disabledScholarships: disabledScholarshipList }
         })
     }),
     options: () => ({

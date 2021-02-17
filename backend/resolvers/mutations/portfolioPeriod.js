@@ -36,7 +36,7 @@ export function createPortfolioPeriod (_, args, req) {
       portfolioPeriod
         .addScholarships(args.scholarships)
         .catch(() => {
-          throw new UserError('Cannot find one or more usernames')
+          throw new UserError('Cannot find one or more scholarship IDs')
         })
       return portfolioPeriod
     })
@@ -101,5 +101,18 @@ export function updatePortfolioPeriod (_, args, req) {
           'judgingStart', 'judgingEnd',
           'entryCap', 'finalized']
       })
+        .then((portfolioPeriod) => {
+          console.log(args)
+          portfolioPeriod.removeScholarships(args.disabledScholarships)       
+            .catch(() => {
+              throw new UserError('Cannot find one or more scholarship IDs')
+            })
+          portfolioPeriod
+            .addScholarships(args.enabledScholarships)
+            .catch(() => {
+              throw new UserError('Cannot find one or more scholarship IDs')
+            })
+          return portfolioPeriod
+        })
     })
 }
