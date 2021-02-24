@@ -43,6 +43,20 @@ class PortfolioPeriodDetailsTab extends Component {
             </Button>
           </Col>
         </Row>
+        <Row>
+          <Col>
+            {portfolioPeriod.scholarships.length > 0 ? (
+              <Fragment>
+                <dt>Available Scholarships</dt>
+                {portfolioPeriod.scholarships.map(scholarship => {
+                  return (
+                    <dd>{scholarship.name}</dd>
+                  )
+                })}
+              </Fragment>
+            ) : null}
+          </Col>
+        </Row>
       </Fragment>
     )
   }
