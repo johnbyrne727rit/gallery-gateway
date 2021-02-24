@@ -17,5 +17,9 @@ query PortfolioPeriod($id: ID!){
     portfolios {
       submitted
     }
+    scholarships {
+      id
+      name
+    }
   }
 }
