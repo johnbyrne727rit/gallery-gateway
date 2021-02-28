@@ -2,7 +2,12 @@ import { UserError } from "graphql-errors";
 import { ADMIN } from "../../constants";
 import Scholarship from "../../models/scholarship";
 
+
 export function scholarship(_, args, req) {
+  return Scholarship.findById(args.id);
+}
+
+export function scholarships(_, args, req) {
   if (
     req.auth.type !== ADMIN
   ) {
@@ -16,3 +21,4 @@ export function scholarship(_, args, req) {
 
   return Scholarship.findAll(order)
 }
+
