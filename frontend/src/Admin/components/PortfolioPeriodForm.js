@@ -15,6 +15,7 @@ import styled from 'styled-components'
 import moment from 'moment'
 
 import FormikDateRangePicker from '../../shared/components/FormikDateRangePicker'
+import ScholarshipsTable from '../components/ScholarshipsTable'
 
 // Validates another date field is after this date field
 // eg.
@@ -42,11 +43,26 @@ const CalendarContainer = styled.div`
   margin-bottom: 25px;
 `
 
-class CreatePortfolioPeriodForm extends Component {
+class PortfolioPeriodForm extends Component {
   static propTypes = {
-    create: PropTypes.func.isRequired,
+    scholarships: PropTypes.array.isRequired,
+    portfolioPeriod: PropTypes.shape({
+      name: PropTypes.string,
+      description: PropTypes.string,
+      entryCap: PropTypes.number.isRequired
+    }),
+    create: PropTypes.func,
+    update: PropTypes.func,
     done: PropTypes.func.isRequired,
     handleError: PropTypes.func.isRequired
+  }
+
+  state = {
+    selectedScholarships: {}
+  }
+
+  handleSelectedScholarshipsChange = selectedScholarships => {
+    this.setState({ selectedScholarships })
   }
 
   renderErrors = (touched, errors, field) => {
@@ -61,12 +77,20 @@ class CreatePortfolioPeriodForm extends Component {
   }
 
   render () {
-    const { create, done, handleError } = this.props
-    const initialName = `Scholarship Application ${new Date().getFullYear()}`
+    const { scholarships, portfolioPeriod, update, create, done, handleError } = this.props
+    const initialName = `Scholarship Application ${(new Date()).getFullYear()}`
 
     return (
       <Formik
-        initialValues={{
+        initialValues={portfolioPeriod ? {
+          name: portfolioPeriod.name,
+          description: portfolioPeriod.description,
+          numPieces: portfolioPeriod.numPieces,
+          entryStart: moment(portfolioPeriod.entryStart),
+          entryEnd: moment(portfolioPeriod.entryEnd),
+          judgingStart: moment(portfolioPeriod.judgingStart),
+          judgingEnd: moment(portfolioPeriod.judgingEnd)
+        } : {
           name: initialName,
           description: '',
           numPieces: 10,
@@ -113,9 +137,17 @@ class CreatePortfolioPeriodForm extends Component {
             .required('End Date is Required')
         })}
         onSubmit={values => {
-          create(values)
-            .then(() => done())
-            .catch(err => handleError(err.message))
+          const enabledScholarships = Object.keys(this.state.selectedScholarships)
+          const scholarshipIDs = scholarships.map(sch => sch.id)
+          const disabledScholarships = scholarshipIDs.filter(scholarship => !enabledScholarships.includes(scholarship.id))
+
+          portfolioPeriod
+            ? update(values, enabledScholarships, disabledScholarships)
+              .then(() => done())
+              .catch(err => handleError(err.message))
+            : create(values, enabledScholarships)
+              .then(() => done())
+              .catch(err => handleError(err.message))
         }}
         render={({
           values,
@@ -126,7 +158,7 @@ class CreatePortfolioPeriodForm extends Component {
           handleSubmit,
           isSubmitting
         }) => (
-          <Form onSubmit={handleSubmit}>
+          <Form onSubmit={handleSubmit} style={{ marginBottom: '75px' }}>
             <Row>
               <Col xs={6}>
                 <FormGroup>
@@ -163,6 +195,14 @@ class CreatePortfolioPeriodForm extends Component {
                     required
                   />
                   {this.renderErrors(touched, errors, 'entryCap')}
+                </FormGroup>
+                <FormGroup>
+                  <Label>Available Scholarships</Label>
+                  <ScholarshipsTable
+                    scholarships={scholarships}
+                    selected={this.state.selectedScholarships}
+                    onChange={this.handleSelectedScholarshipsChange}
+                  />
                 </FormGroup>
               </Col>
               <Col xs={6}>
@@ -228,16 +268,34 @@ class CreatePortfolioPeriodForm extends Component {
                 </Row>
               </Col>
             </Row>
-            <Button
-              type='submit'
-              color='primary'
-              style={{
-                cursor: 'pointer'
-              }}
-              disabled={isSubmitting}
-            >
-              Create
-            </Button>
+            <Row>
+              <Col>
+                <Button
+                  type='submit'
+                  color='primary'
+                  style={{
+                    cursor: 'pointer'
+                  }}
+                  disabled={isSubmitting}
+                >
+                  {portfolioPeriod ? 'Update' : 'Create' }
+                </Button>
+              </Col>
+              <Col>
+                <Button
+                  type='button'
+                  color='danger'
+                  className="float-right"
+                  style={{
+                    cursor: 'pointer'
+                  }}
+                  disabled={isSubmitting}
+                  onClick={done}
+                >
+                      Cancel
+                </Button>
+              </Col>
+            </Row>
           </Form>
         )}
       />
@@ -245,4 +303,4 @@ class CreatePortfolioPeriodForm extends Component {
   }
 }
 
-export default CreatePortfolioPeriodForm
+export default PortfolioPeriodForm

@@ -6,11 +6,11 @@ import { displayError } from '../../shared/actions'
 
 import PortfolioPeriodsQuery from '../queries/portfolioPeriods.graphql'
 import ScholarshipsQuery from '../queries/scholarships.graphql'
-import CreatePortfolioPeriodMutation from '../mutations/createPortfolioPeriod.graphql'
+import EditPortfolioPeriodMutation from '../mutations/editPortfolioPeriod.graphql'
 import PortfolioPeriodForm from '../components/PortfolioPeriodForm'
 
 const mapDispatchToProps = dispatch => ({
-  done: () => dispatch(push('/portfolio')),
+  done: () => dispatch(push('/portfolio/')),
   handleError: message => dispatch(displayError(message))
 })
 
@@ -24,11 +24,15 @@ export default compose(
       error
     })
   }),
-  graphql(CreatePortfolioPeriodMutation, {
-    props: ({ mutate }) => ({
-      create: (portfolioPeriod, scholarshipList) =>
+  graphql(EditPortfolioPeriodMutation, {
+    props: ({ mutate, ownProps }) => ({
+      update: (portfolioPeriod, enabledScholarshipList, disabledScholarshipList) =>
         mutate({
-          variables: { input: portfolioPeriod, scholarships: scholarshipList }
+          variables: {
+            id: ownProps.portfolioPeriod.id,
+            input: portfolioPeriod,
+            enabledScholarships: enabledScholarshipList,
+            disabledScholarships: disabledScholarshipList }
         })
     }),
     options: () => ({

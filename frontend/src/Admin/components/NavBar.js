@@ -64,7 +64,7 @@ export default class NavBar extends Component {
               </li>
               <NavItem>
                 <NavLink tag={Link} to='/portfolio'>
-                  Portfolio Dashboard
+                  Admin Portfolio Dashboard
                 </NavLink>
               </NavItem>
               <li>

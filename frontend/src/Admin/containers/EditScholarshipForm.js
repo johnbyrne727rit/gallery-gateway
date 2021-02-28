@@ -1,12 +1,12 @@
 import { graphql } from 'react-apollo'
 import { push } from 'connected-react-router'
 import { connect } from 'react-redux'
-import { compose } from 'recompose'
+import { compose, mapProps } from 'recompose'
 import { displayError } from '../../shared/actions'
 
+import EditScholarshipMutation from '../mutations/editScholarship.graphql'
 import ScholarshipsQuery from '../queries/scholarships.graphql'
-import CreateScholarshipMutation from '../mutations/createScholarship.graphql'
-import ScholarshipForm from '../components/ScholarshipForm'
+import ScholarshipForm from '../components/ScholarshipForm';
 
 const mapDispatchToProps = dispatch => ({
   done: () => dispatch(push('/scholarship')),
@@ -15,11 +15,11 @@ const mapDispatchToProps = dispatch => ({
 
 export default compose(
   connect(null, mapDispatchToProps),
-  graphql(CreateScholarshipMutation, {
-    props: ({ mutate }) => ({
+  graphql(EditScholarshipMutation, {
+    props: ({ mutate, ownProps }) => ({
       submit: scholarship =>
         mutate({
-          variables: { input: scholarship }
+          variables: { id: ownProps.scholarship.id, input: scholarship }
         })
     }),
     options: () => ({

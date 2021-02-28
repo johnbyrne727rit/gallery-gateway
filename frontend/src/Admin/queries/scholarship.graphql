@@ -1,0 +1,16 @@
+query Scholarship($id: ID!){
+    scholarship(id: $id){
+            id,
+            name,
+            gpa,
+            yearStatus,
+            requiredPhotos,
+            description,
+            fulltime,
+            renewable,
+            requiresEssay,
+            degreePrograms,
+            createdAt,
+            updatedAt
+    }
+}
