@@ -1,14 +1,14 @@
 import React from 'react'
 import { Container, Row, Col } from 'reactstrap'
 
-import Shows from '../containers/Shows'
+import Scholarships from '../containers/Scholarships'
 
 const Dashboard = () => (
   <Container style={{ paddingTop: '25px' }}>
     <Row>
       <Col>
-        <h1>Shows Dashboard</h1>
-        <Shows />
+        <h1>Portfolio Dashboard</h1>
+        <Scholarships />
       </Col>
     </Row>
   </Container>
