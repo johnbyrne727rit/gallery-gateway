@@ -65,6 +65,32 @@ class NavBar extends Component {
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className='ml-auto' navbar>
+              <NavItem>
+                <NavLink tag={Link} to=''>
+                  Shows Dashboard
+                </NavLink>
+              </NavItem>
+              <li>
+                <span
+                  className='text-muted d-md-block d-none'
+                  style={{ padding: '8px', cursor: 'default' }}
+                >
+                  |
+                </span>
+              </li>
+              <NavItem>
+                <NavLink tag={Link} to='scholarships'>
+                  Portfolio Dashboard
+                </NavLink>
+              </NavItem>
+              <li>
+                <span
+                  className='text-muted d-md-block d-none'
+                  style={{ padding: '8px', cursor: 'default' }}
+                >
+                  |
+                </span>
+              </li>
               {isAdmin ? this.renderSwitchToAdmin() : null}
               <NavItem>
                 <Link to='/' className='nav-link' onClick={this.props.logout}>
