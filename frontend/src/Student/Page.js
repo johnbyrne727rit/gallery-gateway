@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom'
 
 import Dashboard from './pages/Dashboard'
 import Submit from './pages/Submit'
-import Portfolio from './pages/Potfolio'
+import Portfolio from './pages/Portfolio'
 import Add from './pages/Add'
 
 import Layout from './components/Layout'
