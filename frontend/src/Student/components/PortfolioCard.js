@@ -1,10 +1,18 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, Component } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment'
-import { Row, Col, Button } from 'reactstrap'
+import {
+  Row,
+  Col,
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter } from 'reactstrap'
 import moment from 'moment'
 import { FlipCard, NewPiece } from './ImageCard'
+import ScholarshipsTable from 'shared/components/ScholarshipsTable'
 
 const Card = styled.div`
   background-color: #f8f9fa;
@@ -32,82 +40,146 @@ const SubmittedEntries = ({ portfolio, deletePiece }) =>
     </Col>
   ))
 
-const PortfolioCard = props => (
-  <Card>
-    <Row>
-      <Col>
-        <div>
-          <h2>{props.portfolio.portfolioPeriod.name}</h2>
-        </div>
-        <div>
-          <h5>
-            {props.portfolio.pieces.length}/{
-              props.portfolio.portfolioPeriod.numPieces
-            }{' '}
-            Pieces
-          </h5>
-        </div>
-      </Col>
-      <Col className='text-right'>
-        {moment().isAfter(moment(props.portfolio.portfolioPeriod.entryEnd)) ? (
-          <div>No Longer Accepting Applications</div>
-        ) : (
-          <div>
-            <div>
-              <h2>
-                <Button color='primary'>Apply</Button>
-              </h2>
-            </div>
-            <div>
-              Accepting Applications Until:{' '}
-              <Moment format='MMMM D, YYYY hh:mm:ss a'>
-                {props.portfolio.portfolioPeriod.entryEnd}
-              </Moment>
-            </div>
-          </div>
-        )}
-      </Col>
-    </Row>
-    <hr />
-    <Row style={{ minHeight: '250px' }} className='align-items-center'>
-      <Fragment>
-        {moment().isBefore(props.portfolio.portfolioPeriod.entryEnd) &&
-        props.portfolio.pieces.length <
-          props.portfolio.portfolioPeriod.numPieces ? (
-            <NewPiece {...props} />
-          ) : null}
-        <SubmittedEntries {...props} />
-      </Fragment>
-    </Row>
-  </Card>
-)
-
-PortfolioCard.propTypes = {
-  show: PropTypes.shape({
-    id: PropTypes.string,
-    name: PropTypes.string,
-    entryCap: PropTypes.number,
-    entries: PropTypes.arrayOf(
-      PropTypes.shape({
+class PortfolioCard extends Component {
+  static propTypes = {
+    portfolio: PropTypes.shape({
+      id: PropTypes.string,
+      pieces: PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.string.isRequired,
+          path: PropTypes.string,
+          pieceType: PropTypes.oneOf(['PHOTO', 'VIDEO', 'OTHER']).isRequired,
+          title: PropTypes.string.isRequired
+        })
+      ),
+      portfolioPeriod: PropTypes.shape({
         id: PropTypes.string.isRequired,
-        title: PropTypes.string.isRequired,
-        entryType: PropTypes.oneOf(['PHOTO', 'VIDEO', 'OTHER']).isRequired,
-        invited: PropTypes.bool,
-        path: PropTypes.string,
-        provider: PropTypes.oneOf(['youtube', 'vimeo']),
-        videoId: PropTypes.string
-      })
-    ),
-    entryStart: PropTypes.string,
-    entryEnd: PropTypes.string,
-    judgingStart: PropTypes.string,
-    judgingEnd: PropTypes.string
-  }).isRequired
-}
+        name: PropTypes.string.isRequired,
+        numPieces: PropTypes.number.isRequired,
+        entryEnd: PropTypes.string,
+        entryStart: PropTypes.string,
+        scholarships: PropTypes.arrayOf({
+          id: PropTypes.string.isRequired,
+          name: PropTypes.string.isRequired,
+          requiresEssay: PropTypes.bool
+        })
+      }),
+      createdAt: PropTypes.string,
+      updatedAt: PropTypes.string
+    }).isRequired
+  }
 
-PortfolioCard.defaultProps = {
-  show: {
-    entries: []
+  static defaultProps = {
+    portfolio: {
+      pieces: []
+    }
+  }
+
+  state = {
+    isScholarshipSelectionOpen: false,
+    selectedScholarships: {}
+  }
+
+  handleSelectedScholarshipsChange = selectedScholarships => {
+    this.setState({ selectedScholarships })
+  }
+
+  onDismissScholarshipSelection = () => {
+    this.setState({
+      isScholarshipSelectionOpen: false
+    })
+  }
+
+  onDisplayScholarshipSelection = () => {
+    this.setState({
+      isScholarshipSelectionOpen: true
+    })
+  }
+
+  render () {
+    const { portfolio } = this.props
+
+    return (
+      <Fragment>
+        <Modal
+          isOpen={this.state.isScholarshipSelectionOpen}
+        >
+          <ModalHeader toggle={this.onDismissScholarshipSelection}>
+            Scholarship Selection
+          </ModalHeader>
+          <ModalBody>
+            <ScholarshipsTable scholarships={portfolio.portfolioPeriod.scholarships}
+              selected={this.state.selectedScholarships}
+              onChange={this.handleSelectedScholarshipsChange} />
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              color='secondary'
+              onClick={() => this.onDismissScholarshipSelection()}
+            >
+              Cancel
+            </Button>
+            <Button
+              color='primary'
+              onClick={() => {
+                this.onDismissScholarshipSelection()
+              }}
+            >
+              Submit Application
+            </Button>
+          </ModalFooter>
+        </Modal>
+        <Card>
+          <Row>
+            <Col>
+              <div>
+                <h2>{portfolio.portfolioPeriod.name}</h2>
+              </div>
+              <div>
+                <h5>
+                  {portfolio.pieces.length}/{
+                    portfolio.portfolioPeriod.numPieces
+                  }{' '}
+              Pieces
+                </h5>
+              </div>
+            </Col>
+            <Col className='text-right'>
+              {moment().isAfter(moment(portfolio.portfolioPeriod.entryEnd)) ? (
+                <div>No Longer Accepting Applications</div>
+              ) : (
+                <div>
+                  <div>
+                    <h2>
+                      <Button color='primary'
+                        style={{cursor: 'pointer'}}
+                        onClick={() => this.onDisplayScholarshipSelection()}>Apply</Button>
+                    </h2>
+                  </div>
+                  <div>
+                Accepting Applications Until:{' '}
+                    <Moment format='MMMM D, YYYY hh:mm:ss a'>
+                      {portfolio.portfolioPeriod.entryEnd}
+                    </Moment>
+                  </div>
+                </div>
+              )}
+            </Col>
+          </Row>
+          <hr />
+          <Row style={{ minHeight: '250px' }} className='align-items-center'>
+            <Fragment>
+              {moment().isBefore(portfolio.portfolioPeriod.entryEnd) &&
+          portfolio.pieces.length <
+            portfolio.portfolioPeriod.numPieces ? (
+                  <NewPiece {...this.props} />
+                ) : null}
+              <SubmittedEntries {...this.props} />
+            </Fragment>
+          </Row>
+        </Card>
+      </Fragment>
+    )
   }
 }
 

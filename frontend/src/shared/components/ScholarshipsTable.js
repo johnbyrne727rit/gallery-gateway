@@ -5,12 +5,8 @@ import CheckboxTable from 'shared/components/CheckboxTable'
 
 const columns = [
   {
-    Header: 'Scholarship',
+    Header: 'Scholarship Name',
     accessor: 'name'
-  },
-  {
-    Header: 'Description',
-    accessor: 'description'
   }
 ]
 
@@ -21,7 +17,6 @@ const ScholarshipsTable = props => (
     unique='id'
     selected={props.selected}
     onChange={props.onChange}
-    defaultSorted={[{ id: 'name', desc: false }]}
   />
 )
 

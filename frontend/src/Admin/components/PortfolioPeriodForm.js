@@ -15,7 +15,7 @@ import styled from 'styled-components'
 import moment from 'moment'
 
 import FormikDateRangePicker from '../../shared/components/FormikDateRangePicker'
-import ScholarshipsTable from '../components/ScholarshipsTable'
+import ScholarshipsTable from 'shared/components/ScholarshipsTable'
 
 // Validates another date field is after this date field
 // eg.
