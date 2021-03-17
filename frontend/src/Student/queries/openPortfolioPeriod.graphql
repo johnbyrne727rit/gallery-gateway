@@ -5,5 +5,9 @@ query OpenPortfolioPeriod($studentUsername: String!) {
     numPieces
     entryStart
     entryEnd
+    scholarships {
+      id
+      name
+    }
   }
 }

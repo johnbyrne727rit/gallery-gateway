@@ -9,6 +9,11 @@ query PortfoliosByStudent($studentUsername: String!) {
       numPieces
       entryStart
       entryEnd
+      scholarships {
+        id
+        name
+        requiresEssay
+      }
     }
     pieces {
       id
