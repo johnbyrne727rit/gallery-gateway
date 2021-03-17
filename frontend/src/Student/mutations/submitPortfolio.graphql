@@ -1,0 +1,3 @@
+mutation submitPortfolio($id: ID!) {
+  submitPortfolio(id: $id)
+}

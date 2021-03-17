@@ -12,8 +12,8 @@ import FontAwesomeIcon from "@fortawesome/react-fontawesome";
 
 const ConfirmModal = ({
   isOpen,
-  handleClose,
-  submitPortfolio
+  submitPortfolio,
+  handleClose
 }) => {
   return (
     <Modal isOpen={isOpen}>
@@ -29,7 +29,7 @@ const ConfirmModal = ({
         </Container>
       </ModalBody>
       <ModalFooter>
-	<Button color="primary" onClick={submitPortfolio}>Submit Portfolio</Button>
+	      <Button color="primary" onClick={submitPortfolio}>Submit Portfolio</Button>
         <Button color='danger' onClick={handleClose}>Return to Editing</Button>
       </ModalFooter>
     </Modal>

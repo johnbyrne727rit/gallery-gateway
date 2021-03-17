@@ -65,8 +65,8 @@ const PortfolioCard = props => (
           <h2><Button onClick={props.submitHandleShow} color='primary'>Apply</Button></h2>
           <ConfirmModal
             isOpen = {props.isSubmitModalOpen}
+            submitPortfolio = {props.submitPortfolio}
             handleClose = {props.submitHandleClose}
-            submitPortfolio = {props.submitHandleComplete}
           />
           </div>
           <div>

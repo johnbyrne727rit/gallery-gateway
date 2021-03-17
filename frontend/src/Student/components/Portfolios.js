@@ -19,15 +19,10 @@ class Portfolios extends Component {
     super()
     this.state = {show: false}
     this.handleClose = this.handleClose.bind(this)
-    this.submitPortfolio = this.submitPortfolio.bind(this)
     this.handleShow = this.handleShow.bind(this)
   }
 
   handleClose(){
-    this.setState({show: false});
-  }
-  
-  submitPortfolio(){
     this.setState({show: false});
   }
 
@@ -35,7 +30,7 @@ class Portfolios extends Component {
     this.setState({show: true});
   }
 
-  renderPortfolios = (portfolios, openPeriod, deletePiece) => {
+  renderPortfolios = (portfolios, openPeriod, deletePiece, submitPortfolio) => {
     if (openPeriod) {
       const skeletonPortfolio = {
         portfolioPeriod: openPeriod,
@@ -62,7 +57,7 @@ class Portfolios extends Component {
                                           deletePiece= {deletePiece}
                                           submitHandleClose= {this.handleClose}
                                           submitHandleShow= {this.handleShow}
-                                          submitHandleComplete= {this.submitPortfolio}
+                                          submitPortfolio= {submitPortfolio}
                                           isSubmitModalOpen= {this.state.show}
                                         />)
   }
@@ -87,7 +82,8 @@ class Portfolios extends Component {
       openPeriodLoading,
       portfolios,
       openPeriod,
-      deletePiece
+      deletePiece,
+      submitPortfolio
     } = this.props
 
     return (
@@ -95,7 +91,7 @@ class Portfolios extends Component {
         {portfoliosLoading || openPeriodLoading ? (
           <Loading />
         ) : (
-          this.renderPortfolios(portfolios, openPeriod, deletePiece)
+          this.renderPortfolios(portfolios, openPeriod, deletePiece, submitPortfolio)
         )}
       </div>
     )

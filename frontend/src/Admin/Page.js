@@ -39,7 +39,7 @@ const Admin = () => (
       {/* Portfolio Period Dashboard & Tools */}
       <Route exact path='/portfolio' component={PortfolioDashboard}/>
       <Route exact path='/portfolio/new' component={CreatePortfolioPeriod} />
-      <Route exact path='/portfolio/:id/judges/assign' component={AssignPortfolioJudges} />
+      <Route path='/portfolio/:id/judges/assign' component={AssignPortfolioJudges} />
       <Route path='/portfolio/:id/edit' component={EditPortfolioPeriod} />
       <Route path='/portfolio/:id' component={ViewPortfolioPeriod} />
       {/* Scholarship Dashboard & Tools */}
