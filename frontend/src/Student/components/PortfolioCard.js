@@ -79,7 +79,8 @@ class PortfolioCard extends Component {
   state = {
     isScholarshipSelectionOpen: false,
     displaySubmissionSuccess: false,
-    selectedScholarships: {}
+    selectedScholarships: {},
+    isValidSubmission: false
   }
 
   closeSuccessModal = () => {
@@ -93,7 +94,19 @@ class PortfolioCard extends Component {
   }
 
   handleSelectedScholarshipsChange = selectedScholarships => {
-    this.setState({ selectedScholarships })
+    const { portfolio } = this.props
+    const { portfolioPeriod } = this.props.portfolio
+
+    const scholarshipIDs = Object.keys(selectedScholarships)
+
+    const requiredPieces = scholarshipIDs.map(ID => {
+      // Creates array of required photo sizes
+      return portfolioPeriod.scholarships.find(scholarship => scholarship.id === ID).requiredPhotos
+    })
+
+    const validPortfolio = portfolio.pieces.length >= Math.max(...requiredPieces)
+
+    this.setState({ selectedScholarships, isValidSubmission: validPortfolio && Object.keys(this.state.selectedScholarships).length === 0 })
   }
 
   onDismissScholarshipSelection = () => {
@@ -134,9 +147,14 @@ class PortfolioCard extends Component {
             </Button>
             <Button
               color='primary'
+              disabled={!this.state.isValidSubmission}
               onClick={() => {
-                this.onDismissScholarshipSelection()
-                this.openSuccessModal()
+                if (!this.state.isValidSubmission) {
+                  
+                } else {
+                  this.onDismissScholarshipSelection()
+                  this.openSuccessModal()
+                }
               }}
             >
               Submit Application
