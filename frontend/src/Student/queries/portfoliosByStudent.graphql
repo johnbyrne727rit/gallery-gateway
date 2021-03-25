@@ -13,6 +13,7 @@ query PortfoliosByStudent($studentUsername: String!) {
         id
         name
         requiresEssay
+        requiredPhotos
       }
     }
     pieces {

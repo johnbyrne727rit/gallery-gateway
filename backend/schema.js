@@ -208,6 +208,7 @@ type Portfolio {
     submitted: Boolean
     createdAt: Date!
     updatedAt: Date!
+    scholarships: [Scholarship]
 }
 
 interface Piece {

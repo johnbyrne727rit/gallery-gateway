@@ -8,6 +8,7 @@ query OpenPortfolioPeriod($studentUsername: String!) {
     scholarships {
       id
       name
+      requiredPhotos
     }
   }
 }
