@@ -208,6 +208,7 @@ type Portfolio {
     submitted: Boolean
     createdAt: Date!
     updatedAt: Date!
+    scholarships: [Scholarship]
 }
 
 interface Piece {
@@ -432,6 +433,7 @@ type Mutation {
     createScholarship(input: ScholarshipInput!): Scholarship
     updateScholarship(id: ID!, input: ScholarshipUpdate!): Scholarship
     deletePiece(id: ID!): Boolean
+    submitPortfolio(id: ID!): Boolean
 
     vote(input: VoteInput): Vote
 }

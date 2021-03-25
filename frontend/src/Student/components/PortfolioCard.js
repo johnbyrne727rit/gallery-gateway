@@ -11,6 +11,7 @@ import {
   ModalBody,
   ModalFooter } from 'reactstrap'
 import moment from 'moment'
+import SuccessModal from './SuccessModal'
 import { FlipCard, NewPiece } from './ImageCard'
 import ScholarshipsTable from 'shared/components/ScholarshipsTable'
 
@@ -77,7 +78,18 @@ class PortfolioCard extends Component {
 
   state = {
     isScholarshipSelectionOpen: false,
+    displaySubmissionSuccess: false,
     selectedScholarships: {}
+  }
+
+  closeSuccessModal = () => {
+    this.setState({ displaySubmissionSuccess: false })
+  }
+
+  openSuccessModal = () => {
+    this.setState({ displaySubmissionSuccess: true }, () => {
+      setTimeout(this.closeSuccessModal, 4000)
+    })
   }
 
   handleSelectedScholarshipsChange = selectedScholarships => {
@@ -110,7 +122,8 @@ class PortfolioCard extends Component {
           <ModalBody>
             <ScholarshipsTable scholarships={portfolio.portfolioPeriod.scholarships}
               selected={this.state.selectedScholarships}
-              onChange={this.handleSelectedScholarshipsChange} />
+              onChange={this.handleSelectedScholarshipsChange}
+              studentView={true} />
           </ModalBody>
           <ModalFooter>
             <Button
@@ -123,6 +136,7 @@ class PortfolioCard extends Component {
               color='primary'
               onClick={() => {
                 this.onDismissScholarshipSelection()
+                this.openSuccessModal()
               }}
             >
               Submit Application
@@ -178,6 +192,9 @@ class PortfolioCard extends Component {
             </Fragment>
           </Row>
         </Card>
+        <SuccessModal
+          isOpen={this.state.displaySubmissionSuccess}
+          customBodyText={'Your portfolio was successfully submitted to the scholarships you selected. Check back soon to see if you were selected!'}/>
       </Fragment>
     )
   }

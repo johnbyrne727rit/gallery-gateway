@@ -202,6 +202,7 @@ class PortfolioPeriodForm extends Component {
                     scholarships={scholarships}
                     selected={this.state.selectedScholarships}
                     onChange={this.handleSelectedScholarshipsChange}
+                    studentView={false}
                   />
                 </FormGroup>
               </Col>
