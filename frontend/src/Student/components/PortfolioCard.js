@@ -5,15 +5,10 @@ import Moment from 'react-moment'
 import {
   Row,
   Col,
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter } from 'reactstrap'
+  Button } from 'reactstrap'
 import moment from 'moment'
-import SuccessModal from './SuccessModal'
 import { FlipCard, NewPiece } from './ImageCard'
-import ScholarshipsTable from 'shared/components/ScholarshipsTable'
+import PortfolioSubmissionModal from './PortfolioSubmissionModal'
 
 const Card = styled.div`
   background-color: #f8f9fa;
@@ -59,11 +54,13 @@ class PortfolioCard extends Component {
         numPieces: PropTypes.number.isRequired,
         entryEnd: PropTypes.string,
         entryStart: PropTypes.string,
-        scholarships: PropTypes.arrayOf({
-          id: PropTypes.string.isRequired,
-          name: PropTypes.string.isRequired,
-          requiresEssay: PropTypes.bool
-        })
+        scholarships: PropTypes.arrayOf(
+          PropTypes.shape({
+            id: PropTypes.string.isRequired,
+            name: PropTypes.string.isRequired,
+            requiresEssay: PropTypes.bool
+          })
+        )
       }),
       createdAt: PropTypes.string,
       updatedAt: PropTypes.string
@@ -77,36 +74,7 @@ class PortfolioCard extends Component {
   }
 
   state = {
-    isScholarshipSelectionOpen: false,
-    displaySubmissionSuccess: false,
-    selectedScholarships: {},
-    isValidSubmission: false
-  }
-
-  closeSuccessModal = () => {
-    this.setState({ displaySubmissionSuccess: false })
-  }
-
-  openSuccessModal = () => {
-    this.setState({ displaySubmissionSuccess: true }, () => {
-      setTimeout(this.closeSuccessModal, 4000)
-    })
-  }
-
-  handleSelectedScholarshipsChange = selectedScholarships => {
-    const { portfolio } = this.props
-    const { portfolioPeriod } = this.props.portfolio
-
-    const scholarshipIDs = Object.keys(selectedScholarships)
-
-    const requiredPieces = scholarshipIDs.map(ID => {
-      // Creates array of required photo sizes
-      return portfolioPeriod.scholarships.find(scholarship => scholarship.id === ID).requiredPhotos
-    })
-
-    const validPortfolio = portfolio.pieces.length >= Math.max(...requiredPieces)
-
-    this.setState({ selectedScholarships, isValidSubmission: validPortfolio && Object.keys(this.state.selectedScholarships).length === 0 })
+    isScholarshipSelectionOpen: false
   }
 
   onDismissScholarshipSelection = () => {
@@ -126,41 +94,10 @@ class PortfolioCard extends Component {
 
     return (
       <Fragment>
-        <Modal
+        <PortfolioSubmissionModal
           isOpen={this.state.isScholarshipSelectionOpen}
-        >
-          <ModalHeader toggle={this.onDismissScholarshipSelection}>
-            Scholarship Selection
-          </ModalHeader>
-          <ModalBody>
-            <ScholarshipsTable scholarships={portfolio.portfolioPeriod.scholarships}
-              selected={this.state.selectedScholarships}
-              onChange={this.handleSelectedScholarshipsChange}
-              studentView={true} />
-          </ModalBody>
-          <ModalFooter>
-            <Button
-              color='secondary'
-              onClick={() => this.onDismissScholarshipSelection()}
-            >
-              Cancel
-            </Button>
-            <Button
-              color='primary'
-              disabled={!this.state.isValidSubmission}
-              onClick={() => {
-                if (!this.state.isValidSubmission) {
-                  
-                } else {
-                  this.onDismissScholarshipSelection()
-                  this.openSuccessModal()
-                }
-              }}
-            >
-              Submit Application
-            </Button>
-          </ModalFooter>
-        </Modal>
+          toggleFunction={this.onDismissScholarshipSelection}
+          portfolio={portfolio} />
         <Card>
           <Row>
             <Col>
@@ -210,9 +147,6 @@ class PortfolioCard extends Component {
             </Fragment>
           </Row>
         </Card>
-        <SuccessModal
-          isOpen={this.state.displaySubmissionSuccess}
-          customBodyText={'Your portfolio was successfully submitted to the scholarships you selected. Check back soon to see if you were selected!'}/>
       </Fragment>
     )
   }
