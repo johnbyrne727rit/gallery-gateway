@@ -1,13 +1,23 @@
 import { UserError } from 'graphql-errors'
-import moment from 'moment-timezone'
-import { ADMIN } from '../../constants'
+import { STUDENT } from '../../constants'
 import Portfolio from '../../models/portfolio'
-import db from '../../config/sequelize'
 
-export function submitPortfolio(_, args, req) {
+export function submitPortfolio (_, args, req) {
+  if (req.auth.type !== STUDENT) {
+    throw new UserError('Permission Denied')
+  }
+
   return Portfolio.findById(args.id)
-    .then((Portfolio) => {
+    .then((portfolio) => {
       return portfolio.update(true, {
         fields: ['submitted']
       })
+        .then((portfolio) => {
+          portfolio.addScholarships(args.selectedScholarships)
+            .catch(() => {
+              throw new UserError('Cannot find one or more scholarship IDs')
+            })
+          return true
+        })
+    })
 }
