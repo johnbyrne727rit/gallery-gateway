@@ -18,6 +18,7 @@ export function submitPortfolio (_, args, req) {
               throw new UserError('Cannot find one or more scholarship IDs')
             })
           return true
+          
         })
     })
 }
