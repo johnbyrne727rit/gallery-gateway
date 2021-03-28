@@ -10,4 +10,5 @@ export function submitPortfolio(_, args, req) {
       return portfolio.update(true, {
         fields: ['submitted']
       })
+    }
 }
