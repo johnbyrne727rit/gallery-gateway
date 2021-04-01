@@ -10,7 +10,7 @@ const ScholarshipsTable = props => (
       accessor: 'name'
     },
     {
-      Header: 'Required Photos',
+      Header: 'Required Images',
       accessor: 'requiredPhotos'
     }])
       : ([
