@@ -4,6 +4,7 @@ import { compose } from 'recompose'
 
 import PortfoliosQuery from '../queries/portfoliosByStudent.graphql'
 import OpenPortfolioPeriodQuery from '../queries/openPortfolioPeriod.graphql'
+import SubmitPortfolio from '../mutations/submitPortfolio.graphql'
 import DeletePiece from '../mutations/deletePiece.graphql'
 import Portfolios from '../components/Portfolios'
 import { displayError } from '../../shared/actions'
@@ -47,6 +48,24 @@ export default compose(
       deletePiece: id =>
         mutate({
           variables: { id }
+        })
+    }),
+    options: ownProps => ({
+      refetchQueries: [
+        {
+          query: PortfoliosQuery,
+          variables: {
+            studentUsername: ownProps.studentUsername
+          }
+        }
+      ]
+    })
+  }),
+  graphql(SubmitPortfolio, {
+    props: ({ mutate }) => ({
+      submitPortfolio: (portfolioId, scholarshipList) =>
+        mutate({
+          variables: { id: portfolioId, scholarships: scholarshipList }
         })
     }),
     options: ownProps => ({

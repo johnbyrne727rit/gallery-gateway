@@ -13,7 +13,7 @@ const NoShowsContainer = styled.div`
   transform: translate(-50%, -50%);
 `
 class Portfolios extends Component {
-  renderPortfolios = (portfolios, openPeriod, deletePiece) => {
+  renderPortfolios = (portfolios, openPeriod, deletePiece, submitPortfolio, handleError) => {
     if (openPeriod) {
       const skeletonPortfolio = {
         portfolioPeriod: openPeriod,
@@ -38,6 +38,8 @@ class Portfolios extends Component {
         key={portfolios.id}
         portfolio={portfolios}
         deletePiece={deletePiece}
+        submitPortfolio={submitPortfolio}
+        handleError={handleError}
       />
     ))
   }
@@ -62,7 +64,9 @@ class Portfolios extends Component {
       openPeriodLoading,
       portfolios,
       openPeriod,
-      deletePiece
+      deletePiece,
+      submitPortfolio,
+      handleError
     } = this.props
 
     return (
@@ -70,7 +74,7 @@ class Portfolios extends Component {
         {portfoliosLoading || openPeriodLoading ? (
           <Loading />
         ) : (
-          this.renderPortfolios(portfolios, openPeriod, deletePiece)
+          this.renderPortfolios(portfolios, openPeriod, deletePiece, submitPortfolio, handleError)
         )}
       </div>
     )
