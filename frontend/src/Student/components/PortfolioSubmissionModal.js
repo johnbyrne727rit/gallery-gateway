@@ -1,5 +1,5 @@
 import React, { Fragment, Component } from 'react'
-import PropTypes from 'prop-types'
+import PropTypes, { func } from 'prop-types'
 import {
   Button,
   Modal,
@@ -11,6 +11,8 @@ import ScholarshipsTable from 'shared/components/ScholarshipsTable'
 
 class PortfolioSubmissionModal extends Component {
     static propTypes = {
+      handleError: PropTypes.func.isRequired,
+      submitPortfolio: PropTypes.func.isRequired,
       isOpen: PropTypes.bool.isRequired,
       toggleFunction: PropTypes.func.isRequired,
       portfolio: PropTypes.shape({
@@ -81,7 +83,7 @@ class PortfolioSubmissionModal extends Component {
     }
 
     render () {
-      const { portfolio, isOpen, toggleFunction } = this.props
+      const { portfolio, isOpen, toggleFunction, submitPortfolio, handleError } = this.props
 
       return (
         <Fragment>
@@ -108,8 +110,16 @@ class PortfolioSubmissionModal extends Component {
                 color='primary'
                 disabled={!this.state.isValidSubmission}
                 onClick={() => {
-                  toggleFunction()
-                  this.openSuccessModal()
+                  const selectedScholarships = Object.keys(this.state.selectedScholarships)
+                  submitPortfolio(portfolio.id, selectedScholarships)
+                    .then(() => {
+                      toggleFunction()
+                      this.openSuccessModal()
+                    })
+                    .catch(err => {
+                      toggleFunction()
+                      handleError(err.message)
+                    })
                 }}
               >
               Submit Application

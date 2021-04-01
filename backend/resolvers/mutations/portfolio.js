@@ -1,4 +1,5 @@
 import { UserError } from 'graphql-errors'
+import sequelize from '../../config/sequelize'
 import { STUDENT } from '../../constants'
 import Portfolio from '../../models/portfolio'
 
@@ -7,13 +8,11 @@ export function submitPortfolio (_, args, req) {
     throw new UserError('Permission Denied')
   }
 
-  return Portfolio.findById(args.id)
+  return Portfolio.findByPk(args.id)
     .then((portfolio) => {
-      return portfolio.update(true, {
-        fields: ['submitted']
-      })
+      return portfolio.update({submitted: true}, { where: { id: args.id } })
         .then((portfolio) => {
-          portfolio.addScholarships(args.selectedScholarships)
+          portfolio.addScholarships(args.scholarships)
             .catch(() => {
               throw new UserError('Cannot find one or more scholarship IDs')
             })

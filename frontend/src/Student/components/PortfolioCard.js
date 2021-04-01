@@ -38,6 +38,8 @@ const SubmittedEntries = ({ portfolio, deletePiece }) =>
 
 class PortfolioCard extends Component {
   static propTypes = {
+    submitPortfolio: PropTypes.func.isRequired,
+    handleError: PropTypes.func.isRequired,
     portfolio: PropTypes.shape({
       id: PropTypes.string,
       pieces: PropTypes.arrayOf(
@@ -90,14 +92,16 @@ class PortfolioCard extends Component {
   }
 
   render () {
-    const { portfolio } = this.props
+    const { portfolio, submitPortfolio, handleError } = this.props
 
     return (
       <Fragment>
         <PortfolioSubmissionModal
           isOpen={this.state.isScholarshipSelectionOpen}
           toggleFunction={this.onDismissScholarshipSelection}
-          portfolio={portfolio} />
+          portfolio={portfolio}
+          submitPortfolio={submitPortfolio}
+          handleError={handleError} />
         <Card>
           <Row>
             <Col>
