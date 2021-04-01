@@ -1,5 +1,5 @@
 import React, { Fragment, Component } from 'react'
-import PropTypes, { func } from 'prop-types'
+import PropTypes from 'prop-types'
 import {
   Button,
   Modal,
@@ -128,7 +128,7 @@ class PortfolioSubmissionModal extends Component {
           </Modal>
           <SuccessModal
             isOpen={this.state.displaySubmissionSuccess}
-            customBodyText={'Your portfolio was successfully submitted to the scholarships you selected. Check back soon to see if you were selected!'}/>
+            customBodyText={'Your portfolio was successfully submitted to the scholarships you selected. You will be notified if you have been selected to receive a scholarship once judging is complete.'}/>
         </Fragment>
       )
     }
