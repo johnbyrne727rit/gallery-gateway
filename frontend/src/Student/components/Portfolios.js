@@ -15,22 +15,7 @@ const NoShowsContainer = styled.div`
 `
 class Portfolios extends Component {
 
-  constructor(props) {
-    super()
-    this.state = {show: false}
-    this.handleClose = this.handleClose.bind(this)
-    this.handleShow = this.handleShow.bind(this)
-  }
-
-  handleClose(){
-    this.setState({show: false});
-  }
-
-  handleShow(){
-    this.setState({show: true});
-  }
-
-  renderPortfolios = (portfolios, openPeriod, deletePiece, submitPortfolio) => {
+renderPortfolios = (portfolios, openPeriod, deletePiece, submitPortfolio, handleError) => {
     if (openPeriod) {
       const skeletonPortfolio = {
         portfolioPeriod: openPeriod,
@@ -50,16 +35,15 @@ class Portfolios extends Component {
         </NoShowsContainer>
       )
     }
-
-    return portfolios.map(portfolios => < PortfolioCard 
-                                          key= {portfolios.id}
-                                          portfolio= {portfolios}
-                                          deletePiece= {deletePiece}
-                                          submitHandleClose= {this.handleClose}
-                                          submitHandleShow= {this.handleShow}
-                                          submitPortfolio= {submitPortfolio}
-                                          isSubmitModalOpen= {this.state.show}
-                                        />)
+    return portfolios.map(portfolios => (
+      <PortfolioCard
+        key={portfolios.id}
+        portfolio={portfolios}
+        deletePiece={deletePiece}
+        submitPortfolio={submitPortfolio}
+        handleError={handleError}
+      />
+    ))
   }
 
   componentDidUpdate () {
@@ -83,7 +67,8 @@ class Portfolios extends Component {
       portfolios,
       openPeriod,
       deletePiece,
-      submitPortfolio
+      submitPortfolio,
+      handleError
     } = this.props
 
     return (
@@ -91,7 +76,7 @@ class Portfolios extends Component {
         {portfoliosLoading || openPeriodLoading ? (
           <Loading />
         ) : (
-          this.renderPortfolios(portfolios, openPeriod, deletePiece, submitPortfolio)
+          this.renderPortfolios(portfolios, openPeriod, deletePiece, submitPortfolio, handleError)
         )}
       </div>
     )

@@ -102,7 +102,6 @@ export function updatePortfolioPeriod (_, args, req) {
           'entryCap', 'finalized']
       })
         .then((portfolioPeriod) => {
-          console.log(args)
           portfolioPeriod.removeScholarships(args.disabledScholarships)       
             .catch(() => {
               throw new UserError('Cannot find one or more scholarship IDs')

@@ -2,6 +2,7 @@ import Entry from './entry'
 import Group from './group'
 import User from './user'
 import Show from './show'
+import Portfolio from './portfolio'
 import PortfolioPeriod from './portfolioPeriod'
 import Scholarship from './scholarship'
 
@@ -19,4 +20,7 @@ export default function () {
 
   Scholarship.belongsToMany(PortfolioPeriod, {through: 'portfolioPeriod_scholarships', foreignKey: 'scholarshipId'})
   PortfolioPeriod.belongsToMany(Scholarship, {through: 'portfolioPeriod_scholarships'})
+
+  Scholarship.belongsToMany(Portfolio, {through: 'portfolio_scholarships', foreignKey: 'scholarshipId'})
+  Portfolio.belongsToMany(Scholarship, {through: 'portfolio_scholarships'})
 }

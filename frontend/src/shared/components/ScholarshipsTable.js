@@ -3,32 +3,34 @@ import PropTypes from 'prop-types'
 
 import CheckboxTable from 'shared/components/CheckboxTable'
 
-const columns = [
-  {
-    Header: 'Scholarship',
-    accessor: 'name'
-  },
-  {
-    Header: 'Description',
-    accessor: 'description'
-  }
-]
-
 const ScholarshipsTable = props => (
   <CheckboxTable
-    columns={columns}
+    columns={props.studentView ? ([{
+      Header: 'Scholarship Name',
+      accessor: 'name'
+    },
+    {
+      Header: 'Required Images',
+      accessor: 'requiredPhotos'
+    }])
+      : ([
+        {
+          Header: 'Scholarship Name',
+          accessor: 'name'
+        }])
+    }
     data={props.scholarships}
     unique='id'
     selected={props.selected}
     onChange={props.onChange}
-    defaultSorted={[{ id: 'name', desc: false }]}
   />
 )
 
 ScholarshipsTable.propTypes = {
   scholarships: PropTypes.array.isRequired,
   selected: PropTypes.object.isRequired,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
+  studentView: PropTypes.bool.isRequired
 }
 
 ScholarshipsTable.defaultProps = {
