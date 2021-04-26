@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
-import ShowCard from '../components/ShowCard'
+import ScholarshipCard from '../components/ScholarshipCard'
 import Loading from '../../shared/components/Loading'
 
 const NoShowsContainer = styled.div`
@@ -24,7 +24,7 @@ class Scholarships extends Component {
 
   renderScholarships = user => {
     if (user && user.portfolioPeriods.length) {
-      return user.portfolioPeriods.map(show => <ShowCard key={show.id} {...show} />)
+      return user.portfolioPeriods.map(portfolioPeriods => <ScholarshipCard key={portfolioPeriods.id} {...portfolioPeriods} />)
     }
     return (
       <NoShowsContainer>
