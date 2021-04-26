@@ -4,7 +4,6 @@ import { compose } from 'recompose'
 
 import PortfoliosQuery from '../queries/portfoliosByStudent.graphql'
 import OpenPortfolioPeriodQuery from '../queries/openPortfolioPeriod.graphql'
-import SubmitPortfolio from '../mutations/submitPortfolio.graphql'
 import DeletePiece from '../mutations/deletePiece.graphql'
 import SubmitPortfolio from '../mutations/submitPortfolio.graphql'
 import Portfolios from '../components/Portfolios'
