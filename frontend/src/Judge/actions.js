@@ -2,6 +2,7 @@ import { push } from 'connected-react-router'
 
 import SubmissionQuery from './queries/submission.graphql'
 import SubmissionsQuery from './queries/submissions.graphql'
+import PortfoliosQuery from './queries/portfolios.graphql'
 import { displayError } from '../shared/actions'
 import ShowVotes from './queries/showVotes.graphql'
 import GetVote from './queries/entryVote.graphql'
@@ -12,6 +13,7 @@ export const FETCH_VOTES = 'FETCH_VOTES'
 export const FETCH_VOTE = 'FETCH_VOTE'
 export const WILL_FETCH_VOTES = 'WILL_FETCH_VOTES'
 export const WILL_FETCH_SUBMISSIONS = 'WILL_FETCH_SUBMISSIONS'
+export const WILL_FETCH_PORTFOLIOS = 'WILL_FETCH_PORTFOLIOS'
 
 export const fetchSubmission = submissionId => (dispatch, getState, client) => {
   return client
@@ -46,6 +48,20 @@ export const fetchSubmissions = showId => (dispatch, getState, client) => {
           username
         }
       })
+    )
+    .catch(err => dispatch(displayError(err.message)))
+}
+
+export const fetchPortfolios = scholarshipId => (dispatch, getState, client) => {
+  return client
+    .query({
+      query: PortfoliosQuery,
+      variables: {
+        id: scholarshipId
+      }
+    })
+    .then(({ data: { portfolioPeriod } }) =>
+      dispatch({ type: WILL_FETCH_PORTFOLIOS, payload: portfolioPeriod })
     )
     .catch(err => dispatch(displayError(err.message)))
 }

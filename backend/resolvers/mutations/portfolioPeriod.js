@@ -1,27 +1,27 @@
-import { UserError } from "graphql-errors";
-import moment from "moment-timezone";
-import { ADMIN } from "../../constants";
-import PortfolioPeriod from "../../models/portfolioPeriod";
-import Portfolio from "../../models/portfolio";
-import db from '../../config/sequelize';
+import { UserError } from 'graphql-errors'
+import moment from 'moment-timezone'
+import { ADMIN } from '../../constants'
+import PortfolioPeriod from '../../models/portfolioPeriod'
+import Portfolio from '../../models/portfolio'
+import db from '../../config/sequelize'
 
-export function createPortfolioPeriod(_, args, req) {
+export function createPortfolioPeriod (_, args, req) {
   if (req.auth.type !== ADMIN) {
-    throw new UserError("Permission Denied");
+    throw new UserError('Permission Denied')
   }
   // Handle timezones, start times to midnight and end times to 11:59:59
   const entryStart = moment(args.input.entryStart)
-    .tz("America/New_York")
-    .startOf("day");
+    .tz('America/New_York')
+    .startOf('day')
   const entryEnd = moment(args.input.entryEnd)
-    .tz("America/New_York")
-    .endOf("day");
+    .tz('America/New_York')
+    .endOf('day')
   const judgingStart = moment(args.input.judgingStart)
-    .tz("America/New_York")
-    .startOf("day");
+    .tz('America/New_York')
+    .startOf('day')
   const judgingEnd = moment(args.input.judgingEnd)
-    .tz("America/New_York")
-    .endOf("day");
+    .tz('America/New_York')
+    .endOf('day')
   const newPortfolioPeriod = {
     name: args.input.name,
     description: args.input.description,
@@ -30,8 +30,16 @@ export function createPortfolioPeriod(_, args, req) {
     judgingStart: judgingStart,
     judgingEnd: judgingEnd,
     numPieces: args.input.numPieces
-  };
-  return PortfolioPeriod.create(newPortfolioPeriod);
+  }
+  return PortfolioPeriod.create(newPortfolioPeriod)
+    .then((portfolioPeriod) => {
+      portfolioPeriod
+        .addScholarships(args.scholarships)
+        .catch(() => {
+          throw new UserError('Cannot find one or more scholarship IDs')
+        })
+      return portfolioPeriod
+    })
 }
 
 export function assignToPortfolioPeriod (_, args, req) {
@@ -72,10 +80,38 @@ export function removeFromPortfolioPeriod (_, args, req) {
       .then(() => Portfolio.findAll({where: {portfolioPeriodId: args.portfolioPeriodId}, transaction}))
       .then(portfolios => {
         const portfolioIds = portfolios.map(portfolio => portfolio.id)
-        return Promise.resolve(true);
+        return Promise.resolve(true)
         // TODO Destroy portfolio votes. Voting wasn't built out yet when this was done created.
         // Will probably look something like the following
         // PortfolioVote.destroy({where: {portfolioId: portfolioIds, judgeUsername: args.usernames}, transaction})
       })
   ).then(() => { return true })
+}
+
+export function updatePortfolioPeriod (_, args, req) {
+  // Only admins can update entries
+  if (req.auth.type !== ADMIN) {
+    throw new UserError('Permission Denied')
+  }
+  return PortfolioPeriod.findById(args.id)
+    .then((portfolioPeriod) => {
+      return portfolioPeriod.update(args.input, {
+        fields: ['name', 'description',
+          'entryStart', 'entryEnd',
+          'judgingStart', 'judgingEnd',
+          'entryCap', 'finalized']
+      })
+        .then((portfolioPeriod) => {
+          portfolioPeriod.removeScholarships(args.disabledScholarships)       
+            .catch(() => {
+              throw new UserError('Cannot find one or more scholarship IDs')
+            })
+          portfolioPeriod
+            .addScholarships(args.enabledScholarships)
+            .catch(() => {
+              throw new UserError('Cannot find one or more scholarship IDs')
+            })
+          return portfolioPeriod
+        })
+    })
 }

@@ -1,5 +1,5 @@
-mutation createPortfolioPeriod($input: PortfolioPeriodInput!) {
-  createPortfolioPeriod(input: $input) {
+mutation createPortfolioPeriod($input: PortfolioPeriodInput!, $scholarships: [ID]!) {
+  createPortfolioPeriod(input: $input, scholarships: $scholarships) {
     id
     name
     description

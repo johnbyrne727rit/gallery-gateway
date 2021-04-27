@@ -2,7 +2,11 @@ import { graphql } from 'react-apollo'
 import { push } from 'connected-react-router'
 import { connect } from 'react-redux'
 import { compose } from 'recompose'
-import { displayError, setUserHometown, setUserDisplayName} from '../../shared/actions'
+import {
+  displayError,
+  setUserHometown,
+  setUserDisplayName
+} from '../../shared/actions'
 
 import VideoSubmissionForm from '../components/VideoSubmissionForm'
 import CreateVideoEntry from '../mutations/createVideoEntry.graphql'

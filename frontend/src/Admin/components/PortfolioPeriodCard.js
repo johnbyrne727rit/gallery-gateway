@@ -6,8 +6,6 @@ import { Button, Row, Col, Badge } from 'reactstrap'
 import moment from 'moment'
 import Moment from 'react-moment'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
-import FaImage from '@fortawesome/fontawesome-free-regular/faImage'
-import FaVideo from '@fortawesome/fontawesome-free-solid/faVideo'
 import FaBook from '@fortawesome/fontawesome-free-solid/faBook'
 
 const Card = styled.div`
@@ -19,7 +17,7 @@ const Card = styled.div`
 `
 
 // NOTE: Only 1 child should be provided
-const FormattedDate = (props) => (
+const FormattedDate = props => (
   <Moment
     title={moment(props.children).format('MMMM D, YYYY hh:mm:ss a')}
     format='MMMM D, YYYY'
@@ -40,27 +38,36 @@ class PortfolioPeriodCard extends Component {
 
   renderOpenClose = (opens, closes) => (
     <Fragment>
-      <dl style={{width: '50%'}} className='d-inline-block'>
-        <dt>{moment().isBefore(moment(opens)) ? 'Opens:' : 'Opened:' }</dt>
-        <dd><FormattedDate>{opens}</FormattedDate></dd>
+      <dl style={{ width: '50%' }} className='d-inline-block'>
+        <dt>{moment().isBefore(moment(opens)) ? 'Opens:' : 'Opened:'}</dt>
+        <dd>
+          <FormattedDate>{opens}</FormattedDate>
+        </dd>
       </dl>
-      <dl style={{width: '50%'}} className='d-inline-block'>
-        <dt>{moment().isBefore(moment(closes)) ? 'Closes:' : 'Closed:' }</dt>
-        <dd><FormattedDate>{closes}</FormattedDate></dd>
+      <dl style={{ width: '50%' }} className='d-inline-block'>
+        <dt>{moment().isBefore(moment(closes)) ? 'Closes:' : 'Closed:'}</dt>
+        <dd>
+          <FormattedDate>{closes}</FormattedDate>
+        </dd>
       </dl>
     </Fragment>
   )
 
-  renderPeriodSummary = (props) => {
-
+  renderPeriodSummary = props => {
     // Pulls number of portfolios, and shows how many have been started vs. finished
-    const totalPortfolios =  props.portfolios.length
-    const submittedPortfolios = props.portfolios.filter(portfolio => portfolio.submitted).length
-    const pendingPortfolios = props.portfolios.filter(portfolio => !portfolio.submitted).length
+    const totalPortfolios = props.portfolios.length
+    const submittedPortfolios = props.portfolios.filter(
+      portfolio => portfolio.submitted
+    ).length
+    const pendingPortfolios = props.portfolios.filter(
+      portfolio => !portfolio.submitted
+    ).length
 
     return (
       <Fragment>
-        <h4>Total Portfolios: <Badge color='primary'>{totalPortfolios}</Badge></h4>
+        <h4>
+          Total Portfolios: <Badge color='primary'>{totalPortfolios}</Badge>
+        </h4>
         <div>
           <FontAwesomeIcon icon={FaBook} className='mr-2' />
           <h6 className='text-bold d-inline-block'>
@@ -88,19 +95,17 @@ class PortfolioPeriodCard extends Component {
     </Row>
   )
 
-  renderBody = (props) => {
-    const {
-      entryStart,
-      entryEnd,
-      judgingStart,
-      judgingEnd
-    } = props
+  renderBody = props => {
+    const { entryStart, entryEnd, judgingStart, judgingEnd } = props
 
     const now = moment()
     const isShowInFuture = now.isBefore(moment(entryStart))
-    const isShowInSubmission = now.isAfter(moment(entryStart)) && now.isBefore(moment(entryEnd))
-    const isShowBetweenSubmissionAndJudging = now.isAfter(moment(entryEnd)) && now.isBefore(moment(judgingStart))
-    const isShowInJudging = now.isAfter(moment(judgingStart)) && now.isBefore(moment(judgingEnd))
+    const isShowInSubmission =
+      now.isAfter(moment(entryStart)) && now.isBefore(moment(entryEnd))
+    const isShowBetweenSubmissionAndJudging =
+      now.isAfter(moment(entryEnd)) && now.isBefore(moment(judgingStart))
+    const isShowInJudging =
+      now.isAfter(moment(judgingStart)) && now.isBefore(moment(judgingEnd))
     const isShowClosed = now.isAfter(moment(judgingEnd))
 
     if (isShowClosed) {
@@ -143,21 +148,21 @@ class PortfolioPeriodCard extends Component {
           ) : null}
         </Col>
         <Col xs='12' md='6'>
-          {isShowInSubmission
-            ? this.renderPeriodSummary(props)
-            : (
-              <Fragment>
-                <h4>Judging Period</h4>
-                <h6>{subHeading2}</h6>
-                {this.renderOpenClose(judgingStart, judgingEnd)}
-              </Fragment>
-            )}
+          {isShowInSubmission ? (
+            this.renderPeriodSummary(props)
+          ) : (
+            <Fragment>
+              <h4>Judging Period</h4>
+              <h6>{subHeading2}</h6>
+              {this.renderOpenClose(judgingStart, judgingEnd)}
+            </Fragment>
+          )}
         </Col>
       </Row>
     )
   }
 
-  renderButtons = (props) => (
+  renderButtons = props => (
     <Row>
       <Col>
         <Button
@@ -165,7 +170,7 @@ class PortfolioPeriodCard extends Component {
           className='mr-4'
           style={{ cursor: 'pointer' }}
           tag={Link}
-          to={`/show/${props.id}`}
+          to={`/portfolio/${props.id}`}
           block
           outline
         >
@@ -175,7 +180,7 @@ class PortfolioPeriodCard extends Component {
           color='primary'
           style={{ cursor: 'pointer' }}
           tag={Link}
-          to={`/show/${props.id}/submissions`}
+          to={`/portfolio/${props.id}/submissions`}
           block
           outline
         >
@@ -188,7 +193,7 @@ class PortfolioPeriodCard extends Component {
           color='primary'
           style={{ cursor: 'pointer' }}
           tag={Link}
-          to={`/show/${props.id}/judges`}
+          to={`/portfolio/${props.id}/judges`}
           block
           outline
         >
@@ -212,7 +217,7 @@ class PortfolioPeriodCard extends Component {
     return (
       <Card>
         <h2>
-          <Link to={`show/${this.props.id}`}>{this.props.name}</Link>
+          <Link to={`portfolio/${this.props.id}`}>{this.props.name}</Link>
         </h2>
         {this.renderBody(this.props)}
         {this.renderButtons(this.props)}

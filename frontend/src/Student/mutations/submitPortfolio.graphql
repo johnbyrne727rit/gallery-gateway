@@ -1,0 +1,3 @@
+mutation submitPortfolio($id: ID!, $scholarships: [ID]!) {
+  submitPortfolio(id: $id, scholarships: $scholarships)
+}

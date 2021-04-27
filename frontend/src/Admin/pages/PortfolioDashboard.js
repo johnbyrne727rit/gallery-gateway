@@ -8,7 +8,7 @@ const PortfolioDashboard = () => (
   <Container>
     <Row className='align-items-baseline'>
       <Col>
-        <h1>Portfolio Dashboard</h1>
+        <h1>Portfolio Period Dashboard</h1>
       </Col>
       <Col md='3'>
         <Button
@@ -24,7 +24,7 @@ const PortfolioDashboard = () => (
     </Row>
     <Row>
       <Col>
-        <PortfolioPeriod/>
+        <PortfolioPeriod />
       </Col>
     </Row>
   </Container>

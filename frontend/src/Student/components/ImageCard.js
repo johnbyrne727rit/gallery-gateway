@@ -6,7 +6,7 @@ import FaPlusCircle from '@fortawesome/fontawesome-free-solid/faPlusCircle'
 import FaBook from '@fortawesome/fontawesome-free-solid/faBook'
 import FaYouTube from '@fortawesome/fontawesome-free-brands/faYoutube'
 import FaVimeo from '@fortawesome/fontawesome-free-brands/faVimeoV'
-import ReactCardFlip from 'react-card-flip';
+import ReactCardFlip from 'react-card-flip'
 import moment from 'moment'
 import { Col, Button } from 'reactstrap'
 import PieceDeleteModal from './PieceDeleteModal'
@@ -88,8 +88,8 @@ const NewPiece = ({ portfolio }) => (
   </Col>
 )
 
-const EntryThumb = (props) => {
-  const {entry, piece, type = "entry"} = props
+const EntryThumb = props => {
+  const { entry, piece, type = 'entry' } = props
   switch (props[type][`${type}Type`]) {
     case 'PHOTO':
       return (
@@ -99,11 +99,11 @@ const EntryThumb = (props) => {
       )
     case 'VIDEO':
       const url =
-      props[type].provider === 'youtube'
+        props[type].provider === 'youtube'
           ? `https://youtube.com/watch?v=${props[type].videoId}`
           : `https://vimeo.com/${props[type].videoId}`
       const icon =
-      props[type].provider === 'youtube' ? (
+        props[type].provider === 'youtube' ? (
           <FontAwesomeIcon icon={FaYouTube} size='3x' />
         ) : (
           <FontAwesomeIcon icon={FaVimeo} size='3x' />
@@ -129,52 +129,52 @@ const EntryThumb = (props) => {
 }
 
 class FlipCard extends React.Component {
-  constructor() {
-    super();
-      this.state = {
+  constructor () {
+    super()
+    this.state = {
       isFlipped: false,
       showDeleteModal: false
-    };
-    this.flip = this.flip.bind(this);
-    this.unflip = this.unflip.bind(this);
+    }
+    this.flip = this.flip.bind(this)
+    this.unflip = this.unflip.bind(this)
     this.beginDelete = this.beginDelete.bind(this)
     this.closeDeleteModal = this.closeDeleteModal.bind(this)
   }
 
-  flip(e) {
-    e.preventDefault();
-    this.setState({ isFlipped: true});
-  }
-
-  unflip(e) {
-    e.preventDefault();
-    this.setState({ isFlipped: false});
-  }
-
-  beginDelete(e){
+  flip (e) {
     e.preventDefault()
-    this.setState({showDeleteModal: true})
+    this.setState({ isFlipped: true })
   }
 
-  closeDeleteModal(e){
+  unflip (e) {
     e.preventDefault()
-    this.setState({showDeleteModal: false})
+    this.setState({ isFlipped: false })
   }
- 
-  render() {
+
+  beginDelete (e) {
+    e.preventDefault()
+    this.setState({ showDeleteModal: true })
+  }
+
+  closeDeleteModal (e) {
+    e.preventDefault()
+    this.setState({ showDeleteModal: false })
+  }
+
+  render () {
     return (
       <EntryContainer onMouseLeave={this.unflip} onMouseEnter={this.flip}>
         <ReactCardFlip
           isFlipped={this.state.isFlipped}
-          flipDirection="horizontal"
-          style={{ minHeight: "8em" }}
+          flipDirection='horizontal'
+          style={{ minHeight: '8em' }}
         >
-          <div key={"front"} style={{ minHeight: "10em" }}>
-            <EntryThumb piece={this.props.picture} type="piece" />
+          <div key={'front'} style={{ minHeight: '10em' }}>
+            <EntryThumb piece={this.props.picture} type='piece' />
             <Button
-              color="secondary"
-              style={{ width: "100%" }}
-              className="fixed-bottom"
+              color='secondary'
+              style={{ width: '100%' }}
+              className='fixed-bottom'
               onClick={this.flip}
             >
               Options...
@@ -182,61 +182,63 @@ class FlipCard extends React.Component {
           </div>
 
           <div
-            key={"back"}
+            key={'back'}
             style={{
-              minHeight: "10em",
+              minHeight: '10em',
               padding: 5,
-              boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
-              transition: "0.3s",
-              borderRadius: "0.25rem",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column"
+              boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
+              transition: '0.3s',
+              borderRadius: '0.25rem',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'column'
             }}
           >
-            <Button color="primary" style={{ width: "100%" }}>
+            <Button color='primary' style={{ width: '100%' }}>
               View
             </Button>
             {moment().isBefore(
               this.props.portfolio.portfolioPeriod.entryEnd
             ) && (
-              <Button
-                color="primary"
-                style={{ width: "100%", marginBottom: "1em", marginTop: "1em" }}
-              >
+                <Button
+                  color='primary'
+                  style={{ width: '100%', marginBottom: '1em', marginTop: '1em' }}
+                >
                 Update
-              </Button>
-            )}
+                </Button>
+              )}
             {moment().isBefore(
               this.props.portfolio.portfolioPeriod.entryEnd
             ) && (
-              <Button color="danger" style={{ width: "100%" }}
-              onClick={this.beginDelete} >
+                <Button
+                  color='danger'
+                  style={{ width: '100%' }}
+                  onClick={this.beginDelete}
+                >
                 Delete
-              </Button>
-            )}
+                </Button>
+              )}
           </div>
         </ReactCardFlip>
         <PieceDeleteModal
-          isOpen = {this.state.showDeleteModal}
-          closeDeleteModal = {this.closeDeleteModal}
-          picture = {this.props.picture}
-          deletePiece = {this.props.deletePiece}
-          EntryThumb = {EntryThumb}
+          isOpen={this.state.showDeleteModal}
+          closeDeleteModal={this.closeDeleteModal}
+          picture={this.props.picture}
+          deletePiece={this.props.deletePiece}
+          EntryThumb={EntryThumb}
         />
       </EntryContainer>
-    );
+    )
   }
 }
 
-const ShowEntry = ({entry, show})=>(     
+const ShowEntry = ({ entry, show }) => (
   <EntryContainer>
-  <EntryThumb entry={entry} />
-  {/* If after entry end and before judging end (or if the show is not finalized),
+    <EntryThumb entry={entry} />
+    {/* If after entry end and before judging end (or if the show is not finalized),
     display "Pending", else display invited or not invited */
-    moment().isBetween(show.entryEnd, show.judgingEnd) ||
-  !show.finalized ? (
+      moment().isBetween(show.entryEnd, show.judgingEnd) || !show.finalized ? (
         <Pending>Pending</Pending>
       ) : moment().isAfter(show.judgingEnd) ? (
         entry.invited ? (
@@ -245,7 +247,7 @@ const ShowEntry = ({entry, show})=>(
           <NotInvited>Not Invited</NotInvited>
         )
       ) : null}
-</EntryContainer>
+  </EntryContainer>
 )
 
-export {FlipCard, NewSubmission, ShowEntry, NewPiece}
+export { FlipCard, NewSubmission, ShowEntry, NewPiece }

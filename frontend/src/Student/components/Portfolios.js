@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types'
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 import styled from 'styled-components'
 
 import PortfolioCard from '../components/PortfolioCard'
+import ConfirmModal from '../components/ConfirmModal'
 import Loading from '../../shared/components/Loading'
 
 const NoShowsContainer = styled.div`
@@ -13,15 +14,15 @@ const NoShowsContainer = styled.div`
   transform: translate(-50%, -50%);
 `
 class Portfolios extends Component {
-  renderPortfolios = (portfolios, openPeriod, deletePiece) => {
-    if(openPeriod){
+  renderPortfolios = (portfolios, openPeriod, deletePiece, submitPortfolio, handleError) => {
+    if (openPeriod) {
       const skeletonPortfolio = {
         portfolioPeriod: openPeriod,
         pieces: [],
         id: -1
       }
 
-      if(!portfolios){
+      if (!portfolios) {
         portfolios = []
       }
       portfolios = [skeletonPortfolio].concat(portfolios)
@@ -33,7 +34,15 @@ class Portfolios extends Component {
         </NoShowsContainer>
       )
     }
-    return portfolios.map(portfolios => <PortfolioCard key={portfolios.id} portfolio={portfolios} deletePiece={deletePiece}/>)
+    return portfolios.map(portfolios => (
+      <PortfolioCard
+        key={portfolios.id}
+        portfolio={portfolios}
+        deletePiece={deletePiece}
+        submitPortfolio={submitPortfolio}
+        handleError={handleError}
+      />
+    ))
   }
 
   componentDidUpdate () {
@@ -43,7 +52,7 @@ class Portfolios extends Component {
         handleError(e.message)
       })
     }
-    if(openPeriodError){
+    if (openPeriodError) {
       openPeriodError.graphQLErrors.forEach(e => {
         handleError(e.message)
       })
@@ -51,13 +60,30 @@ class Portfolios extends Component {
   }
 
   render () {
-    const { portfoliosLoading, openPeriodLoading, portfolios, openPeriod, deletePiece} = this.props
+    const {
+      portfoliosLoading,
+      openPeriodLoading,
+      portfolios,
+      openPeriod,
+      deletePiece,
+      submitPortfolio,
+      handleError
+    } = this.props
 
-    return <div>{portfoliosLoading || openPeriodLoading ? <Loading /> : this.renderPortfolios(portfolios, openPeriod, deletePiece)}</div>
+    return (
+      <div>
+        {portfoliosLoading || openPeriodLoading ? (
+          <Loading />
+        ) : (
+          this.renderPortfolios(portfolios, openPeriod, deletePiece, submitPortfolio, handleError)
+        )}
+      </div>
+    )
   }
 }
 
 Portfolios.propTypes = {
+
   portfolios: PropTypes.array,
   portfoliosLoading: PropTypes.bool.isRequired,
   portfoliosError: PropTypes.object,

@@ -173,9 +173,9 @@ const ui = (state = {}, action) => {
 }
 
 const portfolioPeriods = (state = {}, action) => {
-  switch (action.type){
+  switch (action.type) {
     case actions.FETCH_PORTFOLIO_PERIOD:
-      if (!action.payload.id){
+      if (!action.payload.id) {
         return state
       }
 
@@ -191,10 +191,13 @@ const portfolioPeriods = (state = {}, action) => {
         return state
       }
 
-      const portfolioPeriods = action.payload.reduce((accum, portfolioPeriod) => {
-        accum[portfolioPeriod.id] = portfolioPeriod
-        return accum
-      }, {})
+      const portfolioPeriods = action.payload.reduce(
+        (accum, portfolioPeriod) => {
+          accum[portfolioPeriod.id] = portfolioPeriod
+          return accum
+        },
+        {}
+      )
       return {
         ...state,
         ...portfolioPeriods
@@ -221,7 +224,7 @@ const portfolioPeriodAssignments = (state = {}, action) => {
       if (!action.payload.id) {
         return state
       }
-      
+
       return {
         ...state,
         [action.payload.id]: [
@@ -233,7 +236,7 @@ const portfolioPeriodAssignments = (state = {}, action) => {
       if (!action.payload.id) {
         return state
       }
-  
+
       return {
         ...state,
         [action.payload.id]: state[action.payload.id].filter(

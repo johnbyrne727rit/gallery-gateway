@@ -6,6 +6,7 @@ import ScholarshipSelectorTable from "../../shared/components/ScholarshipSelecto
 import ScholarshipSelectorCard from "../../shared/components/ScholarshipSelectorCard";
 import Loading from "../../shared/components/Loading";
 import PortfolioPeriodCard from "./PortfolioPeriodCard";
+import { withRouter } from 'react-router-dom';
 
 class ManageScholarshipsTab extends Component {
   constructor(props) {
@@ -14,7 +15,7 @@ class ManageScholarshipsTab extends Component {
   }
 
   static propTypes = {
-    scholarship: PropTypes.array.isRequired,
+    scholarships: PropTypes.array.isRequired,
     loading: PropTypes.bool.isRequired,
     error: PropTypes.object
   };
@@ -22,6 +23,8 @@ class ManageScholarshipsTab extends Component {
   static defaultProps = {
     scholarship: []
   };
+
+
 
   onChange = newSelected => {
     console.log(newSelected);
@@ -36,10 +39,11 @@ class ManageScholarshipsTab extends Component {
   onEdit = dataPoint => {
     console.log("OnEdit");
     console.log(dataPoint);
+    this.props.history.push("/scholarship/" + dataPoint.id + "/edit");
   };
 
   render () {
-    const { loading, scholarship } = this.props;
+    const { loading, scholarships } = this.props;
     return (
       <Row>
         <Col>
@@ -48,9 +52,10 @@ class ManageScholarshipsTab extends Component {
           ) : (
             <ScholarshipSelectorTable
               selected={this.state.selected}
-              dataPoints={scholarship}
+              dataPoints={scholarships}
               unique={"id"}
               cardTemplate={ScholarshipSelectorCard}
+              onChange={this.onChange}
               cardTemplateProps={{
                 onDelete: this.onDelete,
                 onEdit: this.onEdit,
@@ -63,4 +68,4 @@ class ManageScholarshipsTab extends Component {
   }
 }
 
-export default ManageScholarshipsTab
+export default withRouter(ManageScholarshipsTab)

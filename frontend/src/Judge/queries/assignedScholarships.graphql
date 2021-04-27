@@ -1,0 +1,16 @@
+query assignedScholarships($date: Date) {
+  self {
+    portfolioPeriods(date: $date) {
+      id
+      name
+      judgingStart
+      judgingEnd
+      portfolios {
+        id
+        pieces {
+          id
+        }
+      }
+    }
+  }
+}

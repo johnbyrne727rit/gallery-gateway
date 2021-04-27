@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { compose } from 'recompose'
 
 import { uploadImage, clearPreview } from '../actions'
-import { displayError} from '../../shared/actions'
+import { displayError } from '../../shared/actions'
 
 import CreatePortfolioVideo from '../mutations/createPortfolioVideo.graphql'
 import PeriodForSubmission from '../queries/periodForSubmission.graphql'
@@ -31,7 +31,7 @@ export default compose(
     })
   }),
   graphql(PeriodForSubmission, {
-    name: "portfolioPeriod",
+    name: 'portfolioPeriod',
     options: ownProps => ({
       variables: {
         id: ownProps.id
@@ -39,10 +39,10 @@ export default compose(
     })
   }),
   graphql(PortfolioByPeriod, {
-    name: "portfolio",
+    name: 'portfolio',
     options: ownProps => ({
       variables: {
-        periodId: ownProps.id,
+        periodId: ownProps.id
       }
     })
   })

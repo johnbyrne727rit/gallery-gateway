@@ -1,0 +1,20 @@
+query PortfolioPeriod($id: ID!){
+  portfolioPeriod(id: $id) {
+    id
+    name
+    description
+    numPieces
+    judgingStart
+    judgingEnd
+    portfolios {
+      id
+      academicProgram
+      submitted
+      pieces {
+        id
+        pieceType
+        title
+      }
+    }
+  }
+}

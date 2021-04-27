@@ -7,7 +7,7 @@ const Dashboard = () => (
   <Container style={{ paddingTop: '25px' }}>
     <Row>
       <Col>
-        <h1>Dashboard</h1>
+        <h1>Shows Dashboard</h1>
         <Shows />
       </Col>
     </Row>
